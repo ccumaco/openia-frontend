@@ -1,0 +1,23 @@
+$primary-color: #0090ff;
+$titles: #0079ff;
+$text: #929292;
+$black: #000;
+$white: #fff;
+
+.container{
+    max-width: 1500px;
+    padding: 0 10px;
+    width: 100%;
+    margin: 0 auto;
+}
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+.hidden{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+}

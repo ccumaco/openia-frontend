@@ -27,6 +27,8 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.responseText = ''
       try {
         const data = await axios.post(`${this.apiURL}/generateText`, objectText);
+        console.log(objectText);
+        
         this.responseText = data.data
       } catch (error) {
         console.error(error);

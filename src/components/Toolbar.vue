@@ -16,10 +16,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(24, 24, 25, 0.8);
+    background:#000000D9;
     position: fixed;
     top: 0;
     padding: 10px 30px;
+    z-index: 3;
     @extend .container;
     color: $white;
   }

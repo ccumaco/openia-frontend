@@ -21,3 +21,25 @@ $white: #fff;
     opacity: 0;
     position: absolute;
 }
+
+.select{
+    label{
+        display: block;
+    }
+
+}
+
+.input{
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    label{
+        position: absolute;
+        top: -8px;
+        left: 5px;
+        background: $white;
+    }
+    input{
+        padding: 10px;
+    }
+}

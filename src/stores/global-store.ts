@@ -16,7 +16,8 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
     return {
       apiURL: 'http://localhost:5000/openai',
-      responseText: ''
+      responseText: [] as string[],
+      loading: false
     }
   },
   getters: {
@@ -24,15 +25,16 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
   },
   actions: {
     async searchWithText( objectText: ObjectText ) {
-      this.responseText = ''
+      this.loading = true
       try {
         const data = await axios.post(`${this.apiURL}/generateText`, objectText);
+        this.responseText.push(data.data)
         console.log(objectText);
         
-        this.responseText = data.data
       } catch (error) {
         console.error(error);
       }
+      this.loading = false
     },
   }
 })

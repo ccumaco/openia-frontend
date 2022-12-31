@@ -1,0 +1,25 @@
+@import './../global-styles.scss';
+
+.container-social{
+    margin-top: 87px;
+    display: grid;
+    grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
+    &__content{
+        &--title{
+            color: $text;
+        }
+        &--description{
+            color: $text;
+        }
+        &:nth-child(2){
+            background-color: rgba($color: $primary-color, $alpha: .2);
+            padding: 50px;
+        }
+        &--response{
+            border-bottom: 1px solid grey;
+        }
+        &--loading{
+            color: $text;
+        }
+    }
+}

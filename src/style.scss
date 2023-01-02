@@ -1,7 +1,11 @@
 @import './styles/global-styles.scss';
+@font-face {
+  font-family: "Roboto";
+  src: url(./assets/fonts/Roboto-Regular.ttf);
+}
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Roboto;
 }

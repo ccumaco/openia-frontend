@@ -1,15 +1,27 @@
 @import './../global-styles.scss';
 
 .container-social{
-    margin-top: 87px;
+    margin-top: 49px;
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
+    overflow: hidden;
+    max-height: calc(100vh - 50px);
     &__content{
+        &:first-child{
+            padding: 50px 20px;
+        }
+        &:last-child{
+            overflow: hidden;
+            overflow-y: scroll;
+            max-height: 100vh;
+        }
         &--title{
-            color: $text;
+            color: #6E6E6E;
+            margin-bottom: 23px;
         }
         &--description{
             color: $text;
+            margin-bottom: 30px;
         }
         &:nth-child(2){
             background-color: rgba($color: $primary-color, $alpha: .2);
@@ -17,6 +29,8 @@
         }
         &--response{
             border-bottom: 1px solid grey;
+            color: $text;
+            padding: 85px 0;
         }
         &--loading{
             color: $text;

@@ -20,8 +20,8 @@
     position: fixed;
     top: 0;
     padding: 10px 30px;
+    width: 100%;
     z-index: 3;
-    @extend .container;
     color: $white;
   }
 </style>

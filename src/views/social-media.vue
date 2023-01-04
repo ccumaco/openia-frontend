@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
+import axios from "axios";
 export default defineComponent({
   components: {},
   props: {},
@@ -49,6 +50,15 @@ export default defineComponent({
       "Inspirador",
       "ofensivo",
     ];
+    const hola = async () => {
+      try {
+      const data = await axios.get(`https://backend-openia.herokuapp.com/openia`);
+        console.log(data)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    hola()
     return {
       generateDiferentResponse,
       objectText,

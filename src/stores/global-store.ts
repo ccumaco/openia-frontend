@@ -15,7 +15,7 @@ interface ObjectText {
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
     return {
-      apiURL: 'https://backend-openia.herokuapp.com/openia',
+      apiURL: 'http://localhost:5000/openia',
       responseText: [] as string[],
       loading: false
     }

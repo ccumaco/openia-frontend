@@ -10,11 +10,14 @@ export default defineComponent({
     const store = useOpenIaStore();
     const objectText = reactive({
       prompt: "has una pregunta",
-      maxLength: 50,
+      maxLength: 100,
       top_p: 1,
       language: "Español",
       soft: "Persuasivo",
       hashtag: "#moda #artesania",
+      maxResponses: 1,
+      countHashtag: 0,
+      automaticHastag: false
     });
     const generateDiferentResponse = async () => {
       objectText.top_p = 1;
@@ -50,15 +53,6 @@ export default defineComponent({
       "Inspirador",
       "ofensivo",
     ];
-    const hola = async () => {
-      try {
-      const data = await axios.get(`https://backend-openia.herokuapp.com/openia`);
-        console.log(data)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    hola()
     return {
       generateDiferentResponse,
       objectText,
@@ -97,7 +91,58 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="input">
+      <div class="container-social__content__flex mt-1">
+        <div class="select">
+          <label for="language">Idioma de salida</label>
+          <select
+            name="language"
+            id="language"
+            @change="lenguajeResponse($event)"
+          >
+            <option
+              :value="language"
+              v-for="(language, index) in languages"
+              :key="index"
+            >
+              {{ language }}
+            </option>
+          </select>
+        </div>
+        <div class="range">
+          <label for="range">Maximo de caracteres {{ objectText.maxLength }} / 500</label>
+          <input
+            type="range"
+            name="maxLength"
+            step="50"
+            id="maxLength"
+            min="100"
+            max="500"
+            @input="maxLengthRespone($event)"
+            @change="maxLengthRespone($event)"
+          />
+        </div>
+        <div class="select mt-3">
+          <label for="soft">Tono del mensaje</label>
+          <select name="soft" id="soft" @change="softMessage($event)">
+            <option :value="soft" v-for="(soft, index) in softs" :key="index">
+              {{ soft }}
+            </option>
+          </select>
+        </div>
+        <div class="input mt-3">
+          <label class="outside" for="maxResponses">Propuestas de texto</label>
+          <input
+            placeholder="1"
+            v-model="objectText.maxResponses"
+            name="maxResponses"
+            id="maxResponses"
+            type="number"
+            min="1"
+            max="3"
+          />
+        </div>
+      </div>
+      <div class="input mt-3">
         <label for="hashtag">Hashtags</label>
         <textarea
           placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
@@ -111,49 +156,25 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="select">
-        <label for="language">Idioma de salida</label>
-        <select
-          name="language"
-          id="language"
-          @change="lenguajeResponse($event)"
-        >
-          <option
-            :value="language"
-            v-for="(language, index) in languages"
-            :key="index"
-          >
-            {{ language }}
-          </option>
-        </select>
+      <div class="container-social__content__flex mt-3">
+        <div class="checkbox">
+          <input type="checkbox" name="hastagAuto" id="hastagAuto" v-model="objectText.automaticHastag">
+          <label for="hastagAuto">Agregar hashtags automáticamente optimizados para SEO</label>
+        </div>
+        <div class="input">
+            <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
+            <input
+              placeholder="1"
+              v-model="objectText.countHashtag"
+              name="countHashtag"
+              id="countHashtag"
+              type="number"
+              min="1"
+              max="3"
+            />
+        </div>
       </div>
-      <div class="range">
-        <label for="range">Maximo de caracteres</label>
-        <input
-          type="range"
-          name="maxLength"
-          step="50"
-          id="maxLength"
-          min="100"
-          max="500"
-          @input="maxLengthRespone($event)"
-          @change="maxLengthRespone($event)"
-        />
-        <p>
-          {{ objectText.maxLength }} / 500
-        </p>
-      </div>
-      <div class="select">
-        <label for="soft">Tono del mensaje</label>
-        <select name="soft" id="soft" @change="softMessage($event)">
-          <option :value="soft" v-for="(soft, index) in softs" :key="index">
-            {{ soft }}
-          </option>
-        </select>
-      </div>
-      <p>Su pregunta fue: {{ objectText.prompt }}</p>
-
-      <button @click="store.searchWithText(objectText)">Buscar</button>
+      <button class="btn left" @click="store.searchWithText(objectText)">Buscar</button>
     </div>
     <div class="container-social__content">
       <p

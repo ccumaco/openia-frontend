@@ -4,16 +4,15 @@
     margin-top: 49px;
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
-    overflow: hidden;
     max-height: calc(100vh - 50px);
     &__content{
         &:first-child{
             padding: 50px 20px;
         }
-        &:last-child{
-            overflow: hidden;
-            overflow-y: scroll;
-            max-height: 100vh;
+        &:nth-child(2){
+            overflow-y: auto;
+            background-color: #D6DBEA2E;
+            padding: 50px;
         }
         &--title{
             color: #6E6E6E;
@@ -23,10 +22,6 @@
             color: $text;
             margin-bottom: 30px;
         }
-        &:nth-child(2){
-            background-color: rgba($color: $primary-color, $alpha: .2);
-            padding: 50px;
-        }
         &--response{
             border-bottom: 1px solid grey;
             color: $text;
@@ -35,5 +30,20 @@
         &--loading{
             color: $text;
         }
+        &__flex{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            & > * {
+                width: 45%;
+                max-width: 280px;
+            }
+        }
     }
+}
+.btn.left{
+    margin-top: 50px;
+    display: block;
+    margin-left: auto;
 }

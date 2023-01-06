@@ -2,7 +2,10 @@
   <div>
     <nav class="primary-nav">
       <h1>Incopy</h1>
-      <p>Menu</p>
+      <div class="primary-nav--rigth">
+        <router-link to="/login">Iniciar sesión</router-link>
+        <p>Menu</p>
+      </div>
     </nav>
   </div>
 </template>
@@ -23,5 +26,13 @@
     width: 100%;
     z-index: 3;
     color: $white;
+    &--rigth{
+      display: flex;
+      gap: 20px;
+      a{
+        text-decoration: none;
+        color: $white;
+      }
+    }
   }
 </style>

@@ -1,0 +1,43 @@
+@import './../global-styles.scss';
+.container--login{
+    max-width: 420px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &__btns{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    &--title{
+        text-align: center;
+        color: #6E6E6E;
+        font-size: 26px;
+    }
+    &--divisor{
+        position: relative;
+        text-align: center;
+        &::after{
+            content: '';
+            position: absolute;
+            width: calc(50% - 20px);
+            height: 1px;
+            background-color: $text;
+            right: 0;
+            top: 50%;
+            z-index: 0;
+        }
+        &::before{
+            content: '';
+            position: absolute;
+            width: calc(50% - 20px);
+            height: 1px;
+            background-color: $text;
+            left: 0;
+            top: 50%;
+            z-index: 0;
+        }
+    }
+}

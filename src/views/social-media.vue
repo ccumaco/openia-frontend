@@ -16,7 +16,7 @@ export default defineComponent({
       soft: "Persuasivo",
       hashtag: "#moda #artesania",
       maxResponses: 1,
-      countHashtag: 0,
+      countHashtag: 1,
       automaticHastag: false
     });
     const generateDiferentResponse = async () => {
@@ -158,8 +158,8 @@ export default defineComponent({
       </div>
       <div class="container-social__content__flex mt-3">
         <div class="checkbox">
-          <input type="checkbox" name="hastagAuto" id="hastagAuto" v-model="objectText.automaticHastag">
-          <label for="hastagAuto">Agregar hashtags automáticamente optimizados para SEO</label>
+          <input type="checkbox" name="automaticHastag" id="automaticHastag" v-model="objectText.automaticHastag">
+          <label for="automaticHastag">Agregar hashtags automáticamente optimizados para SEO</label>
         </div>
         <div class="input">
             <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
@@ -170,7 +170,7 @@ export default defineComponent({
               id="countHashtag"
               type="number"
               min="1"
-              max="3"
+              max="10"
             />
         </div>
       </div>

@@ -28,13 +28,12 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`${this.apiURL}/generateText`, objectText);
-        this.responseText.push(data.data)
-        console.log(objectText);
-        
+        this.responseText = data.data
       } catch (error) {
         console.error(error);
       }
       this.loading = false
+      return
     },
   }
 })

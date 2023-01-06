@@ -1,13 +1,16 @@
 @import './../global-styles.scss';
 
 .container-social{
-    margin-top: 49px;
+    padding-top: 49px;
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
     max-height: calc(100vh - 50px);
     &__content{
+        min-height: 100vh;
         &:first-child{
             padding: 50px 20px;
+            max-width: 700px;
+            margin-left: auto;
         }
         &:nth-child(2){
             overflow-y: auto;

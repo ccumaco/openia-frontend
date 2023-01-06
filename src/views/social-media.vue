@@ -9,15 +9,15 @@ export default defineComponent({
   setup(props) {
     const store = useOpenIaStore();
     const objectText = reactive({
-      prompt: "has una pregunta",
+      prompt: "haz un post de ropa",
       maxLength: 100,
       top_p: 1,
       language: "Español",
       soft: "Persuasivo",
       hashtag: "#moda #artesania",
-      maxResponses: 1,
+      maxResponses: 3,
       countHashtag: 1,
-      automaticHastag: false
+      automaticHastag: true
     });
     const generateDiferentResponse = async () => {
       objectText.top_p = 1;
@@ -51,7 +51,7 @@ export default defineComponent({
       "Gracioso",
       "Promocional",
       "Inspirador",
-      "ofensivo",
+      "Neutro",
     ];
     return {
       generateDiferentResponse,
@@ -80,7 +80,7 @@ export default defineComponent({
       <div class="input">
         <label for="prompt">Consulta</label>
         <textarea
-          placeholder="Has tu consulta"
+          placeholder="Haz tu consulta"
           v-model="objectText.prompt"
           @keyup.enter="store.searchWithText(objectText)"
           name="prompt"
@@ -109,14 +109,14 @@ export default defineComponent({
           </select>
         </div>
         <div class="range">
-          <label for="range">Maximo de caracteres {{ objectText.maxLength }} / 500</label>
+          <label for="range">Maximo de caracteres {{ objectText.maxLength }} / 1000</label>
           <input
             type="range"
             name="maxLength"
             step="50"
             id="maxLength"
             min="100"
-            max="500"
+            max="1000"
             @input="maxLengthRespone($event)"
             @change="maxLengthRespone($event)"
           />
@@ -142,20 +142,7 @@ export default defineComponent({
           />
         </div>
       </div>
-      <div class="input mt-3">
-        <label for="hashtag">Hashtags</label>
-        <textarea
-          placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
-          v-model="objectText.hashtag"
-          @keyup.enter="store.searchWithText(objectText)"
-          name="hashtag"
-          id="hashtag"
-          cols="30"
-          rows="5"
-          maxlength="300"
-          size="20"
-        />
-      </div>
+
       <div class="container-social__content__flex mt-3">
         <div class="checkbox">
           <input type="checkbox" name="automaticHastag" id="automaticHastag" v-model="objectText.automaticHastag">
@@ -173,6 +160,20 @@ export default defineComponent({
               max="10"
             />
         </div>
+      </div>
+      <div class="input mt-3" v-if="objectText.automaticHastag == false">
+        <label for="hashtag">Hashtags</label>
+        <textarea
+          placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
+          v-model="objectText.hashtag"
+          @keyup.enter="store.searchWithText(objectText)"
+          name="hashtag"
+          id="hashtag"
+          cols="30"
+          rows="5"
+          maxlength="300"
+          size="20"
+        />
       </div>
       <button class="btn left" @click="store.searchWithText(objectText)">Buscar</button>
     </div>

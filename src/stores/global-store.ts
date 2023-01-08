@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import axios from 'axios'
-
 interface ObjectText {
   prompt: String,
   maxLength: number,

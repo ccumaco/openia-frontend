@@ -2,7 +2,6 @@
 import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
-import axios from "axios";
 export default defineComponent({
   components: {},
   props: {},

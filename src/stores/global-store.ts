@@ -1,21 +1,32 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import router from '../router'
 interface ObjectText {
   prompt: String,
   maxLength: number,
-  top_p: number
+  top_p: number,
+  language: String,
+  soft: String,
+  hashtag: String,
+  maxResponses: number,
+  countHashtag: number,
+  automaticHastag: boolean
 }
-// interface UserInfo {
-//   name: string
-//   age: number
-// }
+
+interface ObjUser {
+  userEmail: String,
+  userPassword: String,
+  userToken?: String
+}
 
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
     return {
       apiURL: 'http://localhost:5000/openia',
       responseText: [] as string[],
-      loading: false
+      loading: false,
+      user: {},
+      currentToken: window.localStorage.getItem('userToken')
     }
   },
   getters: {
@@ -33,6 +44,35 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = false
       return
     },
+    async login (objUser: ObjUser){
+      this.loading = true
+      
+      if (this.currentToken) objUser.userToken = this.currentToken || ''
+      try {
+        const data = await axios.post(`${this.apiURL}/login`, objUser);
+        window.localStorage.setItem('userToken', data.data.userToken)
+        this.user = data.data
+        router.push('/')
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false
+      return
+    },
+    async register (objUser: ObjUser){
+      this.loading = true
+      try {
+        const data = await axios.post(`${this.apiURL}/register`, objUser);
+        window.localStorage.setItem('userToken', data.data.userToken)
+        this.user = data.data
+        router.push('/')
+      } catch (error) {
+        router.push('/login')
+        console.error(error);
+      }
+      this.loading = false
+      return
+    }
   }
 })
 

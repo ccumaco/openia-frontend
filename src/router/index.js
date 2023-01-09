@@ -1,23 +1,26 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Home from "../views/home.vue";
-import SocialMedia from "../views/social-media.vue";
-import Login from "../views/login.vue";
+
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import('../views/home.vue'),
   },
   {
     path: "/social-media",
     name: "Social-Media",
-    component: SocialMedia,
+    component: () => import('../views/social-media.vue'),
   },
   {
     path: "/login",
     name: "Login",
-    component: Login,
+    component: () => import('../views/login.vue'),
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import('../views/register.vue'),
   },
 ];
 

@@ -4,6 +4,7 @@
       <h1>Incopy</h1>
       <div class="primary-nav--rigth">
         <router-link to="/login">Iniciar sesión</router-link>
+        <router-link to="/register">Registrate</router-link>
         <p>Menu</p>
       </div>
     </nav>

@@ -22,7 +22,7 @@ interface ObjUser {
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
     return {
-      apiURL: 'http://localhost:5000/openia',
+      apiURL: 'https://openia-backend.onrender.com/openia',
       responseText: [] as string[],
       loading: false,
       user: {},

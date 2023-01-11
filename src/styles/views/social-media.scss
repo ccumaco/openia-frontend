@@ -15,7 +15,6 @@
         &:nth-child(2){
             overflow-y: auto;
             background-color: #D6DBEA2E;
-            padding: 50px;
         }
         &--title{
             color: #6E6E6E;
@@ -29,9 +28,30 @@
             border-bottom: 1px solid grey;
             color: $text;
             padding: 85px 0;
+            cursor: pointer;
+            position: relative;
+            &--copy{
+                position: absolute;
+                top: 30px;
+                right: 10px;
+            }
         }
         &--loading{
             color: $text;
+            background-color: #FFA702;
+            color: $white;
+            min-height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 100px;
+            border-end-end-radius: 40px;
+            border-start-end-radius: 40px;
+            max-width: 500px;
+            &--big{
+                display: block;
+                font-size: 30px;
+            }
         }
         &__flex{
             display: flex;

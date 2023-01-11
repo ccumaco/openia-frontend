@@ -47,6 +47,7 @@ height: 32px;
     padding: 12px 50px;
     color: $white;
     border: 0;
+    transition: all .3s linear;
     &:disabled{
         background: $text;
         pointer-events: none;

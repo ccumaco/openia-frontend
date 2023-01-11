@@ -2,8 +2,10 @@
 import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
+import Loader from "../components/Loader.vue";
+import {copy} from '../utils/index'
 export default defineComponent({
-  components: {},
+  components: { Loader },
   props: {},
   setup(props) {
     const store = useOpenIaStore();
@@ -16,7 +18,7 @@ export default defineComponent({
       hashtag: "#moda #artesania",
       maxResponses: 3,
       countHashtag: 1,
-      automaticHastag: true
+      automaticHastag: true,
     });
     const generateDiferentResponse = async () => {
       objectText.top_p = 1;
@@ -43,6 +45,7 @@ export default defineComponent({
       "Japonés",
       "Javanés",
     ];
+
     const softs = [
       "Persuasivo",
       "Informativo",
@@ -60,7 +63,8 @@ export default defineComponent({
       lenguajeResponse,
       softMessage,
       softs,
-      maxLengthRespone
+      maxLengthRespone,
+      copy
     };
   },
 });
@@ -108,7 +112,9 @@ export default defineComponent({
           </select>
         </div>
         <div class="range">
-          <label for="range">Maximo de caracteres {{ objectText.maxLength }} / 1000</label>
+          <label for="range"
+            >Maximo de caracteres {{ objectText.maxLength }} / 1000</label
+          >
           <input
             type="range"
             name="maxLength"
@@ -144,20 +150,27 @@ export default defineComponent({
 
       <div class="container-social__content__flex mt-3">
         <div class="checkbox">
-          <input type="checkbox" name="automaticHastag" id="automaticHastag" v-model="objectText.automaticHastag">
-          <label for="automaticHastag">Agregar hashtags automáticamente optimizados para SEO</label>
+          <input
+            type="checkbox"
+            name="automaticHastag"
+            id="automaticHastag"
+            v-model="objectText.automaticHastag"
+          />
+          <label for="automaticHastag"
+            >Agregar hashtags automáticamente optimizados para SEO</label
+          >
         </div>
         <div class="input">
-            <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
-            <input
-              placeholder="1"
-              v-model="objectText.countHashtag"
-              name="countHashtag"
-              id="countHashtag"
-              type="number"
-              min="1"
-              max="10"
-            />
+          <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
+          <input
+            placeholder="1"
+            v-model="objectText.countHashtag"
+            name="countHashtag"
+            id="countHashtag"
+            type="number"
+            min="1"
+            max="10"
+          />
         </div>
       </div>
       <div class="input mt-3" v-if="objectText.automaticHastag == false">
@@ -174,22 +187,40 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <button class="btn left" @click="store.searchWithText(objectText)">Buscar</button>
+      <button
+        class="btn left"
+        :disabled="store.loading"
+        @click="store.searchWithText(objectText)"
+      >
+        Buscar
+      </button>
     </div>
     <div class="container-social__content">
       <p
-        class="container-social__content--response"
+        class="container-social__content--response pl-5 pr-5"
         v-for="(response, index) in store.responseText"
         :key="index"
+        @click='copy(response)'
       >
         {{ response }}
+        
+        <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>
-      <p
+      <div
         class="container-social__content--loading"
-        v-if="store.loading || store.responseText.length >= 0"
+        v-if="store.responseText.length == 0"
       >
-        Aqui aparecera tu texto cuando sea generado por incopy
-      </p>
+        <p v-if="store.loading && store.responseText.length == 0">
+          Estamos Generando
+          <span class="container-social__content--loading--big">
+            Textos increibles para ti
+          </span>
+        </p>
+        <Loader v-if="store.loading && store.responseText.length == 0" />
+        <p v-if="store.responseText.length == 0 && !store.loading">
+          Aquí aparecerá tu texto cuando sea generado por Incopy
+        </p>
+      </div>
     </div>
   </div>
 </template>

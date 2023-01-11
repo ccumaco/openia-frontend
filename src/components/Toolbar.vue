@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="primary-nav">
-      <h1>Incopy</h1>
+      <router-link to="/" class="logo">Incopy</router-link>
       <div class="primary-nav--rigth">
         <router-link to="/login">Iniciar sesión</router-link>
         <router-link to="/register">Registrate</router-link>
@@ -30,10 +30,13 @@
     &--rigth{
       display: flex;
       gap: 20px;
-      a{
-        text-decoration: none;
-        color: $white;
-      }
+    }
+    .logo{
+      font-size: 26px;
+    }
+    a{
+      text-decoration: none;
+      color: $white;
     }
   }
 </style>

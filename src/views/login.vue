@@ -1,8 +1,8 @@
 <template>
   <div class="container--login">
     <h1 class="container--login--title">Inicia Sesion</h1>
-    <!-- <button class="btn mt-3"><fa icon="angle-up" /> Continua con google</button>
-    <p class="container--login--divisor mt-3">o</p> -->
+    <button class="btn mt-3"><i class="pi pi-google"></i> Continua con google</button>
+    <p class="container--login--divisor mt-3">o</p>
       <InputText
         placeholder="Correo Electronico"
         type="email"
@@ -10,7 +10,7 @@
         id="email"
         v-model="objUser.userEmail"
         required
-        class="mt-3"
+        class="mb-3 mt-3"
       />
       <InputText
         type="text"
@@ -22,9 +22,9 @@
         required
       />
     <div class="container--login__btns mt-4">
-      <button class="btn come-back"><fa icon="angle-left" /> Volver</button>
+      <button class="btn come-back"><i class="pi pi-arrow-left"></i> Volver</button>
       <button class="btn continue" @click='store.login(objUser)'>
-        Continuar <fa icon="angle-right" />
+        Continuar <i class="pi pi-arrow-right"></i>
       </button>
     </div>
   </div>

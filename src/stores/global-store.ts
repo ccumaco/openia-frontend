@@ -7,7 +7,7 @@ interface ObjectText {
   top_p: number,
   language: String,
   soft: String,
-  hashtag: String,
+  hashtag: string[],
   maxResponses: number,
   countHashtag: number,
   automaticHastag: boolean

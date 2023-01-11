@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import {copy} from '../utils/index'
+import { copy } from "../utils/index";
 export default defineComponent({
   components: { Loader },
   props: {},
@@ -15,7 +15,7 @@ export default defineComponent({
       top_p: 1,
       language: "Español",
       soft: "Persuasivo",
-      hashtag: "#moda #artesania",
+      hashtag: [],
       maxResponses: 3,
       countHashtag: 1,
       automaticHastag: true,
@@ -45,6 +45,7 @@ export default defineComponent({
       "Japonés",
       "Javanés",
     ];
+    const separatorExp = ref(/,| /);
 
     const softs = [
       "Persuasivo",
@@ -64,7 +65,8 @@ export default defineComponent({
       softMessage,
       softs,
       maxLengthRespone,
-      copy
+      copy,
+      separatorExp,
     };
   },
 });
@@ -173,26 +175,25 @@ export default defineComponent({
           />
         </div>
       </div>
-      <div class="input mt-3" v-if="objectText.automaticHastag == false">
-        <label for="hashtag">Hashtags</label>
-        <textarea
-          placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
-          v-model="objectText.hashtag"
-          @keyup.enter="store.searchWithText(objectText)"
-          name="hashtag"
-          id="hashtag"
-          cols="30"
-          rows="5"
-          maxlength="300"
-          size="20"
-        />
-      </div>
+      <Chips
+        :separator="separatorExp"
+        class="mt-3"
+        v-model="objectText.hashtag"
+        placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
+        v-if="!objectText.automaticHastag"
+      >
+        <template #chip="slotProps">
+          <div>
+            <span>#{{ slotProps.value }}</span>
+          </div>
+        </template>
+      </Chips>
       <button
         class="btn left"
         :disabled="store.loading"
         @click="store.searchWithText(objectText)"
       >
-        Buscar
+        Generar <i class="pi pi-arrow-right"></i>
       </button>
     </div>
     <div class="container-social__content">
@@ -200,10 +201,10 @@ export default defineComponent({
         class="container-social__content--response pl-5 pr-5"
         v-for="(response, index) in store.responseText"
         :key="index"
-        @click='copy(response)'
+        @click="copy(response)"
       >
         {{ response }}
-        
+
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>
       <div

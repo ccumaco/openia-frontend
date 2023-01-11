@@ -48,6 +48,9 @@ height: 32px;
     color: $white;
     border: 0;
     transition: all .3s linear;
+    i{
+        vertical-align: middle;
+    }
     &:disabled{
         background: $text;
         pointer-events: none;

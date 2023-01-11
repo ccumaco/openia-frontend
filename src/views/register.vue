@@ -10,7 +10,7 @@
           id="email"
           v-model="objUser.userEmail"
           required
-          class="mt-3"
+          class="mb-3 mt-3"
         />
 
         <InputText
@@ -23,9 +23,9 @@
           required
         />
       <div class="container--login__btns mt-4">
-        <button class="btn come-back"><fa icon="angle-left" /> Volver</button>
+        <button class="btn come-back"><i class="pi pi-arrow-left"></i> Volver</button>
         <button class="btn continue" @click='store.register(objUser)'>
-          Continuar <fa icon="angle-right" />
+          Continuar <i class="pi pi-arrow-right"></i>
         </button>
       </div>
     </div>

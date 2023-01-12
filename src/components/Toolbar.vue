@@ -3,15 +3,25 @@
     <nav class="primary-nav">
       <router-link to="/" class="logo">Incopy</router-link>
       <div class="primary-nav--rigth">
-        <router-link to="/login">Iniciar sesión</router-link>
-        <router-link to="/register">Registrate</router-link>
+        <router-link v-if="!Object.entries(store.user).length" to="/login">Iniciar sesión</router-link>
+        <router-link v-if="!Object.entries(store.user).length" to="/register">Registrate</router-link>
         <p>Menu</p>
       </div>
     </nav>
   </div>
 </template>
 
-<script setup>
+<script lang='ts'>
+import { useOpenIaStore } from '../stores/global-store';
+
+export default {
+  setup() {
+    const store = useOpenIaStore()
+    return {
+      store
+    }
+  }
+}
 </script>
 
 <style lang='scss'>

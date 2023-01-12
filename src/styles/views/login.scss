@@ -43,7 +43,9 @@
 // }
 
 .form-demo {
-    margin-top: 60px;
+    .flex.justify-content-center{
+        min-height: 100vh;
+    }
     .card {
         min-width: 450px;
   

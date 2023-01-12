@@ -26,10 +26,42 @@
       </template>
     </Dialog>
 
-    <div class="flex justify-content-center">
+    <div class="flex justify-content-center align-items-center">
       <div class="card">
-        <h5 class="text-center">Register</h5>
+        <h1 class="text-center">Regístrate</h1>
         <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
+          <div class="field">
+            <div class="p-float-label p-input-icon-right">
+              <i class="pi pi-user" />
+              <InputText
+                id="userEmail"
+                v-model="v$.userName.$model"
+                :class="{ 'p-invalid': v$.userName.$invalid && submitted }"
+                aria-describedby="userName-error"
+              />
+              <label
+                for="userName"
+                :class="{ 'p-error': v$.userName.$invalid && submitted }"
+                >Nombre</label
+              >
+            </div>
+            <span v-if="v$.userName.$error && submitted">
+              <span
+                id="userName-error"
+                v-for="(error, index) of v$.userName.$errors"
+                :key="index"
+              >
+                <small class="p-error">{{ error.$message }}</small>
+              </span>
+            </span>
+            <small
+              v-else-if="
+                (v$.userName.$invalid && submitted) || v$.userName.$pending.$response
+              "
+              class="p-error"
+              >{{ v$.userName.required.$message.replace("Value", "Email") }}</small
+            >
+          </div>
           <div class="field">
             <div class="p-float-label p-input-icon-right">
               <i class="pi pi-envelope" />

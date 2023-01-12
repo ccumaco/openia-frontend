@@ -25,8 +25,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       apiURL: import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD,
       responseText: [] as string[],
       loading: false,
-      user: {},
-      currentToken: window.localStorage.getItem('userToken')
+      user: {}
     }
   },
   getters: {
@@ -34,6 +33,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
   },
   actions: {
     async searchWithText( objectText: ObjectText ) {
+      this.responseText = [];
       this.loading = true
       try {
         const data = await axios.post(`${this.apiURL}/generateText`, objectText);
@@ -46,28 +46,25 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     },
     async login (objUser: ObjUser){
       this.loading = true
-      
-      if (this.currentToken) objUser.userToken = this.currentToken || ''
       try {
         const data = await axios.post(`${this.apiURL}/login`, objUser);
-        window.localStorage.setItem('userToken', data.data.userToken)
+        objUser.userToken = data.data.userToken
+        window.localStorage.setItem('user', JSON.stringify(objUser))
         this.user = data.data
-        router.push('/')
+        router.push("/social-media")
       } catch (error) {
         console.error(error);
       }
       this.loading = false
-      return
     },
     async register (objUser: ObjUser){
       this.loading = true
       try {
         const data = await axios.post(`${this.apiURL}/register`, objUser);
-        window.localStorage.setItem('userToken', data.data.userToken)
         this.user = data.data
-        router.push('/')
-      } catch (error) {
         router.push('/login')
+      } catch (error) {
+        router.push('/register')
         console.error(error);
       }
       this.loading = false

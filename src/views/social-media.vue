@@ -193,7 +193,7 @@ export default defineComponent({
         :disabled="store.loading"
         @click="store.searchWithText(objectText)"
       >
-        Generar <i class="pi pi-arrow-right"></i>
+        Generar textos<i class="pi pi-arrow-right ml-3"></i>
       </button>
     </div>
     <div class="container-social__content">

@@ -26,9 +26,9 @@
       </template>
     </Dialog>
 
-    <div class="flex justify-content-center">
+    <div class="flex justify-content-center align-items-center">
       <div class="card">
-        <h5 class="text-center">Register</h5>
+        <h1 class="text-center">Iniciar Sesion</h1>
         <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
           <div class="field">
             <div class="p-float-label p-input-icon-right">
@@ -125,7 +125,6 @@ export default {
         console.log('no pasooo');
         return;
       }
-      console.log('pasooo');
       toggleDialog();
       store.login(objUser)
     };

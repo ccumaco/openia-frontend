@@ -4,14 +4,22 @@ import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
 import { copy } from "../utils/index";
+import { useToast } from "primevue/usetoast";
 export default defineComponent({
   components: { Loader },
   props: {},
   setup(props) {
     const store = useOpenIaStore();
+    const toast = useToast();
+    const cutText = (text: string) => {
+      return text.substring(0, 70) + '...';
+    }
+    const showSuccess = (textCliped: string) => {
+      toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
+    }
     const objectText = reactive({
       prompt: "haz un post de ropa",
-      maxLength: 100,
+      maxLength: 400,
       top_p: 1,
       language: "Español",
       soft: "Persuasivo",
@@ -67,12 +75,14 @@ export default defineComponent({
       maxLengthRespone,
       copy,
       separatorExp,
+      showSuccess
     };
   },
 });
 </script>
 
 <template>
+  <Toast />
   <div class="container-social">
     <div class="container-social__content">
       <h2 class="container-social__content--title">
@@ -124,6 +134,7 @@ export default defineComponent({
             id="maxLength"
             min="100"
             max="1000"
+            v-model="objectText.maxLength"
             @input="maxLengthRespone($event)"
             @change="maxLengthRespone($event)"
           />
@@ -201,7 +212,7 @@ export default defineComponent({
         class="container-social__content--response pl-5 pr-5"
         v-for="(response, index) in store.responseText"
         :key="index"
-        @click="copy(response)"
+        @click="copy(response), showSuccess(response)"
       >
         {{ response }}
 

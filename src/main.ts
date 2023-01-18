@@ -25,6 +25,7 @@ import Password from 'primevue/password';
 import Checkbox from 'primevue/checkbox';
 import Divider from 'primevue/divider';
 import Button from 'primevue/button';
+import Toast from 'primevue/toast';
 
 const pinia = createPinia()
 
@@ -37,6 +38,7 @@ createApp(App)
     .component('Checkbox',Checkbox)
     .component('Calendar',Calendar)
     .component('Button', Button)
+    .component('Toast', Toast)
     .component('Password', Password)
     .component('Divider', Divider)
     .component('Dialog', Dialog)

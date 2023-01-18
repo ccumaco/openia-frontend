@@ -2,6 +2,11 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
+    path: "/:catchAll(.*)",
+    name: "404",
+    component: () => import('../views/404.vue'),
+  },
+  {
     path: "/",
     name: "Home",
     component: () => import('../views/home.vue'),
@@ -22,6 +27,11 @@ const routes = [
     path: "/register",
     name: "register",
     component: () => import('../views/register.vue'),
+  },
+  {
+    path: "/plans",
+    name: "plans",
+    component: () => import('../views/plans.vue'),
   },
 ];
 

@@ -6,6 +6,7 @@ import Loader from "../components/Loader.vue";
 import { copy } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
+  name: 'social-media',
   components: { Loader },
   props: {},
   setup(props) {

@@ -149,6 +149,7 @@ import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
 
 export default {
+  name: 'register',
   setup() {
     const store = useOpenIaStore()
     const objUser = reactive({

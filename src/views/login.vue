@@ -120,6 +120,7 @@ import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
 export default {
+  name: 'login',
   setup() {
     const store = useOpenIaStore();
     const objUser = reactive({

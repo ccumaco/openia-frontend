@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import './style.scss'
 import App from './App.vue'
 import router from './router'
+import http from './utils/http';
 // vuelidate
 import Vuelidate from 'vue-clipboard3'
 // prime vue

@@ -5,9 +5,10 @@
         background: rgba(0, 0, 0, .9);
         background-size: contain;
         height: 100vh;
-        max-height: 445px;
+        max-height: 545px;
         display: flex;
         justify-content: center;
+        flex-direction: column;
         align-items: center;
         position: relative;
         overflow: hidden;

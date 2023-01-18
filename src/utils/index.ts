@@ -8,4 +8,10 @@ export const copy = async (text: string) => {
       console.error(e)
       return false
     }
-  }
+}
+export const capitalize = (str: string) => {
+    return str.replace(/\b[a-z]/gi, function (char) {
+        return char.toUpperCase();
+    });
+}
+export const hasHistory = () => window.history.length > 2

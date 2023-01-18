@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '../router'
+import { capitalize } from '../utils/index'
 interface ObjectText {
   prompt: String,
   maxLength: number,
@@ -14,6 +15,7 @@ interface ObjectText {
 }
 
 interface ObjUser {
+  userName: string,
   userEmail: String,
   userPassword: String,
   userToken?: String
@@ -25,11 +27,12 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       apiURL: import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD,
       responseText: [] as string[],
       loading: false,
-      user: {}
+      user: {} as ObjUser
     }
   },
   getters: {
     getResponse: (state) => state.responseText,
+    getUser: (state) => state.user,
   },
   actions: {
     async searchWithText( objectText: ObjectText ) {
@@ -50,12 +53,16 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         const data = await axios.post(`${this.apiURL}/login`, objUser);
         objUser.userToken = data.data.userToken
         window.localStorage.setItem('user', JSON.stringify(objUser))
+        capitalize(data.data.userName);
         this.user = data.data
         router.push("/social-media")
+        this.loading = false
+        return true
       } catch (error) {
         console.error(error);
+        this.loading = false
+        return false
       }
-      this.loading = false
     },
     async register (objUser: ObjUser){
       this.loading = true

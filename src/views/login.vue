@@ -14,9 +14,10 @@
         ></i>
         <h5>Registration Successful!</h5>
         <p :style="{ lineHeight: 1.5, textIndent: '1rem' }">
-          Your account is registered under userName <b>{{ objUser.userName }}</b> ; it'll
-          be valid next 30 days without activation. Please check
-          <b>{{ objUser.userEmail }}</b> for activation instructions.
+          Your account is registered under userName
+          <b>{{ objUser.userName }}</b> ; it'll be valid next 30 days without
+          activation. Please check <b>{{ objUser.userEmail }}</b> for activation
+          instructions.
         </p>
       </div>
       <template #footer>
@@ -56,10 +57,13 @@
             </span>
             <small
               v-else-if="
-                (v$.userEmail.$invalid && submitted) || v$.userEmail.$pending.$response
+                (v$.userEmail.$invalid && submitted) ||
+                v$.userEmail.$pending.$response
               "
               class="p-error"
-              >{{ v$.userEmail.required.$message.replace("Value", "Email") }}</small
+              >{{
+                v$.userEmail.required.$message.replace("Value", "Email")
+              }}</small
             >
           </div>
           <div class="field">
@@ -89,7 +93,20 @@
               }}</small
             >
           </div>
-          <Button type="submit" label="Continuar" class="mt-2" />
+          <div class="flex">
+            <Button
+              icon="pi pi-arrow-left"
+              label="Volver"
+              class="mt-2 p-button-link"
+              @click="hasHistory() ? $router.go(-1) : $router.push('/')"
+            />
+            <Button
+              type="submit"
+              label="Continuar"
+              :disabled="store.loading"
+              class="mt-2"
+            />
+          </div>
         </form>
       </div>
     </div>
@@ -101,14 +118,15 @@ import { reactive, ref, onMounted } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
-
+import { hasHistory } from '../utils';
 export default {
   setup() {
-    const store = useOpenIaStore()
+    const store = useOpenIaStore();
     const objUser = reactive({
       userEmail: "",
       userPassword: "",
     });
+    
 
     const rules = {
       userEmail: { required, email },
@@ -122,11 +140,11 @@ export default {
     const handleSubmit = (isFormValid) => {
       submitted.value = true;
       if (!isFormValid) {
-        console.log('no pasooo');
+        console.log("no pasooo");
         return;
       }
       toggleDialog();
-      store.login(objUser)
+      store.login(objUser);
     };
     const toggleDialog = () => {
       showMessage.value = !showMessage.value;
@@ -148,6 +166,8 @@ export default {
       toggleDialog,
       submitted,
       showMessage,
+      store,
+      hasHistory
     };
   },
 };

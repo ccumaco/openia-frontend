@@ -34,7 +34,7 @@
             <div class="p-float-label p-input-icon-right">
               <i class="pi pi-user" />
               <InputText
-                id="userEmail"
+                id="userName"
                 v-model="v$.userName.$model"
                 :class="{ 'p-invalid': v$.userName.$invalid && submitted }"
                 aria-describedby="userName-error"
@@ -121,7 +121,20 @@
               }}</small
             >
           </div>
-          <Button type="submit" label="Continuar" class="mt-2" />
+          <div class="flex">
+            <Button
+              icon="pi pi-arrow-left"
+              label="Volver"
+              class="mt-2 p-button-link"
+              @click="hasHistory() ? $router.go(-1) : $router.push('/')"
+            />
+            <Button
+              type="submit"
+              label="Continuar"
+              :disabled="store.loading"
+              class="mt-2"
+            />
+          </div>
         </form>
       </div>
     </div>
@@ -133,6 +146,7 @@ import { reactive, ref } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
+import { hasHistory } from '../utils';
 
 export default {
   setup() {
@@ -184,6 +198,8 @@ export default {
       toggleDialog,
       submitted,
       showMessage,
+      store,
+      hasHistory
     };
   },
 };

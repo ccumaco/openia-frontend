@@ -7,12 +7,22 @@ export default defineComponent({
  },
   data(){
     return{
+      loggedIn: false
     }
   },
   methods:{
+    checkLogin() {
+      // Verificar si el usuario está conectado
+      if (localStorage.getItem('user')) {
+        this.loggedIn = true
+      } else {
+        this.loggedIn = false
+      }
+    }
   },
-  setup(props) {
-  },
+  created() {
+    this.checkLogin()
+  }
 })
 </script>
 

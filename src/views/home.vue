@@ -2,7 +2,7 @@
   <div>
     <h1 class="hidden">INCOPY</h1>
     <div class="wrapper gift-background">
-      <video width="100%" autoplay muted>
+      <video width="100%" autoplay muted loop>
         <source src="/src/assets/video-background.mp4" type="video/mp4">
         Your browser does not support HTML video.
     </video>
@@ -13,6 +13,7 @@
           tu negocio en línea
         </p>
       </div>
+      <div class="btn">Comienza ahora</div>
     </div>
     <div class="container">
       <h3>¿Que puedes hacer con incopy?</h3>

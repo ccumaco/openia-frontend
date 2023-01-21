@@ -13,7 +13,7 @@
           tu negocio en línea
         </p>
       </div>
-      <div class="btn">Comienza ahora</div>
+      <div class="btn" @click='showModal()'>Comienza ahora</div>
     </div>
     <div class="container">
       <h3>¿Que puedes hacer con incopy?</h3>
@@ -33,20 +33,39 @@
     </div>
     <router-link to="/social-media">social media</router-link>
   </div>
+  <!-- dialog -->
+  <Dialog class='dialog-price' :modal="true" v-model:visible="modal">
+    <SelectButton v-model="selectedCity"  :options="cities" optionLabel="name" />
+    <div class="container-info">
+      <h4>Plan</h4>
+      <p>{{ price }}</p>
+      <p>Ahorra 25% en el plan anual</p>
+      <Button
+        type="submit"
+        label="Adquirir ahora"
+        class="mt-2"
+      />
+      <p>Perfecto para cualquier persona y empresas que manejen textos cortos como redes sociales, mails, introducciones sencillas, descripciones, anuncios.</p>
+      <ul>
+        <li>Palabras ilimitadas</li>
+        <li>Diversas plantillas</li>
+        <li>Optimización SEO</li>
+        <li>Lista de consejos para textos</li>
+        <li>+26 idiomas de trabajo</li>
+        <li>Soporte por whatsapp o mail</li>
+      </ul>
+    </div>
+  </Dialog>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: 'home',
   components: {},
-  data() {
-    return {
-      
-    };
-  },
   methods: {},
   setup(props) {
+    const price = ref(50000)
     const cardsInfo = [
         {
           image: '/src/assets/speed.png',
@@ -91,9 +110,24 @@ export default defineComponent({
           alt: "image lorem",
         },
       ];
-      
+      const display = ref(true)
+      const selectedCity= null
+			const cities = [
+				{name: 'Menual'},
+				{name: 'Anual (Ahhorra 25%)'}
+			]
+      const modal = ref(false)
+      const showModal = () => {
+        modal.value = !modal.value
+      }
       return {
-        cardsInfo
+        cardsInfo,
+        display,
+        cities,
+        selectedCity,
+        price,
+        showModal,
+        modal
       }
   },
 });

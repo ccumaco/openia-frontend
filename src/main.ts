@@ -27,6 +27,7 @@ import Checkbox from 'primevue/checkbox';
 import Divider from 'primevue/divider';
 import Button from 'primevue/button';
 import Toast from 'primevue/toast';
+import SelectButton from 'primevue/selectButton';
 
 const pinia = createPinia()
 
@@ -45,4 +46,5 @@ createApp(App)
     .component('Dialog', Dialog)
     .component('InputText', InputText)
     .component('Chips', Chips)
+    .component('SelectButton', SelectButton)
     .mount('#app')

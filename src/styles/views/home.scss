@@ -70,3 +70,14 @@
         }
     }
 }
+.dialog-price{
+    .p-selectbutton.p-buttonset.p-component{
+        text-align: center;
+    }
+    max-width: 600px;
+    .container-info{
+        max-width: 530px;
+        margin: 0 auto;
+        padding: 30px 50px;
+    }
+}

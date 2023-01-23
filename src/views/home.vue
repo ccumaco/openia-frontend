@@ -35,7 +35,7 @@
   </div>
   <!-- dialog -->
   <Dialog class='dialog-price' :modal="true" v-model:visible="modal">
-    <SelectButton v-model="selectedCity"  :options="cities" optionLabel="name" />
+    <!-- <SelectButton v-model="selectedCity"  :options="cities" optionLabel="name" /> -->
     <div class="container-info">
       <h4>Plan</h4>
       <p>{{ price }}</p>

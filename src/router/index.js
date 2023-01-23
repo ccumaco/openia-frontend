@@ -1,5 +1,20 @@
 import { createWebHistory, createRouter } from "vue-router";
+import axios from 'axios'
+import { useOpenIaStore } from "../stores/global-store";
 
+const guard = (to, from, next) => {
+  const store = useOpenIaStore()
+  const token = localStorage.getItem('token').replace(/['"]+/g, '');
+  if (!token) {
+    return next('/login');
+  }
+  if (store.validateToken()) {
+    return next()
+  } else {
+    return next('/login')
+  }
+  
+}
 const routes = [
   {
     path: "/:catchAll(.*)",
@@ -15,7 +30,7 @@ const routes = [
     path: "/social-media",
     name: "Social-Media",
     component: () => import('../views/social-media.vue'),
-    // beforeEnter: protectedRoutes,
+    beforeEnter: guard,
   },
   {
     path: "/login",

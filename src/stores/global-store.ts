@@ -39,7 +39,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.responseText = [];
       this.loading = true
       try {
-        const data = await axios.post(`${this.apiURL}/generateText`, objectText);
+        const data = await axios.post(`/generateText`, objectText);
         this.responseText = data.data
       } catch (error) {
         console.error(error);
@@ -50,11 +50,12 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     async login (objUser: ObjUser){
       this.loading = true
       try {
-        const data = await axios.post(`${this.apiURL}/login`, objUser);
+        const data = await axios.post(`/login`, objUser);
         objUser.userToken = data.data.userToken
-        window.localStorage.setItem('user', JSON.stringify(objUser))
+        window.localStorage.setItem('token', JSON.stringify(objUser.userToken))
         capitalize(data.data.userName);
         this.user = data.data
+        window.localStorage.setItem('user', JSON.stringify(data.data));
         router.push("/social-media")
         this.loading = false
         return true
@@ -67,7 +68,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     async register (objUser: ObjUser){
       this.loading = true
       try {
-        const data = await axios.post(`${this.apiURL}/register`, objUser);
+        const data = await axios.post(`/register`, objUser);
         this.user = data.data
         router.push('/login')
       } catch (error) {
@@ -76,6 +77,22 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       }
       this.loading = false
       return
+    },
+    async validateToken () {
+      const token = localStorage.getItem('token')?.replace(/['"]+/g, '');
+      const user = localStorage.getItem('user');
+      axios.post('/verify-token', { token })
+      .then(response => {
+        if (response.data.valid) {
+          this.user = JSON.parse(user!)
+          return true
+        } else {
+          return false
+        }
+      })
+      .catch(error => {
+        return false
+      });
     }
   }
 })

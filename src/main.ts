@@ -3,7 +3,18 @@ import { createPinia } from 'pinia'
 import './style.scss'
 import App from './App.vue'
 import router from './router'
-import http from './utils/http';
+import axios from 'axios'
+
+
+// axios interceptors
+
+
+axios.interceptors.request.use((config: any) => {
+  config.baseURL = import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD;
+  config.headers.Authorization = `${localStorage.getItem('token')}`;
+  return config;
+});
+
 // vuelidate
 import Vuelidate from 'vue-clipboard3'
 // prime vue

@@ -18,7 +18,7 @@
           Crear cuenta
           </router-link
         >
-        <p><i class="pi pi-bars mr-1"></i> Menu</p>
+        <!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
       </div>
     </nav>
   </div>

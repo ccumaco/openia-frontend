@@ -69,21 +69,26 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`/register`, objUser);
+        objUser.userToken = data.data.userToken
+        window.localStorage.setItem('token', JSON.stringify(objUser.userToken))
+        capitalize(data.data.userName);
         this.user = data.data
-        router.push('/login')
+        window.localStorage.setItem('user', JSON.stringify(data.data));
+        this.loading = false
+        return true
       } catch (error) {
-        router.push('/register')
         console.error(error);
+        this.loading = false
+        return false
       }
-      this.loading = false
-      return
     },
     async validateToken () {
       const token = localStorage.getItem('token')?.replace(/['"]+/g, '');
       const user = localStorage.getItem('user');
-      axios.post('/verify-token', { token })
+      await axios.post('/verify-token', { token })
       .then(response => {
-        if (response.data.valid) {
+        if (response.data.valid == true) {
+          
           this.user = JSON.parse(user!)
           return true
         } else {

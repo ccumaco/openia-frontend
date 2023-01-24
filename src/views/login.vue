@@ -1,6 +1,7 @@
 
 <template>
   <div class="form-demo">
+    <!-- dialog login fine -->
     <Dialog
       v-model:visible="showMessage"
       :breakpoints="{ '960px': '80vw' }"
@@ -26,8 +27,39 @@
         </div>
       </template>
     </Dialog>
+    <!-- modal renovate password -->
+    <Dialog
+      :modal="modalRecoveryPassword"
+      v-model:visible="modalRecoveryPassword"
+      position="center"
+    >
+    <template #header>
+      <!-- empty header -->
+      <h3></h3>
+    </template>
+      <p class='text-center'>Enviaremos un mail de verificación para comprobar tu identidad</p>
+      <p class="text-center my-4">Valide o ingrese su correo electrónico</p>
+      <div class="p-float-label p-input-icon-right recovery-input">
+        <i class="pi pi-envelope" />
+        <InputText
+          class='recovery-input'
+          id="userEmail"
+          aria-describedby="userEmail-error"
+        />
+        <label
+          for="userEmail"
+          >Email*</label
+        >
+      </div>
 
-    <div class="flex justify-content-center align-items-center">
+      <template #footer>
+        <div class="flex justify-content-center">
+          <div class="btn">Enviar</div>
+        </div>
+      </template>
+    </Dialog>
+
+    <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
         <h1 class="text-center">Iniciar Sesion</h1>
         <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
@@ -93,20 +125,16 @@
               }}</small
             >
           </div>
-          <div class="flex">
-            <Button
-              icon="pi pi-arrow-left"
-              label="Volver"
-              class="mt-2 p-button-link"
-              @click="hasHistory() ? $router.go(-1) : $router.push('/')"
-            />
-            <Button
-              type="submit"
-              label="Continuar"
-              :disabled="store.loading"
-              class="mt-2"
-            />
+          <div class="flex justify-content-center">
+            <router-link to='/' class="btn come-back mr-4">
+              <i class='pi pi-arrow-left mr-2'></i>
+              Volver
+            </router-link>
+            <button class="btn" :disabled="store.loading" type='submit'>Continuar</button>
           </div>
+          <p class='text-center forgot-password my-4' @click='modalRecoveryPassword  = !modalRecoveryPassword'>
+              Olvide mi contraseña
+          </p>
         </form>
       </div>
     </div>
@@ -127,7 +155,7 @@ export default {
       userEmail: "",
       userPassword: "",
     });
-    
+    const modalRecoveryPassword = ref(false)
 
     const rules = {
       userEmail: { required, email },
@@ -168,7 +196,8 @@ export default {
       submitted,
       showMessage,
       store,
-      hasHistory
+      hasHistory,
+      modalRecoveryPassword
     };
   },
 };

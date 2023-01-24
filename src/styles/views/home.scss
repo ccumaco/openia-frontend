@@ -15,7 +15,8 @@
         video{
             position: absolute;
             width: 100%;
-            top: -100px;
+            object-fit: cover;
+            height: 100%;
             left: 0;
             z-index: -1;
             source{

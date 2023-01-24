@@ -3,32 +3,29 @@
   <div class="form-demo">
     <Dialog
       v-model:visible="showMessage"
-      :breakpoints="{ '960px': '80vw' }"
-      :style="{ width: '30vw' }"
-      position="top"
+      :modal="true"
+      position="center"
     >
       <div class="flex align-items-center flex-column pt-6 px-3">
         <i
           class="pi pi-check-circle"
           :style="{ fontSize: '5rem', color: 'var(--green-500)' }"
         ></i>
-        <h5>Registration Successful!</h5>
-        <p :style="{ lineHeight: 1.5, textIndent: '1rem' }">
-          Your account is registered under userName <b>{{ objUser.userName }}</b> ; it'll
-          be valid next 30 days without activation. Please check
-          <b>{{ objUser.userEmail }}</b> for activation instructions.
+        <h5>Registro exitoso</h5>
+        <p class='text-center mt-4'>
+          ¡Bienvenido <b>{{ objUser.userName }}!</b> 
         </p>
       </div>
       <template #footer>
         <div class="flex justify-content-center">
-          <Button @click="toggleDialog" class="p-button-text" label="oks" />
+          <router-link class='btn' to='/social-media'>Continuar</router-link>
         </div>
       </template>
     </Dialog>
 
-    <div class="flex justify-content-center align-items-center">
+    <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
-        <h1 class="text-center">Regístrate</h1>
+        <h1 class="text-center">Crea tu cuenta ahora</h1>
         <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
           <div class="field">
             <div class="p-float-label p-input-icon-right">
@@ -121,24 +118,23 @@
               }}</small
             >
           </div>
-          <div class="flex">
-            <Button
-              icon="pi pi-arrow-left"
-              label="Volver"
-              class="mt-2 p-button-link"
-              @click="hasHistory() ? $router.go(-1) : $router.push('/')"
-            />
-            <Button
-              type="submit"
-              label="Continuar"
-              :disabled="store.loading"
-              class="mt-2"
-            />
+          <div class="flex justify-content-center">
+            <router-link to='/' class="btn come-back mr-4">
+              <i class='pi pi-arrow-left mr-2'></i>
+              Volver
+            </router-link>
+            <button class="btn" :disabled="store.loading">Crear cuenta</button>
           </div>
+          <p class='text-center mt-6'>
+            <router-link to='/login' s>
+                Ya tengo una cuenta
+            </router-link>
+          </p>
         </form>
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <script>
@@ -147,16 +143,22 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
+import { useToast } from "primevue/usetoast";
 
 export default {
   name: 'register',
   setup() {
     const store = useOpenIaStore()
+    const toast = useToast();
     const objUser = reactive({
       userName: "",
       userEmail: "",
       userPassword: "",
     });
+
+    const showError = () => {
+      toast.add({severity:'error', summary: 'Ago ocurrio', detail: 'Intentalo de nuevo o mas tarde', life: 3000});
+    }
 
     const rules = {
       userName: { required },
@@ -168,15 +170,19 @@ export default {
 
     const v$ = useVuelidate(rules, objUser);
 
-    const handleSubmit = (isFormValid) => {
+    const handleSubmit = async (isFormValid) => {
       console.log('entrooo');
       submitted.value = true;
-      store.register(objUser)
+      
       if (!isFormValid) {
         return;
       }
-
-      toggleDialog();
+      if (await store.register(objUser)) {
+        toggleDialog();
+        return
+      } else {
+        showError()
+      }
     };
     const toggleDialog = () => {
       showMessage.value = !showMessage.value;
@@ -200,7 +206,8 @@ export default {
       submitted,
       showMessage,
       store,
-      hasHistory
+      hasHistory,
+      showError
     };
   },
 };

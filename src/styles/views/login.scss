@@ -42,8 +42,26 @@
 //     }
 // }
 
+.come-back{
+    background: transparent;
+    color: $text;
+    i{
+        color: $text;
+    }
+}
+.forgot-password{
+    color: $primary-color;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.recovery-input{
+    width: 100%;
+    max-width: 470px;
+    margin: 0 auto;
+    display: block;
+}
 .form-demo {
-    .flex.justify-content-center{
+    .container-login{
         min-height: 100vh;
     }
     .card {

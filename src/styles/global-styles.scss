@@ -38,16 +38,20 @@ height: 32px;
     }
 }
 
+a{
+    color: $primary-color;
+}
 
 .btn {
     cursor: pointer;
-    background: transparent linear-gradient(101deg, var(#0089ff) 0%, #00ADED 100%) 0% 0% no-repeat padding-box;
     background: transparent linear-gradient(101deg, #0089FF 0%, #00ADED 100%) 0% 0% no-repeat padding-box;
     border-radius: 4px;
     padding: 12px 50px;
     color: $white;
     border: 0;
     transition: all .3s linear;
+    font-size: 16px;
+    text-decoration: none;
     i{
         vertical-align: middle;
     }

@@ -2,18 +2,29 @@ import { createWebHistory, createRouter } from "vue-router";
 import axios from 'axios'
 import { useOpenIaStore } from "../stores/global-store";
 
-const guard = (to, from, next) => {
+const guard = async (to, from, next) => {
   const store = useOpenIaStore()
   const token = localStorage.getItem('token').replace(/['"]+/g, '');
   if (!token || token.length < 10) {
     return next('/login');
   }
-  if (store.validateToken()) {
+  if (await store.validateToken()) {
     return next()
   } else {
     return next('/login')
   }
   
+}
+const guardLoginRegister = async (to, from, next) => {
+  const store = useOpenIaStore()
+  const token = localStorage.getItem('token').replace(/['"]+/g, '');
+  console.log(await store.validateToken(), 'store.validateToken');
+  if (await store.validateToken() == false) {
+    console.log('entro a login');
+    next()
+  } else {
+    return next('/social-media');
+  }
 }
 const routes = [
   {
@@ -35,13 +46,14 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import('../views/login.vue')
-    
+    component: () => import('../views/login.vue'),
+    beforeEnter: guardLoginRegister    
   },
   {
     path: "/register",
     name: "register",
     component: () => import('../views/register.vue'),
+    beforeEnter: guardLoginRegister
   }
 ];
 

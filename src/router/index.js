@@ -20,7 +20,6 @@ const guardLoginRegister = async (to, from, next) => {
   const token = localStorage.getItem('token').replace(/['"]+/g, '');
   console.log(await store.validateToken(), 'store.validateToken');
   if (await store.validateToken() == false) {
-    console.log('entro a login');
     next()
   } else {
     return next('/social-media');
@@ -36,6 +35,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import('../views/home.vue'),
+  },
+  {
+    path: "/payments",
+    name: "Payments",
+    component: () => import('../views/payments.vue'),
   },
   {
     path: "/social-media",

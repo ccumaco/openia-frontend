@@ -38,6 +38,8 @@ import Checkbox from 'primevue/checkbox';
 import Divider from 'primevue/divider';
 import Button from 'primevue/button';
 import Toast from 'primevue/toast';
+import Avatar from 'primevue/avatar';
+import Menu from 'primevue/menu';
 // import SelectButton from 'primevue/selectButton';
 
 const pinia = createPinia()
@@ -57,5 +59,7 @@ createApp(App)
     .component('Dialog', Dialog)
     .component('InputText', InputText)
     .component('Chips', Chips)
+    .component('Avatar', Avatar)
+    .component('Menu', Menu)
     // .component('SelectButton', SelectButton)
     .mount('#app')

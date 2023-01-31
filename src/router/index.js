@@ -17,8 +17,6 @@ const guard = async (to, from, next) => {
 }
 const guardLoginRegister = async (to, from, next) => {
   const store = useOpenIaStore()
-  const token = localStorage.getItem('token').replace(/['"]+/g, '');
-  console.log(await store.validateToken(), 'store.validateToken');
   if (await store.validateToken() == false) {
     next()
   } else {
@@ -40,6 +38,11 @@ const routes = [
     path: "/payments",
     name: "Payments",
     component: () => import('../views/payments.vue'),
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import('../views/profile.vue'),
   },
   {
     path: "/social-media",

@@ -83,29 +83,34 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       }
     },
     async validateToken () {
-      const token = localStorage.getItem('token')?.replace(/['"]+/g, '');
-      const user = localStorage.getItem('user');
       let access = false
-      await axios.post('/verify-token', { token })
-      .then(response => {
-        if (response.data.valid == true) {
-          this.user = JSON.parse(user!)
-          access = true
-          console.log('en el true!!!');
-          return
+      try {
+        let token = localStorage.getItem('token');
+        if (token) {
+          token = token.replace(/['"]+/g, '')
         } else {
-          access = false
-          console.log('en el false!!!');
           return false
         }
-      })
-      .catch(error => {
-        access = false
-        console.log('en el cathc!!!', error);
+        const user = localStorage.getItem('user');
+        await axios.post('/verify-token', { token })
+        .then(response => {
+          if (response.data.valid == true) {
+            this.user = JSON.parse(user!)
+            access = true
+            return
+          } else {
+            access = false
+            return false
+          }
+        })
+        .catch(error => {
+          access = false
+          return false
+        });
+      } catch (error) {
+        console.log(error, 'error token');
         return false
-      });
-      console.log(access, 'acesss');
-      
+      }
       return access
     }
   }

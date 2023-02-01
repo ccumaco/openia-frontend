@@ -4,138 +4,228 @@ $text: #929292;
 $black: #000;
 $white: #fff;
 
-.container{
-    max-width: 1500px;
-    padding: 0 10px;
-    width: 100%;
-    margin: 0 auto;
+.container {
+	max-width: 1500px;
+	padding: 0 10px;
+	width: 100%;
+	margin: 0 auto;
 }
-.wrapper{
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
+.wrapper {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0;
 }
-.hidden{
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-}
-
-.checkbox{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    label{
-        color: $text;
-    }
-    input{
-        width: 32px;
-height: 32px;
-        background: #FFFFFF;
-        border: 1px solid #707070;
-        border-radius: 4px;
-    }
+.hidden {
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
 }
 
-a{
-    color: $primary-color;
+.checkbox {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	label {
+		color: $text;
+	}
+	input {
+		width: 32px;
+		height: 32px;
+		background: #ffffff;
+		border: 1px solid #707070;
+		border-radius: 4px;
+	}
+}
+
+a {
+	color: $primary-color;
 }
 
 .btn {
-    cursor: pointer;
-    background: transparent linear-gradient(101deg, #0089FF 0%, #00ADED 100%) 0% 0% no-repeat padding-box;
-    border-radius: 4px;
-    padding: 12px 50px;
-    color: $white;
-    border: 0;
-    transition: all .3s linear;
-    font-size: 16px;
-    text-decoration: none;
-    i{
-        vertical-align: middle;
-    }
-    &:disabled{
-        background: $text;
-        pointer-events: none;
-    }
+	cursor: pointer;
+	background: transparent linear-gradient(101deg, #0089ff 0%, #00aded 100%) 0%
+		0% no-repeat padding-box;
+	border-radius: 4px;
+	padding: 12px 50px;
+	color: $white;
+	border: 0;
+	transition: all 0.3s linear;
+	font-size: 16px;
+	text-decoration: none;
+	i {
+		vertical-align: middle;
+	}
+	&:disabled {
+		background: $text;
+		pointer-events: none;
+	}
 }
 
-.select{
-    margin-top: 10px;
-    label{
-        display: block;
-        color: $primary-color;
-        font-size: 14px;
-    }
-    select{
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        border: 1px solid #707070;
-        border-radius: 4px;
-        padding: 10px;
-        width: 100%;
-    }
+.select {
+	margin-top: 10px;
+	label {
+		display: block;
+		color: $primary-color;
+		font-size: 14px;
+	}
+	select {
+		background: #ffffff 0% 0% no-repeat padding-box;
+		border: 1px solid #707070;
+		border-radius: 4px;
+		padding: 10px;
+		width: 100%;
+	}
 }
 
-.range{
-    margin-top: 10px;
-    label{
-        color: $primary-color;
-        font-size: 14px;
-        display: block;
-    }
-    input{
-        width: 100%;
-    }
+.range {
+	margin-top: 10px;
+	label {
+		color: $primary-color;
+		font-size: 14px;
+		display: block;
+	}
+	input {
+		width: 100%;
+	}
 }
 
-.input{
-    position: relative;
-    display: block;
-    margin-top: 10px;
-    label{
-        position: absolute;
-        top: -8px;
-        font-size: 14px;
-        left: 5px;
-        background: $white;
-        color: $primary-color;
-        &.outside{
-            position: inherit;
-        }
-    }
-    input, textarea{
-        max-width: 100%;
-        padding: 10px;
-        width: 100%;
-        border-radius: 4px;
-        border: 1px solid #707070;
-        max-height: 150px;
-    }
+.input {
+	position: relative;
+	display: block;
+	margin-top: 10px;
+	label {
+		position: absolute;
+		top: -8px;
+		font-size: 14px;
+		left: 5px;
+		background: $white;
+		color: $primary-color;
+		&.outside {
+			position: inherit;
+		}
+	}
+	input,
+	textarea {
+		max-width: 100%;
+		padding: 10px;
+		width: 100%;
+		border-radius: 4px;
+		border: 1px solid #707070;
+		max-height: 150px;
+	}
 }
+
+div.btn-container {
+	display: flex;
+	vertical-align: middle;
+	text-align: center;
+    margin-bottom: 20px;
+	label {
+		font-size: 16px;
+		color: #000;
+		font-weight: 500;
+	}
+	.btn-color-mode-switch {
+		display: inline-block;
+		margin: 0px;
+		position: relative;
+		& > label.btn-color-mode-switch-inner {
+			margin: 0px;
+			width: 460px;
+			height: 63px;
+			background: #fff;
+			border-radius: 30px;
+			overflow: hidden;
+			position: relative;
+			transition: all 0.3s ease;
+			display: block;
+			border: 1px solid $text;
+			&::before {
+				content: attr(data-on);
+				position: absolute;
+				font-size: 16px;
+				font-weight: 500;
+				top: 50%;
+                transform: translateY(-50%);
+				right: 80px;
+			}
+			&:after {
+				color: $white;
+				content: attr(data-off);
+				width: 250px;
+				height: 16px;
+				background: $primary-color;
+				border-radius: 26px;
+				position: absolute;
+				left: 2px;
+				top: 2px;
+				text-align: center;
+				transition: all 0.3s ease;
+				box-shadow: 0px 0px 6px -2px #111;
+				padding: 20px 0px 20px;
+			}
+		}
+		& > .alert {
+			display: none;
+			background: #ff9800;
+			border: none;
+			color: #fff;
+		}
+		input[type='checkbox'] {
+			cursor: pointer;
+			width: 50px;
+			height: 25px;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			z-index: 1;
+			margin: 0px;
+			&:checked {
+				& + label.btn-color-mode-switch-inner {
+					// background: #151515;
+					&::after {
+						content: attr(data-on);
+						right: 0;
+                        left: 205px;
+					}
+					&::before {
+						content: attr(data-off);
+						right: auto;
+						left: 50px;
+					}
+				}
+				& ~ .alert {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
 @for $i from 1 through 5 {
-    .mt-#{$i}{
-        margin-top: #{$i * 8}px;
-    }
-    .mb-#{$i}{
-        margin-bottom: #{$i * 8}px;
-    }
-    .ml-#{$i}{
-        margin-left: #{$i * 8}px;
-    }
-    .mr-#{$i}{
-        margin-right: #{$i * 8}px;
-    }
-    .pt-#{$i}{
-        margin-top: #{$i * 8}px;
-    }
-    .pb-#{$i}{
-        margin-bottom: #{$i * 8}px;
-    }
-    .pl-#{$i}{
-        margin-left: #{$i * 8}px;
-    }
-    .pr-#{$i}{
-        margin-right: #{$i * 8}px;
-    }
-  }
+	.mt-#{$i} {
+		margin-top: #{$i * 8}px;
+	}
+	.mb-#{$i} {
+		margin-bottom: #{$i * 8}px;
+	}
+	.ml-#{$i} {
+		margin-left: #{$i * 8}px;
+	}
+	.mr-#{$i} {
+		margin-right: #{$i * 8}px;
+	}
+	.pt-#{$i} {
+		margin-top: #{$i * 8}px;
+	}
+	.pb-#{$i} {
+		margin-bottom: #{$i * 8}px;
+	}
+	.pl-#{$i} {
+		margin-left: #{$i * 8}px;
+	}
+	.pr-#{$i} {
+		margin-right: #{$i * 8}px;
+	}
+}

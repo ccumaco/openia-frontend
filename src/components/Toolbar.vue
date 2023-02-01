@@ -45,20 +45,22 @@ export default {
 				icon: 'pi pi-user',
 				to: '/profile',
 			},
-			{
-				label: 'Ayuda',
-				icon: 'pi pi-question-circle',
-				to: '/help',
-			},
-			{
-				label: 'Cerrar sesion',
-				icon: 'pi pi-sign-out',
-				to: '/logout',
-			},
+			// {
+			// 	label: 'Ayuda',
+			// 	icon: 'pi pi-question-circle',
+			// 	to: '/help',
+			// },
 			{
 				label: 'Social media',
 				icon: 'pi pi-book',
 				to: '/social-media',
+			},
+			{
+				label: 'Cerrar sesion',
+				icon: 'pi pi-sign-out',
+				command: () => {
+					store.logout()
+				}
 			},
 		];
 		const menu = ref();

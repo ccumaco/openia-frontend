@@ -3,11 +3,13 @@
         <div  class="grey-background">
             <div class="container-info">
                 <h3 class='title-select'>Selecciona tu plan</h3>
-                <div class='contianer-btns'>
-                    <button>Mensuyak</button>
-                    <button>Anual ( ahorra )</button>
+                <div class="btn-container flex justify-content-center mt-4">
+                    <label class="switch btn-color-mode-switch">
+                        <input v-model='isPerYear' type="checkbox" name="color_mode" id="color_mode" value="1">
+                        <label for="color_mode" data-on="Mensual" data-off="Anual (Ahorra 25%)" class="btn-color-mode-switch-inner"></label>
+                    </label>
                 </div>
-                <div v-if='!isPerYear' class="card-plan">
+                <div v-if='isPerYear' class="card-plan">
                     <h2>Plan</h2>
                     <h3 class='price'>$37.500/mes</h3>
         
@@ -39,7 +41,7 @@
         </div>
         <div class="black-background">
             <div class="container-method">
-
+                algo
             </div>
         </div>
     </div>
@@ -56,6 +58,7 @@ export default defineComponent({
     onMounted(() => {
         store.validateToken()
     })
+
     const isPerYear = ref(false);
     return {
         isPerYear
@@ -67,13 +70,16 @@ export default defineComponent({
 @import '../styles/global-styles.scss';
 .payments{
     display: flex;
+    min-height: 100vh;
     .title-select{
         text-align: center;
     }
     .grey-background{
         min-width: 50%;
-        padding: 100px;
+        padding-top: 100px;
         background: #D6DBEA2E;
+        max-width: 700px;
+        margin-left: auto;
         .contianer-btns{
             text-align: center;
             margin-bottom: 20px;
@@ -105,6 +111,11 @@ export default defineComponent({
                 }
             }
         }
+    }
+    .black-background{
+        max-width: 700px;
+        min-width: 50%;
+        margin-right: auto;
     }
 }
 </style>

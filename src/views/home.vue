@@ -19,7 +19,7 @@
       <h3>¿Que puedes hacer con incopy?</h3>
       <div class="container-cards">
         <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
-          <img :src="card.image" :alt="card.alt" />
+          <img :src="`/src/assets/${card.image}`" :alt="card.alt" />
           <div class="container-cards--card--content">
             <h4>{{ card.title }}</h4>
             <p>{{ card.description }}</p>
@@ -41,42 +41,42 @@ export default defineComponent({
     const price = ref(50000)
     const cardsInfo = [
       {
-        image: '/src/assets/speed.png',
+        image: 'speed.png',
         title: "10X más rápido en creación de contenido",
         description:
           "Automatizar el proceso de escritura y analizar grandes cantidades de información de manera más rápida que un humano, lo que te permite ahorrar tiempo y crear contenido de manera más eficiente.",
         alt: "image lorem",
       },
       {
-        image: '/src/assets/world.png',
+        image: 'world.png',
         title: "hasta 26 idiomas diferentes",
         description:
           "Es capaz de traducir hasta 26 idiomas diferentes, permitiéndole llegar a un público más amplio y global. Esto puede ser especialmente útil si tienes un sitio web o negocio en línea y quieres expandirte a nuevos mercados.",
         alt: "image lorem",
       },
       {
-        image: '/src/assets/inovation.png',
+        image: 'inovation.png',
         title: "Ideas nuevas y originales",
         description:
           "Nuestra IA genera ideas nuevas y originales para mantener tu contenido fresco y atractivo para tus visitantes. Esto puede ayudar a aumentar el engagement y la fidelidad de tus clientes.",
         alt: "image lorem",
       },
       {
-        image: '/src/assets/lupe.png',
+        image: 'lupe.png',
         title: "Contenido optimizado para SEO",
         description:
           "Analiza y optimiza el contenido para mejorar su posicionamiento en los motores de búsqueda. Esto puede ayudar a atraer más tráfico a tu sitio y mejorar su visibilidad en línea.",
         alt: "image lorem",
       },
       {
-        image: '/src/assets/group.png',
+        image: 'group.png',
         title: "Flexibilidad con tus audiencias",
         description:
           "Con nuevo contenido puede adaptar tus textos a diferentes audiencias y formatos para que puedas llegar a más personas de manera más efectiva.",
         alt: "image lorem",
       },
       {
-        image: '/src/assets/pensil.png',
+        image: 'pensil.png',
         title: "Precisión en tus Textos",
         description:
           "Gracias a la IA, puede detectar y corregir errores gramaticales y de ortografía para mejorar la precisión de tus textos.",

@@ -112,6 +112,18 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         return false
       }
       return access
+    },
+    async logout ( ) {
+      try {
+        this.user = {} as ObjUser;
+        window.localStorage.removeItem('user')
+        window.localStorage.removeItem('token')
+        router.push('/')
+      } catch (error) {
+        console.log('no hay nadad');
+        console.log(error);
+        
+      }
     }
   }
 })

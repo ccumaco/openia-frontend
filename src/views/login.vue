@@ -166,14 +166,16 @@ export default {
 
     const v$ = useVuelidate(rules, objUser);
 
-    const handleSubmit = (isFormValid) => {
+    const handleSubmit = async (isFormValid) => {
       submitted.value = true;
       if (!isFormValid) {
-        console.log("no pasooo");
         return;
       }
-      toggleDialog();
-      store.login(objUser);
+      if (await store.login(objUser)) {
+        toggleDialog();
+      } else {
+        console.log('no pasa');
+      }
     };
     const toggleDialog = () => {
       showMessage.value = !showMessage.value;

@@ -9,7 +9,7 @@
                         <label for="color_mode" data-on="Mensual" data-off="Anual (Ahorra 25%)" class="btn-color-mode-switch-inner"></label>
                     </label>
                 </div>
-                <div v-if='isPerYear' class="card-plan">
+                <div v-if='!isPerYear' class="card-plan">
                     <h2>Plan</h2>
                     <h3 class='price'>$37.500/mes</h3>
         
@@ -23,7 +23,7 @@
                         <li>Soporte por whatsapp o mail</li>
                     </ul>
                 </div>
-                <div v-else class="card-plan">
+                <div v-if='isPerYear' class="card-plan">
                     <h2>Plan</h2>
                     <h3 class='price'>$37.500/Año</h3>
         
@@ -37,11 +37,13 @@
                         <li>Soporte por whatsapp o mail</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        <div class="black-background">
-            <div class="container-method">
-                algo
+                <div class="flex justify-content-center mt-4">
+                    <div class="btn transparent">
+                        <i class='pi pi-arrow-left mr-2'></i>
+                        volver
+                    </div>
+                    <a class="btn" @click='store.takeMonth' href='https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'>Pagar</a>
+                </div>
             </div>
         </div>
     </div>
@@ -60,8 +62,10 @@ export default defineComponent({
     })
 
     const isPerYear = ref(false);
+
     return {
-        isPerYear
+        isPerYear,
+        store
     }
   }
 })
@@ -69,7 +73,6 @@ export default defineComponent({
 <style lang='scss'>
 @import '../styles/global-styles.scss';
 .payments{
-    display: flex;
     min-height: 100vh;
     .title-select{
         text-align: center;
@@ -77,9 +80,8 @@ export default defineComponent({
     .grey-background{
         min-width: 50%;
         padding-top: 100px;
-        background: #D6DBEA2E;
         max-width: 700px;
-        margin-left: auto;
+        margin: 0 auto;
         .contianer-btns{
             text-align: center;
             margin-bottom: 20px;

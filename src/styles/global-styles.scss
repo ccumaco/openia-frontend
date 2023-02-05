@@ -60,6 +60,10 @@ a {
 		background: $text;
 		pointer-events: none;
 	}
+	&.transparent{
+		color: #000;
+		background: transparent;
+	}
 }
 
 .select {

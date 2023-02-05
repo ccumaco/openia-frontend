@@ -4,7 +4,7 @@ import { useOpenIaStore } from "../stores/global-store";
 
 const guard = async (to, from, next) => {
   const store = useOpenIaStore()
-  const token = localStorage.getItem('token').replace(/['"]+/g, '');
+  const token = localStorage.getItem('token');
   if (!token || token.length < 10) {
     return next('/login');
   }

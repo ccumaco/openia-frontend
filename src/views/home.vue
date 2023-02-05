@@ -38,7 +38,6 @@ export default defineComponent({
   components: {},
   methods: {},
   setup(props) {
-    const price = ref(50000)
     const cardsInfo = [
       {
         image: 'speed.png',
@@ -98,7 +97,6 @@ export default defineComponent({
       display,
       cities,
       selectedCity,
-      price,
       showModal,
       modal
     }

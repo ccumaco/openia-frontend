@@ -52,7 +52,9 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       try {
         const data = await axios.post(`/login`, objUser);
         objUser.userToken = data.data.userToken
-        window.localStorage.setItem('token', JSON.stringify(objUser.userToken))
+        console.log(data.data.userToken, 'data.data.userToken');
+        
+        window.localStorage.setItem('token', data.data.userToken)
         capitalize(data.data.userName);
         this.user = data.data
         window.localStorage.setItem('user', JSON.stringify(data.data));
@@ -70,7 +72,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       try {
         const data = await axios.post(`/register`, objUser);
         objUser.userToken = data.data.userToken
-        window.localStorage.setItem('token', JSON.stringify(objUser.userToken))
+        window.localStorage.setItem('token', data.data.userToken)
         capitalize(data.data.userName);
         this.user = data.data
         window.localStorage.setItem('user', JSON.stringify(data.data));
@@ -87,7 +89,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       try {
         let token = localStorage.getItem('token');
         if (token) {
-          token = token.replace(/['"]+/g, '')
+          token = token
         } else {
           return false
         }
@@ -124,6 +126,24 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         console.log(error);
         
       }
+    },
+    async takeYearPlan () {
+      await axios.post('/create-plan')
+      .then(response => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+    },
+    async takeMonth () {
+      await axios.post('/create-suscription')
+      .then(response => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
     }
   }
 })

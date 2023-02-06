@@ -70,7 +70,7 @@ export default defineComponent({
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src =
-            'https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js';
+        'https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js';
         script.setAttribute('data-preference-id', '2c9380848616128e018624799ac20c34');
         const form = document.getElementById('el-padre');
         form.appendChild(script);

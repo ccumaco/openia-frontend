@@ -42,13 +42,17 @@
                         <i class='pi pi-arrow-left mr-2'></i>
                         volver
                     </div>
-                    <a class="btn" @click='store.takeMonth' href='https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'>Pagar</a>
+                    <div class="btn" @click='store.takeMonth' >Pagar</div>
                 </div>
             </div>
         </div>
     </div>
+    <div>
+        <div id='el-padre'>
+        </div>
+    </div>
 </template>
-<script lang='ts'>
+<script>
 
 import { defineComponent, onMounted, ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
@@ -60,9 +64,17 @@ export default defineComponent({
     onMounted(() => {
         store.validateToken()
     })
-
     const isPerYear = ref(false);
-
+      // con el preferenceId en mano, inyectamos el script de mercadoPago
+      onMounted(() => {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src =
+            'https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js';
+        script.setAttribute('data-preference-id', '2c9380848616128e018624799ac20c34');
+        const form = document.getElementById('el-padre');
+        form.appendChild(script);
+      })
     return {
         isPerYear,
         store

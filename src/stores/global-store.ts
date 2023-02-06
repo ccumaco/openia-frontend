@@ -137,12 +137,14 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       })
     },
     async takeMonth () {
-      await axios.post('/create-suscription')
+      await axios.post('/save-transaction')
       .then(response => {
         console.log(response);
+        window.location.href = 'https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'
       })
       .catch((e) => {
         console.log(e);
+        window.location.href = 'https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'
       })
     }
   }

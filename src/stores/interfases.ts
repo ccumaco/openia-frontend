@@ -1,9 +1,23 @@
 
+export interface GenerateEmail {
+    titlePrompt: String,
+    prompt: String,
+    language: String,
+    soft: String,
+  }
 export interface ObjectTextFree {
     titlePrompt: String,
     prompt: String,
     language: String,
     soft: String,
+  }
+export interface MakeArticle {
+    prompt: String,
+    language: String,
+    soft: String,
+    maxLength: number,
+    keyWords: string[],
+    generateSeoKeyWords: boolean
   }
 export interface ObjectTextSocial {
     prompt: String,
@@ -22,3 +36,4 @@ export interface ObjectTextSocial {
     userPassword: String,
     userToken?: String
   }
+  

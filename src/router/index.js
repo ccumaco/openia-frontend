@@ -69,6 +69,18 @@ const routes = [
     beforeEnter: guard
   },
   {
+    path: "/articles",
+    name: "articles",
+    component: () => import('../views/articles.vue'),
+    beforeEnter: guard
+  },
+  {
+    path: "/emails",
+    name: "emails",
+    component: () => import('../views/emails.vue'),
+    beforeEnter: guard
+  },
+  {
     path: "/free-style",
     name: "free-style",
     component: () => import('../views/free-style.vue'),

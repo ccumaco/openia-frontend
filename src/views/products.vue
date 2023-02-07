@@ -36,13 +36,13 @@ export default defineComponent({
                 title: 'Artículos',
                 icon: 'pi-comments',
                 description: 'Escribe todo un artículo para blog o contenido de tu sitio web con palabras optimizadas para SEO',
-                to: ''
+                to: 'articles'
             },
             {
                 title: 'Emails',
                 icon: 'pi-envelope',
                 description: 'Crea los textos de mails llamativos para enganchar a tu público en pocos segundos',
-                to: ''
+                to: 'emails'
             }
         ];
         return {

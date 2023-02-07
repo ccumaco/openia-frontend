@@ -6,7 +6,7 @@ import Loader from "../components/Loader.vue";
 import { copy } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
-  name: 'free style view',
+  name: 'emails view',
   components: { Loader },
   props: {},
   setup(props) {
@@ -19,10 +19,10 @@ export default defineComponent({
       toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
     }
     const objectText = reactive({
-      prompt: "haz un post de ropa",
+      titlePrompt: 'Carta de renuncia',
+      prompt: 'Dirigida a "carlos Cumaco"',
       language: "Español",
       soft: "Persuasivo",
-      titlePrompt: 'Resumen'
     });
     const lenguajeResponse = (e: any) => {
       objectText.language = e.target.value;
@@ -74,17 +74,17 @@ export default defineComponent({
             <i class='pi pi-arrow-left mr-2 mb-4'></i> Volver
         </router-link>
       <h2 class="container-social__content--title">
-        Estilo libre
+        crea un correo electrónico
       </h2>
       <p class="container-social__content--description">
-        Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites
+        Con esta plantilla genera borradores completos de correos electrónicos en cuestión de segundos, ahorra tiempo de redacción y asegúrate que tu comunicación sea clara y precisa.
       </p>
       <div class="input">
-        <label for="title">¿Qué quieres crear?</label>
+        <label for="title">Asunto del mail</label>
         <textarea
-          placeholder="Ej. Artículo, correo electrónico, carta, recomendación, resumen"
+          placeholder="Ej. Gran promoción de fin de año"
           v-model="objectText.titlePrompt"
-          @keyup.enter="store.freeStyle(objectText)"
+          @keyup.enter="store.generateEmail(objectText)"
           name="title"
           id="title"
           cols="30"
@@ -94,11 +94,11 @@ export default defineComponent({
         />
       </div>
       <div class="input">
-        <label for="prompt">Consulta</label>
+        <label for="prompt">¿Cuáles son los puntos principales del correo?</label>
         <textarea
-          placeholder="Ej.: Redacta una recomendación personal dirigida a XXX empresa con el fin de solicitar un cambio de plan en mi servicio de xxxxx a nombre de xxxxxx..."
+          placeholder="Ej.: Redacta un email dirigido a todos nuestros clientes, con el fin de ofrecer nuestra promoción de fin de año en mubles para el hogar"
           v-model="objectText.prompt"
-          @keyup.enter="store.freeStyle(objectText)"
+          @keyup.enter="store.generateEmail(objectText)"
           name="prompt"
           id="prompt"
           cols="30"
@@ -136,7 +136,7 @@ export default defineComponent({
       <button
         class="btn left"
         :disabled="store.loading"
-        @click="store.freeStyle(objectText)"
+        @click="store.generateEmail(objectText)"
       >
         Generar textos<i class="pi pi-arrow-right ml-3"></i>
       </button>
@@ -144,25 +144,25 @@ export default defineComponent({
     <div class="container-social__content">
       <p
         class="container-social__content--response pl-5 pr-5"
-        v-if='store.textFreeStyle.length'
-        @click="copy(store.textFreeStyle), showSuccess(store.textFreeStyle)"
+        v-if='store.textEmail.length'
+        @click="copy(store.textEmail), showSuccess(store.textEmail)"
       >
-        {{ store.textFreeStyle }}
+        {{ store.textEmail }}
 
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>
       <div
         class="container-social__content--loading"
-        v-if="store.textFreeStyle.length == 0"
+        v-if="store.textEmail.length == 0"
       >
-        <p v-if="store.loading && store.textFreeStyle.length == 0">
+        <p v-if="store.loading && store.textEmail.length == 0">
           Estamos Generando
           <span class="container-social__content--loading--big">
             Textos increibles para ti
           </span>
         </p>
-        <Loader v-if="store.loading && store.textFreeStyle.length == 0" />
-        <p v-if="store.textFreeStyle.length == 0 && !store.loading">
+        <Loader v-if="store.loading && store.textEmail.length == 0" />
+        <p v-if="store.textEmail.length == 0 && !store.loading">
           Aquí aparecerá tu texto cuando sea generado por Incopy
         </p>
       </div>

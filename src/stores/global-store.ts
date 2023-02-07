@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '../router'
 import { capitalize } from '../utils/index'
-import { ObjUser, ObjectTextSocial, ObjectTextFree } from './interfases'
+import { ObjUser, ObjectTextSocial, ObjectTextFree, MakeArticle, GenerateEmail } from './interfases'
 
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
@@ -12,6 +12,8 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       loading: false,
       user: {} as ObjUser,
       textFreeStyle: '',
+      textBlog: '',
+      textEmail: '',
     }
   },
   getters: {
@@ -147,6 +149,32 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = false
       return
     },
+    async generateEmail( objectEmail: GenerateEmail ) {
+      this.textEmail = '';
+      this.loading = true
+      try {
+        const data = await axios.post(`/generate-email`, objectEmail);
+        console.log(data);
+        
+        this.textEmail = data.data
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false
+      return
+    },
+    async makeArticle( objectTextSocial: MakeArticle ) {
+      this.textBlog = '';
+      this.loading = true
+      try {
+        const data = await axios.post('/generate-article', objectTextSocial);
+        this.textBlog = data.data
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false
+      return
+    }
   }
 })
 

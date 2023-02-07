@@ -61,6 +61,18 @@ const routes = [
     name: "register",
     component: () => import('../views/register.vue'),
     beforeEnter: guardLoginRegister
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: () => import('../views/products.vue'),
+    beforeEnter: guard
+  },
+  {
+    path: "/free-style",
+    name: "free-style",
+    component: () => import('../views/free-style.vue'),
+    beforeEnter: guard
   }
 ];
 

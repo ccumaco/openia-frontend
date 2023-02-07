@@ -6,24 +6,21 @@
       v-model:visible="showMessage"
       :breakpoints="{ '960px': '80vw' }"
       :style="{ width: '30vw' }"
-      position="top"
+      position="center"
     >
       <div class="flex align-items-center flex-column pt-6 px-3">
         <i
           class="pi pi-check-circle"
           :style="{ fontSize: '5rem', color: 'var(--green-500)' }"
         ></i>
-        <h5>Registration Successful!</h5>
+        <h5>Bienvenido de nuevo</h5>
         <p :style="{ lineHeight: 1.5, textIndent: '1rem' }">
-          Your account is registered under userName
-          <b>{{ objUser.userName }}</b> ; it'll be valid next 30 days without
-          activation. Please check <b>{{ objUser.userEmail }}</b> for activation
-          instructions.
+          <b>{{ store.user.userName }}</b>
         </p>
       </div>
       <template #footer>
         <div class="flex justify-content-center">
-          <Button @click="toggleDialog" class="p-button-text" label="oks" />
+          <router-link to='/social-media' class="btn">Comenzar</router-link>
         </div>
       </template>
     </Dialog>
@@ -138,6 +135,7 @@
         </form>
       </div>
     </div>
+    <Toast />
   </div>
 </template>
 
@@ -147,6 +145,7 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
+import { useToast } from "primevue/usetoast";
 export default {
   name: 'login',
   setup() {
@@ -155,6 +154,7 @@ export default {
       userEmail: "",
       userPassword: "",
     });
+    const toast = useToast();
     const modalRecoveryPassword = ref(false)
 
     const rules = {
@@ -164,17 +164,23 @@ export default {
     const submitted = ref(false);
     const showMessage = ref(false);
 
+    const showError = () => {
+      toast.add({severity:'error', summary: 'Ago ocurrio', detail: 'Contraseña o email invalido', life: 3000});
+    }
+
     const v$ = useVuelidate(rules, objUser);
 
     const handleSubmit = async (isFormValid) => {
       submitted.value = true;
+      
       if (!isFormValid) {
         return;
       }
       if (await store.login(objUser)) {
         toggleDialog();
+        return
       } else {
-        console.log('no pasa');
+        showError()
       }
     };
     const toggleDialog = () => {
@@ -199,7 +205,8 @@ export default {
       showMessage,
       store,
       hasHistory,
-      modalRecoveryPassword
+      modalRecoveryPassword,
+      showError
     };
   },
 };

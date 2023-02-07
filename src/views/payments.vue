@@ -141,10 +141,6 @@ export default defineComponent({
                     window.addEventListener("message", $MPC_message);
                 }
             })();
-
-            /*
-            // to receive event with message when closing modal from congrants back to site
-            */
 		});
 		return {
 			isPerYear,

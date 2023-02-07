@@ -1,0 +1,36 @@
+@import './../global-styles.scss';
+
+.container-products{
+    padding-top: 100px !important;
+    min-height: 100vh;
+    .container-cards{
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
+        .card{
+            border-radius: 5px;
+            border: 1px solid #0089ff;
+            padding: 20px;
+            color: $black;
+            text-decoration: none;
+            transition: all .2s linear;
+            &:hover{
+                transform: scale(1.02);
+            }
+            i{
+                color: orange;
+            }
+            .icon-big{
+                color: $black;
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+            .title{
+                font-size: 20px;
+            }
+            .description{
+                color: $text;
+            }
+        }
+    }
+}

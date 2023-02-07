@@ -20,23 +20,15 @@ export default defineComponent({
     }
     const objectText = reactive({
       prompt: "haz un post de ropa",
-      maxLength: 400,
-      top_p: 1,
       language: "Español",
       soft: "Persuasivo",
-      hashtag: [],
-      maxResponses: 3,
-      countHashtag: 1,
-      automaticHastag: true,
+      titlePrompt: 'Resumen'
     });
     const lenguajeResponse = (e: any) => {
       objectText.language = e.target.value;
     };
     const softMessage = (e: any) => {
       objectText.soft = e.target.value;
-    };
-    const maxLengthRespone = (e: any) => {
-      objectText.maxLength = e.target.value;
     };
     const languages = [
       "Español",
@@ -50,7 +42,6 @@ export default defineComponent({
       "Japonés",
       "Javanés",
     ];
-    const separatorExp = ref(/,| /);
 
     const softs = [
       "Persuasivo",
@@ -68,9 +59,7 @@ export default defineComponent({
       lenguajeResponse,
       softMessage,
       softs,
-      maxLengthRespone,
       copy,
-      separatorExp,
       showSuccess
     };
   },
@@ -81,19 +70,35 @@ export default defineComponent({
   <Toast />
   <div class="container-social">
     <div class="container-social__content">
+        <router-link to='/products'>
+            <i class='pi pi-arrow-left mr-2 mb-4'></i> Volver
+        </router-link>
       <h2 class="container-social__content--title">
-        Crea una publicación para redes sociales
+        Estilo libre
       </h2>
       <p class="container-social__content--description">
-        Con esta plantilla crea una publicación de manera fácil y rápida, solo
-        escribe tu idea y configura las opciones obtener el texto.
+        Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites
       </p>
+      <div class="input">
+        <label for="title">¿Qué quieres crear?</label>
+        <textarea
+          placeholder="Ej. Artículo, correo electrónico, carta, recomendación, resumen"
+          v-model="objectText.titlePrompt"
+          @keyup.enter="store.freeStyle(objectText)"
+          name="title"
+          id="title"
+          cols="30"
+          rows="1"
+          maxlength="300"
+          size="20"
+        />
+      </div>
       <div class="input">
         <label for="prompt">Consulta</label>
         <textarea
-          placeholder="Haz tu consulta"
+          placeholder="Ej.: Redacta una recomendación personal dirigida a XXX empresa con el fin de solicitar un cambio de plan en mi servicio de xxxxx a nombre de xxxxxx..."
           v-model="objectText.prompt"
-          @keyup.enter="store.searchWithText(objectText)"
+          @keyup.enter="store.freeStyle(objectText)"
           name="prompt"
           id="prompt"
           cols="30"
@@ -119,86 +124,19 @@ export default defineComponent({
             </option>
           </select>
         </div>
-        <div class="range">
-          <label for="range"
-            >Maximo de caracteres {{ objectText.maxLength }} / 1000</label
-          >
-          <input
-            type="range"
-            name="maxLength"
-            step="50"
-            id="maxLength"
-            min="100"
-            max="1000"
-            v-model="objectText.maxLength"
-            @input="maxLengthRespone($event)"
-            @change="maxLengthRespone($event)"
-          />
-        </div>
         <div class="select mt-3">
-          <label for="soft">Tono del mensaje</label>
+          <label for="soft">Estilo</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">
               {{ soft }}
             </option>
           </select>
         </div>
-        <div class="input mt-3">
-          <label class="outside" for="maxResponses">Propuestas de texto</label>
-          <input
-            placeholder="1"
-            v-model="objectText.maxResponses"
-            name="maxResponses"
-            id="maxResponses"
-            type="number"
-            min="1"
-            max="3"
-          />
-        </div>
       </div>
-
-      <div class="container-social__content__flex mt-3">
-        <div class="checkbox">
-          <input
-            type="checkbox"
-            name="automaticHastag"
-            id="automaticHastag"
-            v-model="objectText.automaticHastag"
-          />
-          <label for="automaticHastag"
-            >Agregar hashtags automáticamente optimizados para SEO</label
-          >
-        </div>
-        <div class="input">
-          <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
-          <input
-            placeholder="1"
-            v-model="objectText.countHashtag"
-            name="countHashtag"
-            id="countHashtag"
-            type="number"
-            min="1"
-            max="10"
-          />
-        </div>
-      </div>
-      <Chips
-        :separator="separatorExp"
-        class="mt-3"
-        v-model="objectText.hashtag"
-        placeholder="Ej.:#Electrodomesticos, #ArticulosDeAseo"
-        v-if="!objectText.automaticHastag"
-      >
-        <template #chip="slotProps">
-          <div>
-            <span>#{{ slotProps.value }}</span>
-          </div>
-        </template>
-      </Chips>
       <button
         class="btn left"
         :disabled="store.loading"
-        @click="store.searchWithText(objectText)"
+        @click="store.freeStyle(objectText)"
       >
         Generar textos<i class="pi pi-arrow-right ml-3"></i>
       </button>
@@ -206,26 +144,25 @@ export default defineComponent({
     <div class="container-social__content">
       <p
         class="container-social__content--response pl-5 pr-5"
-        v-for="(response, index) in store.responseText"
-        :key="index"
-        @click="copy(response), showSuccess(response)"
+        v-if='store.textFreeStyle.length'
+        @click="copy(store.textFreeStyle), showSuccess(store.textFreeStyle)"
       >
-        {{ response }}
+        {{ store.textFreeStyle }}
 
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>
       <div
         class="container-social__content--loading"
-        v-if="store.responseText.length == 0"
+        v-if="store.textFreeStyle.length == 0"
       >
-        <p v-if="store.loading && store.responseText.length == 0">
+        <p v-if="store.loading && store.textFreeStyle.length == 0">
           Estamos Generando
           <span class="container-social__content--loading--big">
             Textos increibles para ti
           </span>
         </p>
-        <Loader v-if="store.loading && store.responseText.length == 0" />
-        <p v-if="store.responseText.length == 0 && !store.loading">
+        <Loader v-if="store.loading && store.textFreeStyle.length == 0" />
+        <p v-if="store.textFreeStyle.length == 0 && !store.loading">
           Aquí aparecerá tu texto cuando sea generado por Incopy
         </p>
       </div>

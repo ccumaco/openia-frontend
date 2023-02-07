@@ -2,24 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '../router'
 import { capitalize } from '../utils/index'
-interface ObjectText {
-  prompt: String,
-  maxLength: number,
-  top_p: number,
-  language: String,
-  soft: String,
-  hashtag: string[],
-  maxResponses: number,
-  countHashtag: number,
-  automaticHastag: boolean
-}
-
-interface ObjUser {
-  userName: string,
-  userEmail: String,
-  userPassword: String,
-  userToken?: String
-}
+import { ObjUser, ObjectTextSocial, ObjectTextFree } from './interfases'
 
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
@@ -27,7 +10,8 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       apiURL: import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD,
       responseText: [] as string[],
       loading: false,
-      user: {} as ObjUser
+      user: {} as ObjUser,
+      textFreeStyle: '',
     }
   },
   getters: {
@@ -35,11 +19,11 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     getUser: (state) => state.user,
   },
   actions: {
-    async searchWithText( objectText: ObjectText ) {
+    async searchWithText( objectTextSocial: ObjectTextSocial ) {
       this.responseText = [];
       this.loading = true
       try {
-        const data = await axios.post(`/generateText`, objectText);
+        const data = await axios.post(`/generate-text-social`, objectTextSocial);
         this.responseText = data.data
       } catch (error) {
         console.error(error);
@@ -51,16 +35,16 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`/login`, objUser);
-        objUser.userToken = data.data.userToken
-        console.log(data.data.userToken, 'data.data.userToken');
-        
-        window.localStorage.setItem('token', data.data.userToken)
-        capitalize(data.data.userName);
-        this.user = data.data
-        window.localStorage.setItem('user', JSON.stringify(data.data));
-        router.push("/social-media")
-        this.loading = false
-        return true
+        if (data.status == 200) {
+          objUser.userToken = data.data.userToken
+          console.log(data.data.userToken, 'data.data.userToken');
+          window.localStorage.setItem('token', data.data.userToken)
+          capitalize(data.data.userName);
+          this.user = data.data
+          window.localStorage.setItem('user', JSON.stringify(data.data));
+          this.loading = false
+          return true
+        }
       } catch (error) {
         console.error(error);
         this.loading = false
@@ -71,13 +55,15 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`/register`, objUser);
-        objUser.userToken = data.data.userToken
-        window.localStorage.setItem('token', data.data.userToken)
-        capitalize(data.data.userName);
-        this.user = data.data
-        window.localStorage.setItem('user', JSON.stringify(data.data));
-        this.loading = false
-        return true
+        if (data.status == 200) {
+          objUser.userToken = data.data.userToken
+          window.localStorage.setItem('token', data.data.userToken)
+          capitalize(data.data.userName);
+          this.user = data.data
+          window.localStorage.setItem('user', JSON.stringify(data.data));
+          this.loading = false
+          return true
+        }
       } catch (error) {
         console.error(error);
         this.loading = false
@@ -146,7 +132,21 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         console.log(e);
         window.location.href = 'https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'
       })
-    }
+    },
+    async freeStyle( objectTextFree: ObjectTextFree ) {
+      this.textFreeStyle = '';
+      this.loading = true
+      try {
+        const data = await axios.post(`/generate-text-free`, objectTextFree);
+        console.log(data);
+        
+        this.textFreeStyle = data.data
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false
+      return
+    },
   }
 })
 

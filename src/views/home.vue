@@ -27,7 +27,6 @@
         </div>
       </div>
     </div>
-    <router-link to="/social-media">social media</router-link>
   </div>
 </template>
 

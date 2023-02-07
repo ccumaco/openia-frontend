@@ -24,7 +24,7 @@ export default defineComponent({
                 title: 'Estilo libre',
                 icon: 'pi-book',
                 description: 'Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites',
-                to: ''
+                to: 'free-style'
             },
             {
                 title: 'Redes sociales',

@@ -61,21 +61,33 @@
 						<i class="pi pi-arrow-left mr-2"></i>
 						volver
 					</div>
+					<a
+						mp-mode="dftl"
+						href="https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c938084862672420186346676d50f5c"
+						name="MP-payButton"
+						class="btn"
+						target='_parent'
+						>Suscribirme</a
+					>
 					<div class="btn" @click="store.takeMonth">Pagar</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div>
-		<a
-			mp-mode="dftl"
-			href="https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e018624799ac20c34"
-			name="MP-payButton"
-			class="blue-ar-l-rn-none"
-			>Suscribirme</a
-		>
-
-		<div id="page-content"></div>
+		<!-- Step #2 -->
+		<form id="form-checkout" >
+			<input type="text" name="cardNumber" id="form-checkout__cardNumber" :placeholder='cardForm.form' />
+			<input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+			<input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+			<input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
+			<input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
+			<input type="text" name="securityCode" id="form-checkout__securityCode" />
+			<select name="issuer" id="form-checkout__issuer"></select>
+			<select name="identificationType" id="form-checkout__identificationType"></select>
+			<input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
+			<select name="installments" id="form-checkout__installments"></select>
+			<button type="submit" id="form-checkout__submit">Pagar</button>
+			<progress value="0" class="progress-bar">Cargando...</progress>
+		</form>
 	</div>
 </template>
 
@@ -87,64 +99,119 @@ export default defineComponent({
 	props: {},
 	setup() {
 		const store = useOpenIaStore();
+		const mp = new MercadoPago('TEST-173adfa9-11ef-4f80-8864-ebc8100fe0d9');
+		const isPerYear = ref(true)
 		onMounted(() => {
 			store.validateToken();
-			window.$MPC_loaded !== true &&
-				function () {
-					var s = document.createElement('script');
-					s.type = 'text/javascript';
-					s.async = true;
-					s.src =
-						document.location.protocol +
-						'//secure.mlstatic.com/mptools/render.js';
-					var x = document.getElementsByTagName('script')[0];
-					x.parentNode.insertBefore(s, x);
-					window.$MPC_loaded = true;
-				};
-                // to receive event with message when closing modal from congrants back to site  
-            function $MPC_message(event) {
-                // onclose modal ->CALLBACK FUNCTION
-                // !!!!!!!!FUNCTION_CALLBACK HERE Received message: {event.data} preapproval_id !!!!!!!!
-            
-            }
-            window.$MPC_loaded !== true ? (window.addEventListener("message", $MPC_message)) : null;
+			console.log(document.getElementById('form-checkout'));
+		})
+		// Step #3
+		const cardForm = setTimeout(() => {
+			mp.cardForm({
+		amount: "16500",
+		autoMount: true,
+		form: {
+			id: "form-checkout",
+			cardholderName: {
+			id: "form-checkout__cardholderName",
+			placeholder: "Titular de la tarjeta",
+			},
+			cardholderEmail: {
+			id: "form-checkout__cardholderEmail",
+			placeholder: "E-mail",
+			},
+			cardNumber: {
+			id: "form-checkout__cardNumber",
+			placeholder: "Número de la tarjeta",
+			},
+			cardExpirationMonth: {
+			id: "form-checkout__cardExpirationMonth",
+			placeholder: "Mes de vencimiento",
+			},
+			cardExpirationYear: {
+			id: "form-checkout__cardExpirationYear",
+			placeholder: "Año de vencimiento",
+			},
+			securityCode: {
+			id: "form-checkout__securityCode",
+			placeholder: "Código de seguridad",
+			},
+			installments: {
+			id: "form-checkout__installments",
+			placeholder: "Cuotas",
+			},
+			identificationType: {
+			id: "form-checkout__identificationType",
+			placeholder: "Tipo de documento",
+			},
+			identificationNumber: {
+			id: "form-checkout__identificationNumber",
+			placeholder: "Número de documento",
+			},
+			issuer: {
+			id: "form-checkout__issuer",
+			placeholder: "Banco emisor",
+			},
+		},
+		callbacks: {
+			onFormMounted: error => {
+			if (error) return console.warn("Form Mounted handling error: ", error);
+			console.log("Form mounted");
+			},
+			onSubmit: event => {
+			event.preventDefault();
+
+			const {
+				paymentMethodId: payment_method_id,
+				issuerId: issuer_id,
+				cardholderEmail: email,
+				amount,
+				token,
+				installments,
+				identificationNumber,
+				identificationType,
+			} = cardForm.getCardFormData();
+
+			fetch("/process_payment", {
+				method: "POST",
+				headers: {
+				"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+				token,
+				issuer_id,
+				payment_method_id,
+				transaction_amount: Number(amount),
+				installments: Number(installments),
+				description: "Descripción del producto",
+				payer: {
+					email,
+					identification: {
+					type: identificationType,
+					number: identificationNumber,
+					},
+				},
+				}),
+			});
+			},
+			onFetching: (resource) => {
+			console.log("Fetching resource: ", resource);
+
+			// Animate progress bar
+			const progressBar = document.querySelector(".progress-bar");
+			progressBar.removeAttribute("value");
+
+			return () => {
+				progressBar.setAttribute("value", "0");
+			};
+			},
+		},
 		});
-		const isPerYear = ref(false);
-		// con el preferenceId en mano, inyectamos el script de mercadoPago
-		onMounted(() => {
-            (function() {
-                function $MPC_load() {
-                if (window.$MPC_loaded !== true) {
-                    var s = document.createElement("script");
-                    s.type = "text/javascript";
-                    s.async = true;
-                    s.src = document.location.protocol + "//secure.mlstatic.com/mptools/render.js";
-                    var x = document.getElementsByTagName('script')[0];
-                    x.parentNode.insertBefore(s, x);
-                    window.$MPC_loaded = true;
-                }
-                }
-                
-                if (window.$MPC_loaded !== true) {
-                if (window.attachEvent) {
-                    window.attachEvent('onload', $MPC_load);
-                } else {
-                    window.addEventListener('load', $MPC_load, false);
-                }
-                }
-                function $MPC_message(event) {
-                    // onclose modal ->CALLBACK FUNCTION
-                    // !!!!!!!!FUNCTION_CALLBACK HERE Received message: {event.data} preapproval_id !!!!!!!!
-                }
-    
-                if (window.$MPC_loaded !== true) {
-                    window.addEventListener("message", $MPC_message);
-                }
-            })();
-		});
+		}, 100);
 		return {
 			isPerYear,
 			store,
+			cardForm
 		};
 	},
 });

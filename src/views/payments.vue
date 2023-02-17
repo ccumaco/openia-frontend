@@ -85,9 +85,10 @@
 			<select name="identificationType" id="form-checkout__identificationType"></select>
 			<input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
 			<select name="installments" id="form-checkout__installments"></select>
-			<button type="submit" id="form-checkout__submit">Pagar</button>
+			<button type="submit" id="form-checkout__submit" @click='saludo()'>Pagar</button>
 			<progress value="0" class="progress-bar">Cargando...</progress>
 		</form>
+		{{ cardForm }}
 	</div>
 </template>
 
@@ -103,7 +104,6 @@ export default defineComponent({
 		const isPerYear = ref(true)
 		onMounted(() => {
 			store.validateToken();
-			console.log(document.getElementById('form-checkout'));
 		})
 		// Step #3
 		const cardForm = setTimeout(() => {
@@ -208,10 +208,17 @@ export default defineComponent({
 		},
 		});
 		}, 100);
+		// setTimeout(() => {
+		// 	console.log();
+		// }, 200);
+		const saludo =() => {
+			console.log('holiwis');
+		}
 		return {
 			isPerYear,
 			store,
-			cardForm
+			cardForm,
+			saludo
 		};
 	},
 });

@@ -19,7 +19,7 @@
       <template #footer>
         <div class="flex justify-content-center">
           <!-- i need create validation if have an account -->
-          <router-link class='btn' to='/payments'>Continuar</router-link>
+          <router-link class='btn' to='/products'>Continuar</router-link>
         </div>
       </template>
     </Dialog>

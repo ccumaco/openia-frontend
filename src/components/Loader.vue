@@ -1,10 +1,13 @@
 <template>
-  <span class="loader"></span>
+  <div class='content-loader'>
+    <span class="loader"></span>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent} from 'vue';
 export default defineComponent({
+  name: 'loader',
   setup(props) {
   },
 })
@@ -12,29 +15,37 @@ export default defineComponent({
 
 <style lang='scss' scoped>
 @import '../styles/global-styles.scss';
-.loader {
-    animation: rotate 1s infinite;
-    height: 50px;
-    width: 50px;
-    &::before,&::after{
-      border-radius: 50%;
-      content: "";
-      display: block;
-      height: 20px;
-      width: 20px;
+.content-loader{
+  min-height: 70px;
+  width: fit-content;
+  margin: 20px auto;
+  padding: 0 50px 0 0;
+  text-align: center;
+  .loader {
+      animation: rotate 1s infinite;
+      height: 50px;
+      width: 50px;
+      min-height: 100px;
+      &::before,&::after{
+        border-radius: 50%;
+        content: "";
+        display: block;
+        height: 20px;
+        width: 20px;
+      }
+      &::before{
+        animation: ball1 1s infinite;
+        background-color: #fff;
+        box-shadow: 30px 0 0 $primary-color;
+        margin-bottom: 10px;
+      }
+      &::after{
+        animation: ball2 1s infinite;
+        background-color: $primary-color;
+        box-shadow: 30px 0 0 #fff;
+      }
     }
-    &::before{
-      animation: ball1 1s infinite;
-      background-color: #fff;
-      box-shadow: 30px 0 0 $primary-color;
-      margin-bottom: 10px;
-    }
-    &::after{
-      animation: ball2 1s infinite;
-      background-color: $primary-color;
-      box-shadow: 30px 0 0 #fff;
-    }
-  }
+}
 
   @keyframes rotate {
     0% { transform: rotate(0deg) scale(0.8) }

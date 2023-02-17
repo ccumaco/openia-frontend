@@ -70,11 +70,11 @@ export default defineComponent({
   <Toast />
   <div class="container-social">
     <div class="container-social__content">
-        <router-link to='/products'>
-            <i class='pi pi-arrow-left mr-2 mb-4'></i> Volver
+      <router-link to='/products' class='arrow-back'>
+            <i class='pi pi-arrow-left mr-2 '></i> Volver
         </router-link>
-      <h2 class="container-social__content--title">
-        crea un correo electrónico
+      <h2 class="container-social__content--title mt-3">
+        <img src="@/assets/email.png" alt="pencil" class='mr-2'> Crea un correo electrónico
       </h2>
       <p class="container-social__content--description">
         Con esta plantilla genera borradores completos de correos electrónicos en cuestión de segundos, ahorra tiempo de redacción y asegúrate que tu comunicación sea clara y precisa.
@@ -153,15 +153,20 @@ export default defineComponent({
       </p>
       <div
         class="container-social__content--loading"
+        :class='store.textEmail.length == 0 && store.loading ? "active" : ""'
         v-if="store.textEmail.length == 0"
       >
-        <p v-if="store.loading && store.textEmail.length == 0">
-          Estamos Generando
-          <span class="container-social__content--loading--big">
+        <div v-if="store.loading && store.textEmail.length == 0">
+          <p>
+            Estamos Generando
+          </p>
+          <p class="container-social__content--loading--big">
             Textos increibles para ti
-          </span>
-        </p>
-        <Loader v-if="store.loading && store.textEmail.length == 0" />
+          </p>
+
+          <Loader/>
+          <p>esto puede tardar 30s aproximadamente</p>
+        </div>
         <p v-if="store.textEmail.length == 0 && !store.loading">
           Aquí aparecerá tu texto cuando sea generado por Incopy
         </p>

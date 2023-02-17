@@ -4,27 +4,16 @@
 			<router-link to="/" class="logo">Incopy</router-link>
 			<div class="primary-nav--rigth">
 				<router-link v-if="store.user.userToken == null" to="/login">
-					<i class="pi pi-user mr-1"></i> Iniciar sesión
+					 Iniciar sesión
 				</router-link>
 				<p v-else class="flex align-items-center">
-					Bienvenido {{ store.user.userName }}
-            <Avatar
-            shape='circle'
-            icon='pi pi-user'
-						type="button"
-						@click="toggle"
-						aria-haspopup="true"
-						aria-controls="overlay_menu"
-            class='ml-2'
-					/>
-					<Menu :model="routes" :popup="true" ref="menu" />
+					Bienvenido {{ store.user.userName }} <i class="pi pi-user ml-2"></i>
+					<p @click="toggle" aria-haspopup="true"
+						aria-controls="overlay_menu" class='ml-4 menu'>Menú  <i class='pi pi-bars'></i></p>
+					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
 				</p>
 
-				<router-link
-					v-if="store.user.userToken == null"
-					to="/register"
-					class="primary-nav--register"
-				>
+				<router-link v-if="store.user.userToken == null" to="/register" class="primary-nav--register">
 					Crear cuenta
 				</router-link>
 				<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
@@ -51,9 +40,9 @@ export default {
 			// 	to: '/help',
 			// },
 			{
-				label: 'Social media',
+				label: 'Productos',
 				icon: 'pi pi-book',
-				to: '/social-media',
+				to: '/products',
 			},
 			{
 				label: 'Cerrar sesion',
@@ -111,6 +100,13 @@ export default {
 	a {
 		text-decoration: none;
 		color: $white;
+	}
+	.menu{
+		cursor: pointer;
+		i{
+			font-size: 20px;
+			vertical-align: middle;
+		}
 	}
 }
 </style>

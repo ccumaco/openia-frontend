@@ -1,11 +1,15 @@
 @import './styles/global-styles.scss';
 @font-face {
   font-family: "Roboto";
-  src: url(./assets/fonts/Roboto-Regular.ttf);
+  src: url(./assets/fonts/Roboto-Light.ttf);
 }
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Roboto;
+}
+p,a,li,span,i{
+  font-size: 16px;
+  vertical-align: middle;
 }

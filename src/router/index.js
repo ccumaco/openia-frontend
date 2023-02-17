@@ -20,7 +20,7 @@ const guardLoginRegister = async (to, from, next) => {
   if (await store.validateToken() == false) {
     next()
   } else {
-    return next('/social-media');
+    return next('/products');
   }
 }
 const routes = [
@@ -34,11 +34,11 @@ const routes = [
     name: "Home",
     component: () => import('../views/home.vue'),
   },
-  {
-    path: "/payments",
-    name: "Payments",
-    component: () => import('../views/payments.vue'),
-  },
+  // {
+  //   path: "/payments",
+  //   name: "Payments",
+  //   component: () => import('../views/payments.vue'),
+  // },
   {
     path: "/profile",
     name: "profile",

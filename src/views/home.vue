@@ -3,7 +3,7 @@
     <h1 class="hidden">INCOPY</h1>
     <div class="wrapper gift-background">
       <video width="100%" autoplay muted loop>
-        <source src="/src/assets/video-background.mp4" type="video/mp4">
+        <source src="../../public/video-background.mp4" type="video/mp4">
         Your browser does not support HTML video.
       </video>
       <div class="gift__container">
@@ -19,7 +19,7 @@
       <h3>¿Que puedes hacer con incopy?</h3>
       <div class="container-cards">
         <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
-          <img :src="`/src/assets/${card.image}`" :alt="card.alt" />
+          <img :src="`../../public/${card.image}`" :alt="card.alt" />
           <div class="container-cards--card--content">
             <h4>{{ card.title }}</h4>
             <p>{{ card.description }}</p>

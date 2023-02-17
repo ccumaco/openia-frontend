@@ -74,7 +74,7 @@ export default defineComponent({
             <i class='pi pi-arrow-left mr-2 '></i> Volver
         </router-link>
       <h2 class="container-social__content--title mt-3">
-        <img src="@/assets/pencil.png" alt="pencil" class='mr-2'> Estilo libre
+        <img src="../../public/pencil.png" alt="pencil" class='mr-2'> Estilo libre
       </h2>
       <p class="container-social__content--description">
         Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites
@@ -94,7 +94,7 @@ export default defineComponent({
         />
       </div>
       <div class="input">
-        <label for="prompt">Consulta</label>
+        <label for="prompt">¿Cuáles son los puntos principales del contenido?</label>
         <textarea
           placeholder="Ej.: Redacta una recomendación personal dirigida a XXX empresa con el fin de solicitar un cambio de plan en mi servicio de xxxxx a nombre de xxxxxx..."
           v-model="objectText.prompt"

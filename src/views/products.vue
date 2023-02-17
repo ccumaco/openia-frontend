@@ -3,7 +3,7 @@
         <h1 class='title-page mb-3'>Comienza ahora</h1>
         <div class="container-cards">
             <router-link class="card" v-for='(product, index) in products' :key='index' :to='product.to'>
-                <img :src="`/images/${product.image}.png`" alt="pencil" class='mr-2'>
+                <img :src="`//images/${product.image}.png`" alt="pencil" class='mr-2'>
                 <h2 class='title'>{{ product.title }}</h2>
                 <p class="description mt-3">
                     {{ product.description }}

@@ -85,7 +85,7 @@ export default defineComponent({
             <i class='pi pi-arrow-left mr-2 '></i> Volver
         </router-link>
         <h2 class="container-social__content--title mt-3">
-        <img src="//images/redes-sociales.png" alt="pencil" class='mr-2'> Crea una publicación para redes sociales
+        <img src="/images/redes-sociales.png" alt="pencil" class='mr-2'> Crea una publicación para redes sociales
       </h2>
       <p class="container-social__content--description">
         Con esta plantilla crea una publicación de manera fácil y rápida, solo

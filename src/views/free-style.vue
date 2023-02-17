@@ -74,7 +74,7 @@ export default defineComponent({
             <i class='pi pi-arrow-left mr-2 '></i> Volver
         </router-link>
       <h2 class="container-social__content--title mt-3">
-        <img src="/public/images/pencil.png" alt="pencil" class='mr-2'> Estilo libre
+        <img src="images/pencil.png" alt="pencil" class='mr-2'> Estilo libre
       </h2>
       <p class="container-social__content--description">
         Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites

@@ -67,6 +67,7 @@ export default defineComponent({
 </script>
 
 <template>
+  
   <Toast />
   <div class="container-social">
     <div class="container-social__content">

@@ -11,7 +11,6 @@ export default defineConfig({
     }
   },
   build: {
-    assetsInlineLimit: 0,
-    ssr: '/'
+    assetsInlineLimit: 0
   }
 })

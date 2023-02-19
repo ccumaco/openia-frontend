@@ -26,6 +26,59 @@
           </div>
         </div>
       </div>
+				<div v-if='false' class="btn-container flex justify-content-center mt-4">
+					<label class="switch btn-color-mode-switch">
+						<input
+							v-model="isPerYear"
+							type="checkbox"
+							name="color_mode"
+							id="color_mode"
+							value="1"
+						/>
+						<label
+							for="color_mode"
+							data-on="Mensual"
+							data-off="Anual (Ahorra 25%)"
+							class="btn-color-mode-switch-inner"
+						></label>
+					</label>
+				</div>
+				<div v-if="false" class="card-plan">
+					<h2>Plan</h2>
+					<h3 class="price">$37.500/mes</h3>
+
+					<p class="context">
+						Perfecto para cualquier persona y empresas que manejen textos cortos
+						como redes sociales, mails, introducciones sencillas, descripciones,
+						anuncios.
+					</p>
+					<ul>
+						<li>Palabras ilimitadas</li>
+						<li>Diversas plantillas</li>
+						<li>Optimización SEO</li>
+						<li>Lista de consejos para textos</li>
+						<li>+26 idiomas de trabajo</li>
+						<li>Soporte por whatsapp o mail</li>
+					</ul>
+				</div>
+				<div v-if="false" class="card-plan">
+					<h2>Plan</h2>
+					<h3 class="price">$37.500/Año</h3>
+
+					<p class="context">
+						Perfecto para cualquier persona y empresas que manejen textos cortos
+						como redes sociales, mails, introducciones sencillas, descripciones,
+						anuncios.
+					</p>
+					<ul>
+						<li>Palabras ilimitadas</li>
+						<li>Diversas plantillas</li>
+						<li>Optimización SEO</li>
+						<li>Lista de consejos para textos</li>
+						<li>+26 idiomas de trabajo</li>
+						<li>Soporte por whatsapp o mail</li>
+					</ul>
+				</div>
     </div>
   </div>
 </template>
@@ -36,7 +89,8 @@ export default defineComponent({
   name: 'home',
   components: {},
   methods: {},
-  setup(props) {
+  setup (props) {
+    const isPerYear = ref(true)
     const cardsInfo = [
       {
         image: 'speed.png',
@@ -97,7 +151,8 @@ export default defineComponent({
       cities,
       selectedCity,
       showModal,
-      modal
+      modal,
+      isPerYear
     }
   },
 });

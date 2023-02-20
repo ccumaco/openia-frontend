@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="hidden">INCOPY</h1>
+    <h1 class="hidden">Arquitext</h1>
     <div class="wrapper gift-background">
       <video width="100%" autoplay muted loop>
         <source src="/images/video-background.mp4" type="video/mp4">
@@ -15,8 +15,8 @@
       </div>
       <router-link to='/register' class='btn'>Comienza ahora</router-link>
     </div>
-    <div class="container">
-      <h3>¿Que puedes hacer con incopy?</h3>
+    <div class="container-white container">
+      <h3>¿Que puedes hacer con Arquitext?</h3>
       <div class="container-cards">
         <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
           <img :src="`/images/${card.image}`" :alt="card.alt" />

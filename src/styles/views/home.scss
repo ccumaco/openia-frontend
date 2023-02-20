@@ -45,8 +45,6 @@
     }
 }
 .container{
-    position: relative;
-    top: -40px;
     h3{
         text-align: center;
         background-color: $white;
@@ -56,15 +54,27 @@
         margin: 0 auto;
         color: $primary-color;
     }
+    &-white{
+        position: relative;
+        top: -40px;
+    }
     &-cards{
         display: grid;
         grid-gap: 20px;
         grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
         margin-top: 50px;
+        @include screen("sm"){
+            margin-top: 0;
+            grid-template-columns: (repeat(auto-fill, minmax(calc(100% - 20px),1fr)));
+        }
         &--card{
             display: flex;
             align-items: center;
             gap: 20px;
+            @include screen("md"){
+                flex-direction: column;
+                text-align: center;
+            }
             &--content{
                 h4{
                     margin: 10px 0;

@@ -129,6 +129,9 @@
             </router-link>
             <button class="btn" :disabled="store.loading" type='submit'>Continuar</button>
           </div>
+          <router-link class='text-center my-4 block' to='/register'>
+              No tengo una cuenta 
+          </router-link>
           <p class='text-center forgot-password my-4' @click='modalRecoveryPassword  = !modalRecoveryPassword'>
               Olvide mi contraseña
           </p>

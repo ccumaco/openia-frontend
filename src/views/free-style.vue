@@ -169,7 +169,7 @@ export default defineComponent({
           <p>esto puede tardar 30s aproximadamente</p>
         </div>
         <p v-if="store.textFreeStyle.length == 0 && !store.loading">
-          Aquí aparecerá tu texto cuando sea generado por Incopy
+          Aquí aparecerá tu texto cuando sea generado por Arquitext
         </p>
       </div>
     </div>

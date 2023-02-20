@@ -5,8 +5,15 @@
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
     max-height: calc(100vh - 50px);
+    @include screen("sm"){
+        grid-template-columns: (repeat(auto-fill, minmax(calc(100% - 20px),1fr)));
+        max-height: none;
+    }
     &__content{
         min-height: calc(100vh - 50px);
+        @include screen("sm"){
+            min-height: auto;
+        }
         &:first-child{
             padding: 50px 20px;
             max-width: 700px;
@@ -16,6 +23,7 @@
             overflow-y: auto;
             background-color: #D6DBEA2E;
             position: relative;
+            min-height: 400px;
         }
         &--title{
             color: #6E6E6E;
@@ -53,6 +61,9 @@
             width: 100%;
             height: calc(100vh - 20px);
             margin-top: 100px;
+            @include screen("sm"){
+                height: auto;
+            }
             &--big{
                 display: block;
                 font-size: 30px;

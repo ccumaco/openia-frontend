@@ -1,22 +1,44 @@
 <template>
 	<div>
 		<nav class="primary-nav">
-			<router-link to="/" class="logo">Incopy</router-link>
-			<div class="primary-nav--rigth">
-				<router-link v-if="store.user.userToken == null" to="/login">
-					 Iniciar sesión
-				</router-link>
-				<p v-else class="flex align-items-center">
-					Bienvenido {{ store.user.userName }} <i class="pi pi-user ml-2"></i>
-					<p @click="toggle" aria-haspopup="true"
-						aria-controls="overlay_menu" class='ml-4 menu'>Menú  <i class='pi pi-bars'></i></p>
+			<div class="container">
+				<router-link to="/" class="logo">Arquitext</router-link>
+				<i class='pi pi-bars open-menu' @click='showMenu = !showMenu'></i>
+				<div class="primary-nav--rigth">
+					<router-link v-if="store.user.userToken == null" to="/login">
+						Iniciar sesión
+					</router-link>
+					<p v-else class="flex align-items-center">
+						Bienvenido {{ store.user.userName }} <i class="pi pi-user ml-2"></i>
+					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú <i
+							class='pi pi-bars'></i></p>
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
-				</p>
+					</p>
 
-				<router-link v-if="store.user.userToken == null" to="/register" class="primary-nav--register">
-					Crear cuenta
-				</router-link>
-				<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
+					<router-link v-if="store.user.userToken == null" to="/register" class="primary-nav--register">
+						Crear cuenta
+					</router-link>
+					<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
+				</div>
+				<div class="mobile-menu" :class='showMenu ? "active" : ""'>
+					<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
+						<p>{{ store.user.userName }}</p>
+						<span>X</span>
+					</div>
+					<router-link v-if="store.user.userToken == null" to="/login" @click='showMenu = !showMenu'>
+						Iniciar sesión
+					</router-link>
+					<template v-for='(item, index) of routes' >
+						<router-link v-if="store.user.userToken" :to='`${item.to}`' @click='showMenu = !showMenu'>
+							{{ item.label }}
+						</router-link>
+					</template>
+
+					<router-link v-if="store.user.userToken == null" to="/register" class="mobile-menu--create"
+						@click='showMenu = !showMenu'>
+						Crear cuenta
+					</router-link>
+				</div>
 			</div>
 		</nav>
 	</div>
@@ -28,6 +50,7 @@ import { useOpenIaStore } from '../stores/global-store';
 export default {
 	setup() {
 		const store = useOpenIaStore();
+		const showMenu = ref(false);
 		const routes = [
 			{
 				label: 'Cuenta',
@@ -49,6 +72,7 @@ export default {
 				icon: 'pi pi-sign-out',
 				command: () => {
 					store.logout()
+					showMenu.value = !showMenu.value
 				}
 			},
 		];
@@ -61,6 +85,7 @@ export default {
 			routes,
 			toggle,
 			menu,
+			showMenu
 		};
 	},
 };
@@ -70,16 +95,19 @@ export default {
 @import '../styles/global-styles.scss';
 
 .primary-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	background: #000000d9;
-	position: fixed;
-	top: 0;
-	padding: 10px 30px;
 	width: 100%;
+	padding: 10px 30px;
+	top: 0;
+	position: fixed;
 	z-index: 3;
-	color: $white;
+
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: $white;
+	}
 
 	&--register {
 		vertical-align: middle;
@@ -91,6 +119,10 @@ export default {
 		display: flex;
 		align-items: center;
 		gap: 40px;
+
+		@include screen("sm") {
+			display: none;
+		}
 	}
 
 	.logo {
@@ -101,12 +133,64 @@ export default {
 		text-decoration: none;
 		color: $white;
 	}
-	.menu{
+
+	.menu {
 		cursor: pointer;
-		i{
+
+		i {
 			font-size: 20px;
 			vertical-align: middle;
 		}
 	}
 }
-</style>
+
+.mobile-menu {
+	display: none;
+
+	@include screen("sm") {
+		display: block;
+		position: absolute;
+		height: 100vh;
+		top: 0;
+		width: 50%;
+		transition: all .3s linear;
+		background: $white;
+		display: flex;
+		flex-direction: column;
+		right: -100%;
+
+		&.active {
+			right: 0;
+		}
+
+		a {
+			text-align: center;
+			padding: 20px;
+			color: $white;
+			border-bottom: 1px solid $white;
+			background-color: $primary-color;
+			transition: all .3s linear;
+
+			&:target {
+				background: rgba($color: $primary-color, $alpha: .7);
+			}
+		}
+
+		.close {
+			color: $black;
+			display: block;
+			text-align: right;
+			padding: 10px 20px;
+			font-size: 20px;
+			font-weight: bold;
+		}
+	}
+}
+
+.open-menu {
+	display: none !important;
+
+	@include screen("sm") {
+		display: block !important;
+	}
+}</style>

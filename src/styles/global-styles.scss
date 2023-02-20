@@ -5,6 +5,35 @@ $black: #000;
 $white: #fff;
 $orange: #FFA702;
 
+
+@mixin screen($size) {
+    @if $size == "xs" {
+        @media (max-width: 575px) {
+            @content;
+        }
+    } @else if $size == "sm" {
+        @media (max-width: 767px) {
+            @content;
+        }
+    } @else if $size == "md" {
+        @media (max-width: 991px) {
+            @content;
+        }
+    } @else if $size == "lg" {
+        @media (max-width: 1199px) {
+            @content;
+        }
+    } @else if $size == "xl" {
+        @media (max-width: 1599px) {
+            @content;
+        }
+    }
+  }
+#app{
+	max-width: 100vw;
+	overflow-x: hidden;
+}
+
 .container {
 	max-width: 1500px;
 	padding: 0 10px;
@@ -54,6 +83,9 @@ a {
 	transition: all 0.3s linear;
 	font-size: 16px;
 	text-decoration: none;
+	@include screen("sm"){
+		padding: 12px 30px;
+	}
 	i {
 		vertical-align: middle;
 	}
@@ -234,3 +266,4 @@ div.btn-container {
 		margin-right: #{$i * 8}px;
 	}
 }
+

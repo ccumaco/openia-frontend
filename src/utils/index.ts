@@ -30,4 +30,12 @@ export const capitalize = (str: string) => {
       return ''
     }
 }
+
+export const makeScroll = () => {
+  const content = document.querySelectorAll('.container-social__content')
+  if (content) {
+    content[1].scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 export const hasHistory = () => window.history.length > 2

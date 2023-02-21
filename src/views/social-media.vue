@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import { copy } from "../utils/index";
+import { copy, makeScroll } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
   name: 'social-media',
@@ -71,7 +71,8 @@ export default defineComponent({
       maxLengthRespone,
       copy,
       separatorExp,
-      showSuccess
+      showSuccess,
+      makeScroll
     };
   },
 });
@@ -201,7 +202,7 @@ export default defineComponent({
       <button
         class="btn left"
         :disabled="store.loading"
-        @click="store.searchWithText(objectText)"
+        @click="store.searchWithText(objectText), makeScroll()"
       >
         Generar textos<i class="pi pi-arrow-right ml-3"></i>
       </button>

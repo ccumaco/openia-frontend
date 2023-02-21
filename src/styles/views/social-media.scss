@@ -4,10 +4,8 @@
     padding-top: 49px;
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
-    max-height: calc(100vh - 50px);
     @include screen("sm"){
         grid-template-columns: (repeat(auto-fill, minmax(calc(100% - 20px),1fr)));
-        max-height: none;
     }
     &__content{
         min-height: calc(100vh - 50px);
@@ -88,6 +86,9 @@
                 width: 45%;
                 max-width: 280px;
             }
+        }
+        p,li{
+            margin-bottom: 15px;
         }
     }
 }

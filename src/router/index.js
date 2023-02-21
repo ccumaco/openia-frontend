@@ -2,27 +2,6 @@ import { createWebHistory, createRouter } from "vue-router";
 import axios from 'axios'
 import { useOpenIaStore } from "../stores/global-store";
 
-const guard = async (to, from, next) => {
-  const store = useOpenIaStore()
-  const token = localStorage.getItem('token');
-  if (!token || token.length < 10) {
-    return next('/login');
-  }
-  if (await store.validateToken()) {
-    return next()
-  } else {
-    return next('/login')
-  }
-  
-}
-const guardLoginRegister = async (to, from, next) => {
-  const store = useOpenIaStore()
-  if (await store.validateToken() == false) {
-    next()
-  } else {
-    return next('/products');
-  }
-}
 const routes = [
   {
     path: "/:catchAll(.*)",
@@ -43,54 +22,80 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: () => import('../views/profile.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/social-media",
     name: "Social-Media",
     component: () => import('../views/social-media.vue'),
-    beforeEnter: guard,
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import('../views/login.vue'),
-    beforeEnter: guardLoginRegister    
+    component: () => import('../views/login.vue')
   },
   {
     path: "/register",
     name: "register",
-    component: () => import('../views/register.vue'),
-    beforeEnter: guardLoginRegister
+    component: () => import('../views/register.vue')
   },
   {
     path: "/products",
     name: "products",
     component: () => import('../views/products.vue'),
-    beforeEnter: guard
+    meta: {
+      requiresAuth: true
+    }
+    
   },
   {
     path: "/articles",
     name: "articles",
     component: () => import('../views/articles.vue'),
-    beforeEnter: guard
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/emails",
     name: "emails",
     component: () => import('../views/emails.vue'),
-    beforeEnter: guard
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/free-style",
     name: "free-style",
     component: () => import('../views/free-style.vue'),
-    beforeEnter: guard
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+router.beforeEach((to, from, next) => {
+  const store = useOpenIaStore()
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.$state.isAuthenticated) {
+      const token = window.localStorage.getItem("token")
+      // El usuario no está autenticado, redirigir a la página de inicio de sesión
+      if (token) {
+        store.login()
+      }
+      next('/login');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

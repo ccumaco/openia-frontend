@@ -149,7 +149,7 @@ export default defineComponent({
         v-if='store.textFreeStyle.length'
         @click="copy(store.textFreeStyle), showSuccess(store.textFreeStyle)"
       >
-        {{ store.textFreeStyle }}
+      <span v-html='store.textFreeStyle'></span>
 
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>

@@ -214,7 +214,7 @@ export default defineComponent({
         :key="index"
         @click="copy(response), showSuccess(response)"
       >
-        {{ response }}
+      <span v-html='response'></span>
 
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>

@@ -148,7 +148,7 @@ export default defineComponent({
         v-if='store.textEmail.length'
         @click="copy(store.textEmail), showSuccess(store.textEmail)"
       >
-        {{ store.textEmail }}
+        <span v-html='store.textEmail'></span>
 
         <i class="pi pi-copy container-social__content--response--copy"></i>
       </p>

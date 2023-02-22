@@ -19,7 +19,7 @@ export default defineComponent({
       toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
     }
     const objectText = reactive({
-      prompt: "escribe un articulo sobre las 10 habilades blandas de un lider",
+      prompt: "",
       language: "Español",
       soft: "Informativo",
       maxLength: 400,

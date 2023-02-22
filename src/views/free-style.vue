@@ -19,10 +19,10 @@ export default defineComponent({
       toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
     }
     const objectText = reactive({
-      prompt: "haz un post de ropa",
+      titlePrompt: '',
+      prompt: "",
       language: "Español",
       soft: "Persuasivo",
-      titlePrompt: 'Resumen'
     });
     const lenguajeResponse = (e: any) => {
       objectText.language = e.target.value;

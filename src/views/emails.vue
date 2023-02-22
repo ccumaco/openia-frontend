@@ -19,8 +19,8 @@ export default defineComponent({
       toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
     }
     const objectText = reactive({
-      titlePrompt: 'Carta de renuncia',
-      prompt: 'Dirigida a "carlos Cumaco"',
+      titlePrompt: '',
+      prompt: '',
       language: "Español",
       soft: "Persuasivo",
     });

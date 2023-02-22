@@ -19,7 +19,7 @@ export default defineComponent({
       toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 150000});
     }
     const objectText = reactive({
-      prompt: "haz un post de ropa",
+      prompt: "",
       maxLength: 400,
       top_p: 1,
       language: "Español",

@@ -7,14 +7,15 @@
       :breakpoints="{ '960px': '80vw' }"
       :style="{ width: '30vw' }"
       position="center"
+      modal
     >
-      <div class="flex align-items-center flex-column pt-6 px-3">
+      <div class="flex align-items-center flex-column ">
         <i
           class="pi pi-check-circle"
-          :style="{ fontSize: '5rem', color: 'var(--green-500)' }"
+          :style="{ fontSize: '5rem', color: 'var(--green-500)', marginBottom: '20px' }"
         ></i>
         <h5>Bienvenido de nuevo</h5>
-        <p :style="{ lineHeight: 1.5, textIndent: '1rem' }">
+        <p :style="{ lineHeight: 1.5 }" class='mt-2'>
           <b>{{ store.user.userName }}</b>
         </p>
       </div>

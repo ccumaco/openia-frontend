@@ -3,17 +3,19 @@
   <div class="form-demo">
     <Dialog
       v-model:visible="showMessage"
-      :modal="true"
+      :breakpoints="{ '960px': '80vw' }"
+      :style="{ width: '30vw' }"
+      modal
       position="center"
     >
-      <div class="flex align-items-center flex-column pt-6 px-3">
+      <div class="flex align-items-center flex-column">
         <i
-          class="pi pi-check-circle"
+          class="pi pi-check-circle mb-3"
           :style="{ fontSize: '5rem', color: 'var(--green-500)' }"
         ></i>
         <h5>Registro exitoso</h5>
-        <p class='text-center mt-4'>
-          ¡Bienvenido <b>{{ objUser.userName }}!</b> 
+        <p class='text-center mt-2'>
+          ¡Bienvenido <b>{{ objUser.userName }}</b>!
         </p>
       </div>
       <template #footer>

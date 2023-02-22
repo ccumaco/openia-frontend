@@ -1,0 +1,14 @@
+@import './../global-styles.scss';
+
+.arrow-back{
+    color: $orange;
+    text-decoration: none;
+    display: block;
+    i{
+        vertical-align: top;
+    }
+}
+.container-profile{
+    padding-top: 100px !important;
+    min-height: 100vh;
+}

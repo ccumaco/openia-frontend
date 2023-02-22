@@ -126,7 +126,7 @@ export default defineComponent({
             </option>
           </select>
         </div>
-        <div class="select mt-3">
+        <div class="select">
           <label for="soft">Estilo</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">

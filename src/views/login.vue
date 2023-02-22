@@ -130,9 +130,12 @@
             </router-link>
             <button class="btn" :disabled="store.loading" type='submit'>Continuar</button>
           </div>
-          <router-link class='text-center my-4 block' to='/register'>
-              No tengo una cuenta 
-          </router-link>
+          <p class='text-center mt-4'>
+            ¿Aún no tienes una cuenta?
+            <router-link class='text-center my-4' to='/register'>
+                Creala Aquí.
+            </router-link>
+          </p>
           <p class='text-center forgot-password my-4' @click='modalRecoveryPassword  = !modalRecoveryPassword'>
               Olvide mi contraseña
           </p>
@@ -150,6 +153,7 @@ import { required, email } from "@vuelidate/validators";
 import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
 import { useToast } from "primevue/usetoast";
+import router from "../router";
 export default {
   name: 'login',
   setup() {
@@ -182,6 +186,9 @@ export default {
       }
       if (await store.login(objUser)) {
         toggleDialog();
+        setTimeout(() => {
+          router.push('/products')
+        }, 3000);
         return
       } else {
         showError()

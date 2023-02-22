@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import { copy, makeScroll } from "../utils/index";
+import { copy, makeScroll, removeTags } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
   name: 'social-media',
@@ -16,7 +16,7 @@ export default defineComponent({
       return text.substring(0, 70) + '...';
     }
     const showSuccess = (textCliped: string) => {
-      toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
+      toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 150000});
     }
     const objectText = reactive({
       prompt: "haz un post de ropa",
@@ -72,7 +72,8 @@ export default defineComponent({
       copy,
       separatorExp,
       showSuccess,
-      makeScroll
+      makeScroll,
+      removeTags
     };
   },
 });
@@ -92,7 +93,7 @@ export default defineComponent({
         Con esta plantilla crea una publicación de manera fácil y rápida, solo
         escribe tu idea y configura las opciones obtener el texto.
       </p>
-      <div class="input">
+      <div class="input mb-4">
         <label for="prompt">Consulta</label>
         <textarea
           placeholder="Haz tu consulta"
@@ -106,7 +107,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="container-social__content__flex mt-1">
+      <div class="container-social__content__flex">
         <div class="select">
           <label for="language">Idioma de salida</label>
           <select
@@ -169,11 +170,11 @@ export default defineComponent({
             id="automaticHastag"
             v-model="objectText.automaticHastag"
           />
-          <label for="automaticHastag"
+          <label class='ml-2' for="automaticHastag"
             >Agregar hashtags automáticamente optimizados para SEO</label
           >
         </div>
-        <div class="input">
+        <div class="input mb-4">
           <label class="outside" for="countHashtag">Cantidad de Hashtags</label>
           <input
             placeholder="1"
@@ -212,7 +213,7 @@ export default defineComponent({
         class="container-social__content--response pl-5 pr-5"
         v-for="(response, index) in store.responseText"
         :key="index"
-        @click="copy(response), showSuccess(response)"
+        @click="copy(response), showSuccess(removeTags(response))"
       >
       <span v-html='response'></span>
 
@@ -228,7 +229,7 @@ export default defineComponent({
             Estamos Generando
           </p>
           <p class="container-social__content--loading--big">
-            Textos increibles para ti
+            textos increibles para ti
           </p>
 
           <Loader/>

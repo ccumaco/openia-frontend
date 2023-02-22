@@ -22,6 +22,9 @@
             background-color: #D6DBEA2E;
             position: relative;
             min-height: 400px;
+            p,li{
+                margin-bottom: 15px;
+            }
         }
         &--title{
             color: #6E6E6E;
@@ -31,7 +34,7 @@
         }
         &--description{
             color: $text;
-            margin-bottom: 30px;
+            margin-bottom: 36px;
         }
         &--response{
             border-bottom: 1px solid grey;
@@ -86,9 +89,6 @@
                 width: 45%;
                 max-width: 280px;
             }
-        }
-        p,li{
-            margin-bottom: 15px;
         }
     }
 }

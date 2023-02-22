@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import { copy, makeScroll } from "../utils/index";
+import { copy, makeScroll, removeTags } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
   name: 'free style view',
@@ -61,7 +61,8 @@ export default defineComponent({
       softs,
       copy,
       showSuccess,
-      makeScroll
+      makeScroll,
+      removeTags
     };
   },
 });
@@ -81,7 +82,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites
       </p>
-      <div class="input">
+      <div class="input mb-4">
         <label for="title">¿Qué quieres crear?</label>
         <textarea
           placeholder="Ej. Artículo, correo electrónico, carta, recomendación, resumen"
@@ -95,7 +96,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="input">
+      <div class="input mb-4">
         <label for="prompt">¿Cuáles son los puntos principales del contenido?</label>
         <textarea
           placeholder="Ej.: Redacta una recomendación personal dirigida a XXX empresa con el fin de solicitar un cambio de plan en mi servicio de xxxxx a nombre de xxxxxx..."
@@ -105,11 +106,10 @@ export default defineComponent({
           id="prompt"
           cols="30"
           rows="5"
-          maxlength="300"
           size="20"
         />
       </div>
-      <div class="container-social__content__flex mt-1">
+      <div class="container-social__content__flex">
         <div class="select">
           <label for="language">Idioma de salida</label>
           <select
@@ -147,7 +147,7 @@ export default defineComponent({
       <p
         class="container-social__content--response pl-5 pr-5"
         v-if='store.textFreeStyle.length'
-        @click="copy(store.textFreeStyle), showSuccess(store.textFreeStyle)"
+        @click="copy(store.textFreeStyle), showSuccess(removeTags(store.textFreeStyle))"
       >
       <span v-html='store.textFreeStyle'></span>
 
@@ -163,7 +163,7 @@ export default defineComponent({
             Estamos Generando
           </p>
           <p class="container-social__content--loading--big">
-            Textos increibles para ti
+            textos increibles para ti
           </p>
 
           <Loader/>

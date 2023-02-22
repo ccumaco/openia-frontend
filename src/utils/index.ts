@@ -1,7 +1,7 @@
 import useClipboard from 'vue-clipboard3'
 const { toClipboard } = useClipboard()
 
-const removeTags = (str: string) => {
+export const removeTags = (str: string) => {
   if ((str===null) || (str===''))
       return '';
   else

@@ -1,14 +1,15 @@
 <template>
     <div class="container-products container">
         <h1 class='title-page mb-3'>Comienza ahora</h1>
+        <p class='description'></p>
         <div class="container-cards">
             <router-link class="card" v-for='(product, index) in products' :key='index' :to='product.to'>
                 <img :src="`/images/${product.image}.png`" alt="pencil" class='mr-2'>
-                <h2 class='title'>{{ product.title }}</h2>
+                <h2 class='title mt-1'>{{ product.title }}</h2>
                 <p class="description mt-3">
                     {{ product.description }}
                 </p>
-                <i class='pi pi-arrow-right mt-3'></i>
+                <img class='mt-2' src="/images/arrow-icon.svg" alt="arrow icon">
             </router-link>
         </div>
     </div>

@@ -35,14 +35,14 @@ export default defineComponent({
       }
       &::before{
         animation: ball1 1s infinite;
-        background-color: #fff;
+        background-color: #82c5ff;
         box-shadow: 30px 0 0 $primary-color;
         margin-bottom: 10px;
       }
       &::after{
         animation: ball2 1s infinite;
         background-color: $primary-color;
-        box-shadow: 30px 0 0 #fff;
+        box-shadow: 30px 0 0 #82c5ff;
       }
     }
 }
@@ -70,14 +70,14 @@ export default defineComponent({
 
   @keyframes ball2 {
     0% {
-      box-shadow: 30px 0 0 #fff;
+      box-shadow: 30px 0 0 #82c5ff;
     }
     50% {
-      box-shadow: 0 0 0 #fff;
+      box-shadow: 0 0 0 #82c5ff;
       margin-top: -20px;
       transform: translate(15px, 15px);
     }
     100% {
-      box-shadow: 30px 0 0 #fff;
+      box-shadow: 30px 0 0 #82c5ff;
       margin-top:0;}}
 </style>

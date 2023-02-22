@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import { copy, makeScroll } from "../utils/index";
+import { copy, makeScroll, removeTags } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
   name: 'articles view',
@@ -71,7 +71,8 @@ export default defineComponent({
       showSuccess,
       maxLengthRespone,
       separatorExp,
-      makeScroll
+      makeScroll,
+      removeTags
     };
   },
 });
@@ -90,7 +91,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Con esta plantilla crea un artículo para blog optimizado para SEO de manera fácil y rápida, solo escribe tu idea y configura las opciones obtener el texto.
       </p>
-      <div class="input">
+      <div class="input mb-4">
         <label for="title">Escribe tu idea</label>
         <textarea
           placeholder="Ej.: Escribe un artículo sobre las 10 mejores habilidades blandas que debe tener un líder"
@@ -104,7 +105,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="container-social__content__flex mt-1">
+      <div class="container-social__content__flex">
         <div class="select">
           <label for="language">Idioma de salida</label>
           <select
@@ -183,7 +184,7 @@ export default defineComponent({
       <p
         class="container-social__content--response pl-5 pr-5"
         v-if='store.textBlog.length'
-        @click="copy(store.textBlog), showSuccess(store.textBlog)"
+        @click="copy(store.textBlog), showSuccess(removeTags(store.textBlog))"
       >
         <span v-html='store.textBlog'></span>
 
@@ -199,7 +200,7 @@ export default defineComponent({
             Estamos Generando
           </p>
           <p class="container-social__content--loading--big">
-            Textos increibles para ti
+            textos increibles para ti
           </p>
 
           <Loader/>

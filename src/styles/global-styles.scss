@@ -68,6 +68,13 @@ $orange: #FFA702;
 	}
 }
 
+.p-toast{
+	@include screen("sm"){
+		width: 100%;
+		right: 0;
+	}
+}
+
 a {
 	color: $primary-color;
 }
@@ -100,7 +107,6 @@ a {
 }
 
 .select {
-	margin-top: 10px;
 	label {
 		display: block;
 		color: $primary-color;
@@ -135,9 +141,11 @@ a {
 		position: absolute;
 		top: -8px;
 		font-size: 14px;
-		left: 5px;
+		left: 9px;
+		padding: 0 9px;
 		background: $white;
 		color: $primary-color;
+		font-weight: 600;
 		&.outside {
 			position: inherit;
 		}
@@ -242,28 +250,28 @@ div.btn-container {
 
 @for $i from 1 through 5 {
 	.mt-#{$i} {
-		margin-top: #{$i * 8}px;
+		margin-top: #{$i * 8}px !important;
 	}
 	.mb-#{$i} {
-		margin-bottom: #{$i * 8}px;
+		margin-bottom: #{$i * 8}px !important;
 	}
 	.ml-#{$i} {
-		margin-left: #{$i * 8}px;
+		margin-left: #{$i * 8}px !important;
 	}
 	.mr-#{$i} {
-		margin-right: #{$i * 8}px;
+		margin-right: #{$i * 8}px !important;
 	}
 	.pt-#{$i} {
-		margin-top: #{$i * 8}px;
+		margin-top: #{$i * 8}px !important;
 	}
 	.pb-#{$i} {
-		margin-bottom: #{$i * 8}px;
+		margin-bottom: #{$i * 8}px !important;
 	}
 	.pl-#{$i} {
-		margin-left: #{$i * 8}px;
+		margin-left: #{$i * 8}px !important;
 	}
 	.pr-#{$i} {
-		margin-right: #{$i * 8}px;
+		margin-right: #{$i * 8}px !important;
 	}
 }
 

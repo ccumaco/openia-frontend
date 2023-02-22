@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { reactive, ref } from "@vue/reactivity";
 import { useOpenIaStore } from "../stores/global-store";
 import Loader from "../components/Loader.vue";
-import { copy, makeScroll } from "../utils/index";
+import { copy, makeScroll, removeTags } from "../utils/index";
 import { useToast } from "primevue/usetoast";
 export default defineComponent({
   name: 'emails view',
@@ -61,7 +61,8 @@ export default defineComponent({
       softs,
       copy,
       showSuccess,
-      makeScroll
+      makeScroll,
+      removeTags
     };
   },
 });
@@ -80,7 +81,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Con esta plantilla genera borradores completos de correos electrónicos en cuestión de segundos, ahorra tiempo de redacción y asegúrate que tu comunicación sea clara y precisa.
       </p>
-      <div class="input">
+      <div class="input mb-4">
         <label for="title">Asunto del mail</label>
         <textarea
           placeholder="Ej. Gran promoción de fin de año"
@@ -94,7 +95,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="input">
+      <div class="input mb-4">
         <label for="prompt">¿Cuáles son los puntos principales del correo?</label>
         <textarea
           placeholder="Ej.: Redacta un email dirigido a todos nuestros clientes, con el fin de ofrecer nuestra promoción de fin de año en mubles para el hogar"
@@ -108,7 +109,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="container-social__content__flex mt-1">
+      <div class="container-social__content__flex">
         <div class="select">
           <label for="language">Idioma de salida</label>
           <select
@@ -146,7 +147,7 @@ export default defineComponent({
       <p
         class="container-social__content--response pl-5 pr-5"
         v-if='store.textEmail.length'
-        @click="copy(store.textEmail), showSuccess(store.textEmail)"
+        @click="copy(store.textEmail), showSuccess(removeTags(store.textEmail))"
       >
         <span v-html='store.textEmail'></span>
 
@@ -162,7 +163,7 @@ export default defineComponent({
             Estamos Generando
           </p>
           <p class="container-social__content--loading--big">
-            Textos increibles para ti
+            textos increibles para ti
           </p>
 
           <Loader/>

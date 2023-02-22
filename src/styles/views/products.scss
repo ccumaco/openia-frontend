@@ -1,6 +1,19 @@
 @import './../global-styles.scss';
 
 .title-page{
+    color: $text;
+    font-size: 26px;
+    position: relative;
+    font-family: "Roboto-bold";
+    &::before{
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100px;
+        height: 1px;
+        background: $primary-color;
+    }
     @include screen("sm"){
         text-align: center;
     }
@@ -23,11 +36,12 @@
             color: $black;
             text-decoration: none;
             transition: all .2s linear;
+            box-shadow: 0px 0px 0px #00000042;
             @include screen("sm"){
                 text-align: center;
             }
             &:hover{
-                transform: scale(1.02);
+                box-shadow: 0px 3px 6px #00000042;
             }
             i{
                 color: orange;

@@ -106,9 +106,9 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     async logout ( ) {
       try {
         this.user = {} as ObjUser;
-        window.localStorage.removeItem('user')
-        window.localStorage.removeItem('token')
-        router.push('/')
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+        router.push({ path: '/', replace: true })
       } catch (error) {
         console.log('no hay nadad');
         console.log(error);

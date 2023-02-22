@@ -29,10 +29,17 @@
 						Iniciar sesión
 					</router-link>
 					<template v-for='(item, index) of routes' >
-						<router-link v-if="store.user.userToken" :to='`${item.to}`' @click='showMenu = !showMenu'>
+						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`' @click='showMenu = !showMenu'>
 							{{ item.label }}
 						</router-link>
 					</template>
+					<div
+						class="close-session"
+						@click='store.logout(), showMenu = !showMenu'
+						v-if='store.user.userToken'
+					>
+						Cerrar sesion
+					</div>
 
 					<router-link v-if="store.user.userToken == null" to="/register" class="mobile-menu--create"
 						@click='showMenu = !showMenu'>
@@ -71,6 +78,8 @@ export default {
 				label: 'Cerrar sesion',
 				icon: 'pi pi-sign-out',
 				command: () => {
+					console.log('esta haciendo esto');
+					
 					store.logout()
 					showMenu.value = !showMenu.value
 				}
@@ -163,7 +172,7 @@ export default {
 			right: 0;
 		}
 
-		a {
+		a, .close-session {
 			text-align: center;
 			padding: 20px;
 			color: $white;

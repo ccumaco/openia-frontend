@@ -81,7 +81,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Con esta plantilla genera borradores completos de correos electrónicos en cuestión de segundos, ahorra tiempo de redacción y asegúrate que tu comunicación sea clara y precisa.
       </p>
-      <div class="input mb-4">
+      <div class="input mb-5">
         <label for="title">Asunto del mail</label>
         <textarea
           placeholder="Ej. Gran promoción de fin de año"
@@ -91,11 +91,11 @@ export default defineComponent({
           id="title"
           cols="30"
           rows="1"
-          maxlength="300"
+          maxlength="500"
           size="20"
         />
       </div>
-      <div class="input mb-4">
+      <div class="input mb-5">
         <label for="prompt">¿Cuáles son los puntos principales del correo?</label>
         <textarea
           placeholder="Ej.: Redacta un email dirigido a todos nuestros clientes, con el fin de ofrecer nuestra promoción de fin de año en mubles para el hogar"
@@ -105,12 +105,13 @@ export default defineComponent({
           id="prompt"
           cols="30"
           rows="5"
-          maxlength="300"
+          maxlength="500"
           size="20"
         />
       </div>
       <div class="container-social__content__flex">
         <div class="select">
+<i></i>
           <label for="language">Idioma de salida</label>
           <select
             name="language"
@@ -127,6 +128,7 @@ export default defineComponent({
           </select>
         </div>
         <div class="select">
+<i></i>
           <label for="soft">Estilo</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">

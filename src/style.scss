@@ -1,10 +1,11 @@
 @import './styles/global-styles.scss';
+
 @font-face {
-  font-family: "Roboto";
+  font-family: $regular-font;
   src: url(./assets/fonts/Roboto-Light.ttf);
 }
 @font-face {
-  font-family: "Roboto-bold";
+  font-family: $bold-font;
   src: url(./assets/fonts/Roboto-Bold.ttf);
 }
 *{

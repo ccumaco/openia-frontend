@@ -17,7 +17,8 @@ export interface MakeArticle {
     soft: String,
     maxLength: number,
     keyWords: string[],
-    generateSeoKeyWords: boolean
+    generateSeoKeyWords: boolean,
+    generateImages: boolean
   }
 export interface ObjectTextSocial {
     prompt: String,

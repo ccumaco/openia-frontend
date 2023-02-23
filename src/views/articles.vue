@@ -24,7 +24,8 @@ export default defineComponent({
       soft: "Informativo",
       maxLength: 400,
       keyWords: [],
-      generateSeoKeyWords: false
+      generateSeoKeyWords: false,
+      generateImages: false
     });
     const lenguajeResponse = (e: any) => {
       objectText.language = e.target.value;
@@ -91,7 +92,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Con esta plantilla crea un artículo para blog optimizado para SEO de manera fácil y rápida, solo escribe tu idea y configura las opciones obtener el texto.
       </p>
-      <div class="input mb-4">
+      <div class="input mb-2">
         <label for="title">Escribe tu idea</label>
         <textarea
           placeholder="Ej.: Escribe un artículo sobre las 10 mejores habilidades blandas que debe tener un líder"
@@ -101,12 +102,24 @@ export default defineComponent({
           id="title"
           cols="30"
           rows="5"
-          maxlength="300"
+          maxlength="500"
           size="20"
         />
       </div>
+      <div class="checkbox in-block mt-2 mb-3">
+          <input
+            type="checkbox"
+            name="generateImages"
+            id="generateImages"
+            v-model="objectText.generateImages"
+          />
+            <label class='ml-2' for="generateImages">
+                Agregar imagenes automaticamente
+            </label>
+        </div>
       <div class="container-social__content__flex">
         <div class="select">
+        <i></i>
           <label for="language">Idioma de salida</label>
           <select
             name="language"
@@ -125,7 +138,7 @@ export default defineComponent({
         
         <div class="range">
           <label for="range"
-            >Maximo de palabras {{ objectText.maxLength }} / 1000</label
+            >Maximo de palabras {{ objectText.maxLength }} / 5000</label
           >
           <input
             type="range"
@@ -133,13 +146,14 @@ export default defineComponent({
             step="50"
             id="maxLength"
             min="100"
-            max="1000"
+            max="5000"
             v-model="objectText.maxLength"
             @input="maxLengthRespone($event)"
             @change="maxLengthRespone($event)"
           />
         </div>
         <div class="select mt-3">
+          <i></i>
           <label for="soft">Estilo</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">

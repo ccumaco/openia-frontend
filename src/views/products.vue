@@ -1,7 +1,12 @@
 <template>
     <div class="container-products container">
         <h1 class='title-page mb-3'>Comienza ahora</h1>
-        <p class='description'></p>
+        <p class='description-page'>
+            ¡Bienvenidos a nuestra sección de Planillas de Redacción con Inteligencia Artificial! Aquí, encontrarás
+            herramientas que te ayudarán a escribir contenido de alta calidad de manera más rápida y eficiente. Ahorra
+            tiempo valioso mientras produces contenido para tu sitio web, redes sociales o campañas de marketing con
+            nuestras planillas de redacción.
+        </p>
         <div class="container-cards">
             <router-link class="card" v-for='(product, index) in products' :key='index' :to='product.to'>
                 <img :src="`/images/${product.image}.png`" alt="pencil" class='mr-2'>
@@ -53,7 +58,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss'>
-@import '../styles/views/products.scss';
-
-</style>
+<style lang='scss'>@import '../styles/views/products.scss';</style>

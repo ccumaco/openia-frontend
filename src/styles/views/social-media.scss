@@ -1,7 +1,6 @@
 @import './../global-styles.scss';
 
 .container-social{
-    padding-top: 49px;
     display: grid;
     grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
     @include screen("sm"){
@@ -50,8 +49,9 @@
             }
             &--copy{
                 position: absolute;
-                top: 30px;
-                right: 10px;
+                top: 50px;
+                right: 20px;
+                font-size: 23px;
             }
         }
         &--loading{
@@ -87,7 +87,7 @@
             justify-content: space-between;
             & > * {
                 width: 45%;
-                max-width: 280px;
+                max-width: 295px;
             }
         }
     }

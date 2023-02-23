@@ -70,6 +70,11 @@
             min-width: auto;
             width: calc(100% - 30px);
         }
+        h1{
+            font-family: $bold-font;
+            color: #6c6c6c;
+            font-size: 26px;
+        }
         form {
             margin-top: 2rem;
         }
@@ -78,5 +83,12 @@
             margin-bottom: 1.5rem;
         }
     }
-
-  }
+    
+}
+:deep(.p-input-icon-right > i:last-of-type){
+    padding: 20px 10px;
+    transform: translate(10px, -20px);
+}
+:deep(.p-dialog .p-dialog-header){
+    justify-content: flex-end;
+}

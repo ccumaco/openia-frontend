@@ -2,8 +2,10 @@
 	<div>
 		<nav class="primary-nav">
 			<div class="container">
-				<router-link to="/" class="logo">Arquitext</router-link>
-				<i class='pi pi-bars open-menu' @click='showMenu = !showMenu'></i>
+				<router-link to="/" class="logo">
+					<img src="/images/logo-architext.png" alt="" width='150'>
+				</router-link>
+				<i class='pi pi-bars open-menu' :style='{fontSize: "1.8rem"}' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--rigth">
 					<router-link v-if="store.user.userToken == null" to="/login">
 						Iniciar sesión
@@ -52,13 +54,19 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
+import { useRoute } from 'vue-router'
 import { useOpenIaStore } from '../stores/global-store';
 export default {
 	setup() {
 		const store = useOpenIaStore();
 		const showMenu = ref(false);
 		const routes = [
+			{
+				label: 'Productos',
+				icon: 'pi pi-book',
+				to: '/products',
+			},
 			{
 				label: 'Cuenta',
 				icon: 'pi pi-user',
@@ -69,11 +77,7 @@ export default {
 			// 	icon: 'pi pi-question-circle',
 			// 	to: '/help',
 			// },
-			{
-				label: 'Productos',
-				icon: 'pi pi-book',
-				to: '/products',
-			},
+
 			{
 				label: 'Cerrar sesion',
 				icon: 'pi pi-sign-out',
@@ -89,12 +93,30 @@ export default {
 		const toggle = (event: any) => {
 			menu.value.toggle(event);
 		};
+
+		const hiddenButtons = () => {
+			const buttons = document.querySelector('.primary-nav--rigth')
+			const nav = document.querySelector('.primary-nav')
+			if (window.location.pathname == '/login' ||  window.location.pathname == '/register') {
+				buttons?.setAttribute('style', "display:none")
+				nav?.setAttribute('style', "position: absolute")
+				return
+			}
+			nav?.setAttribute('style', "position: sticky")
+			buttons?.setAttribute('style', "display:flex")
+			return
+			
+		}
+		const route = useRoute()
+		onMounted(() => hiddenButtons)
+		watch(() => route.path, hiddenButtons)
 		return {
 			store,
 			routes,
 			toggle,
 			menu,
-			showMenu
+			showMenu,
+			hiddenButtons
 		};
 	},
 };
@@ -110,7 +132,9 @@ export default {
 	top: 0;
 	position: fixed;
 	z-index: 3;
-
+	@include screen("sm"){
+		padding: 10px 15px 10px 5px;
+	}
 	.container {
 		display: flex;
 		justify-content: space-between;

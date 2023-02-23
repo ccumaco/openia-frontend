@@ -82,7 +82,7 @@ export default defineComponent({
       <p class="container-social__content--description">
         Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites
       </p>
-      <div class="input mb-4">
+      <div class="input mb-5">
         <label for="title">¿Qué quieres crear?</label>
         <textarea
           placeholder="Ej. Artículo, correo electrónico, carta, recomendación, resumen"
@@ -92,11 +92,11 @@ export default defineComponent({
           id="title"
           cols="30"
           rows="1"
-          maxlength="300"
+          maxlength="500"
           size="20"
         />
       </div>
-      <div class="input mb-4">
+      <div class="input mb-5">
         <label for="prompt">¿Cuáles son los puntos principales del contenido?</label>
         <textarea
           placeholder="Ej.: Redacta una recomendación personal dirigida a XXX empresa con el fin de solicitar un cambio de plan en mi servicio de xxxxx a nombre de xxxxxx..."
@@ -111,6 +111,7 @@ export default defineComponent({
       </div>
       <div class="container-social__content__flex">
         <div class="select">
+<i></i>
           <label for="language">Idioma de salida</label>
           <select
             name="language"
@@ -127,6 +128,7 @@ export default defineComponent({
           </select>
         </div>
         <div class="select">
+<i></i>
           <label for="soft">Estilo</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">

@@ -93,7 +93,7 @@ export default defineComponent({
         Con esta plantilla crea una publicación de manera fácil y rápida, solo
         escribe tu idea y configura las opciones obtener el texto.
       </p>
-      <div class="input mb-4">
+      <div class="input mb-5">
         <label for="prompt">Consulta</label>
         <textarea
           placeholder="Haz tu consulta"
@@ -103,12 +103,13 @@ export default defineComponent({
           id="prompt"
           cols="30"
           rows="5"
-          maxlength="300"
+          maxlength="500"
           size="20"
         />
       </div>
       <div class="container-social__content__flex">
         <div class="select">
+<i></i>
           <label for="language">Idioma de salida</label>
           <select
             name="language"
@@ -141,6 +142,7 @@ export default defineComponent({
           />
         </div>
         <div class="select mt-3">
+          <i></i>
           <label for="soft">Tono del mensaje</label>
           <select name="soft" id="soft" @change="softMessage($event)">
             <option :value="soft" v-for="(soft, index) in softs" :key="index">

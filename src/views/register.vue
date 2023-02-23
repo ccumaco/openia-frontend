@@ -8,6 +8,9 @@
       modal
       position="center"
     >
+      <template #header>
+        <span></span>
+      </template>
       <div class="flex align-items-center flex-column">
         <i
           class="pi pi-check-circle mb-3"
@@ -74,7 +77,7 @@
               <label
                 for="userEmail"
                 :class="{ 'p-error': v$.userEmail.$invalid && submitted }"
-                >Email*</label
+                >Correo electrónico</label
               >
             </div>
             <span v-if="v$.userEmail.$error && submitted">
@@ -107,7 +110,7 @@
               <label
                 for="userPassword"
                 :class="{ 'p-error': v$.userPassword.$invalid && submitted }"
-                >Password*</label
+                >Contraseña</label
               >
             </div>
             <small
@@ -115,7 +118,7 @@
                 (v$.userPassword.$invalid && submitted) ||
                 v$.userPassword.$pending.$response
               "
-              class="p-error"
+              class="p-error eye-password"
               >{{
                 v$.userPassword.required.$message.replace("Value", "Password")
               }}</small

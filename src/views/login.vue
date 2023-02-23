@@ -9,16 +9,20 @@
       position="center"
       modal
     >
+      <template #header>
+        <span></span>
+      </template>
       <div class="flex align-items-center flex-column ">
         <i
           class="pi pi-check-circle"
           :style="{ fontSize: '5rem', color: 'var(--green-500)', marginBottom: '20px' }"
         ></i>
         <h5>Bienvenido de nuevo</h5>
-        <p :style="{ lineHeight: 1.5 }" class='mt-2'>
+        <p class='mt-1'>
           <b>{{ store.user.userName }}</b>
         </p>
       </div>
+      
       <template #footer>
         <div class="flex justify-content-center">
           <router-link to='/products' class="btn">Comenzar</router-link>
@@ -59,7 +63,7 @@
 
     <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
-        <h1 class="text-center">Iniciar Sesion</h1>
+        <h1 class="text-center">Iniciar Sesión</h1>
         <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
           <div class="field">
             <div class="p-float-label p-input-icon-right">
@@ -73,7 +77,7 @@
               <label
                 for="userEmail"
                 :class="{ 'p-error': v$.userEmail.$invalid && submitted }"
-                >Email*</label
+                >Correo electrónico</label
               >
             </div>
             <span v-if="v$.userEmail.$error && submitted">
@@ -109,7 +113,7 @@
               <label
                 for="userPassword"
                 :class="{ 'p-error': v$.userPassword.$invalid && submitted }"
-                >Password*</label
+                >Contraseña</label
               >
             </div>
             <small
@@ -137,7 +141,7 @@
             </router-link>
           </p>
           <p class='text-center forgot-password my-4' @click='modalRecoveryPassword  = !modalRecoveryPassword'>
-              Olvide mi contraseña
+              Olvidé mi contraseña
           </p>
         </form>
       </div>

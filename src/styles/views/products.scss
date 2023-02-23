@@ -8,10 +8,11 @@
     &::before{
         content: '';
         position: absolute;
-        bottom: -2px;
+        bottom: -7px;
         left: 0;
         width: 100px;
-        height: 1px;
+        height: 3px;
+        border-radius: 10px;
         background: $primary-color;
     }
     @include screen("sm"){
@@ -21,9 +22,14 @@
 .container-products{
     padding-top: 100px !important;
     min-height: 100vh;
+    .description-page{
+        max-width: 1000px;
+        color: $text;
+        margin-bottom: 40px;
+    }
     .container-cards{
         display: grid;
-        gap: 1rem;
+        gap: 2.5rem;
         grid-template-columns: repeat(auto-fill, minmax(200px, 250px));
         @include screen("sm"){
             justify-content: center;

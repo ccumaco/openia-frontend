@@ -33,13 +33,16 @@
             margin-bottom: 30px;
             color: $white;
             font-size: 40px;
+            font-family: $bold-font;
             span{
                 font-size: 40px;
                 color: $primary-color;
+                font-family: $bold-font;
             }
         }
         p{
             font-size: 1.2rem;
+            line-height: 1.7rem;
             color: $white;
         }
     }
@@ -50,19 +53,24 @@
         background-color: $white;
         padding: 40px 20px;
         border-radius: 20px;
-        max-width: 400px;
+        max-width: 520px;
         margin: 0 auto;
         color: $primary-color;
     }
     &-white{
         position: relative;
         top: -40px;
+        h3{
+            font-family: $bold-font;
+            font-size: 24px;
+        }
     }
     &-cards{
         display: grid;
-        grid-gap: 20px;
-        grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 20px),1fr)));
+        grid-template-columns: (repeat(auto-fill, minmax(calc(50% - 80px),1fr)));
         margin-top: 50px;
+        column-gap: 60px;
+        row-gap: 50px;
         @include screen("sm"){
             margin-top: 0;
             grid-template-columns: (repeat(auto-fill, minmax(calc(100% - 20px),1fr)));
@@ -71,6 +79,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            
             @include screen("md"){
                 flex-direction: column;
                 text-align: center;
@@ -78,6 +87,10 @@
             &--content{
                 h4{
                     margin: 10px 0;
+                    font-size: 20px;
+                }
+                p{
+                    line-height: 1.3rem;
                 }
             }
         }

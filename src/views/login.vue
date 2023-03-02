@@ -30,36 +30,7 @@
       </template>
     </Dialog>
     <!-- modal renovate password -->
-    <Dialog
-      :modal="modalRecoveryPassword"
-      v-model:visible="modalRecoveryPassword"
-      position="center"
-    >
-    <template #header>
-      <!-- empty header -->
-      <h3></h3>
-    </template>
-      <p class='text-center'>Enviaremos un mail de verificación para comprobar tu identidad</p>
-      <p class="text-center my-4">Valide o ingrese su correo electrónico</p>
-      <div class="p-float-label p-input-icon-right recovery-input">
-        <i class="pi pi-envelope" />
-        <InputText
-          class='recovery-input'
-          id="userEmail"
-          aria-describedby="userEmail-error"
-        />
-        <label
-          for="userEmail"
-          >Email*</label
-        >
-      </div>
-
-      <template #footer>
-        <div class="flex justify-content-center">
-          <div class="btn">Enviar</div>
-        </div>
-      </template>
-    </Dialog>
+    <recoveryPassword :modal-recovery-password='modalRecoveryPassword'/>
 
     <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
@@ -158,10 +129,17 @@ import { useOpenIaStore } from "../stores/global-store";
 import { hasHistory } from '../utils';
 import { useToast } from "primevue/usetoast";
 import router from "../router";
+import { useRoute } from "vue-router";
+import recoveryPassword from '../components/recoveryPassword.vue'
 export default {
   name: 'login',
+  components: {
+    recoveryPassword
+  },
   setup() {
     const store = useOpenIaStore();
+    
+    const route = useRoute();
     const objUser = reactive({
       userEmail: "",
       userPassword: "",
@@ -211,6 +189,19 @@ export default {
       submitted.value = false;
     };
 
+
+    onMounted(async ()=> {
+      const token = route.query.token
+      console.log(token);
+      if (token.length > 20 && await store.validateEmailToken({
+          token,
+          email: route.query.email
+        }))
+        {
+          // aqui hay que hacer la logica para mostrar el modal con los campos de recuperar contraseña
+        }
+    })
+
     return {
       objUser,
       v$,
@@ -221,7 +212,7 @@ export default {
       store,
       hasHistory,
       modalRecoveryPassword,
-      showError
+      showError,
     };
   },
 };

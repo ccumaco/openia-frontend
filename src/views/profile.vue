@@ -1,22 +1,21 @@
 <template>
     <div class='container-profile container'>
       <router-link to='/products' class='arrow-back'>
-            <i class='pi pi-arrow-left mr-2 '></i> Volver
+            <i class='pi pi-arrow-left mr-2 mb-2'></i> Volver
         </router-link>
-        <h2>
+        <h2 class='mb-2'>
           <i class='pi pi-user mr-2' :style='{fontSize: "1.5rem"}'></i>
           Cuenta
         </h2>
-        <p>{{ store.user.userEmail }}</p>
+        <p class='mb-2'>{{ store.user.userEmail }}</p>
         <div class="flex justify-content-between">
-          <p>Contraseña: *********</p>
+          <p class='mb-2'>Contraseña: *********</p>
           <p>Cambiar Contraseña
             <img src="/images/arrow-icon.svg" alt="arrow icon">
           </p>
         </div>
         <div class="flex">
-          <p>Tienes un plan<strong> Gratuito</strong></p>
-          <p>Palabras Ilimitadas</p>
+          <p>Tienes un plan <strong> Gratuito </strong> con palabras ilimitadas</p>
         </div>
     </div>
 </template>

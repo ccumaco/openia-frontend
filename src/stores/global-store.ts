@@ -14,6 +14,11 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       textFreeStyle: '',
       textBlog: '',
       textEmail: '',
+      emailSent: {
+        status: 200,
+        message: ''
+      },
+      tokenEmail: false,
     }
   },
   getters: {
@@ -174,7 +179,52 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       }
       this.loading = false
       return
-    }
+    },
+    async forgotPassword ( email: string ) {
+      this.loading = true;
+      axios
+        .post('/recovery-password', {email})
+        .then((response)=> {
+          this.emailSent = response.data;
+          this.emailSent.status = 200;
+          this.loading = false
+          return
+        })
+        .catch((e) => {
+          this.emailSent = e.response.data;
+          this.emailSent.status = 400;
+          this.loading = false
+          return
+        })
+    },
+    async validateEmailToken (ojbToken: object){
+      this.loading = true;
+      axios.post('/validate-email-token', ojbToken)
+      .then((response)=>{
+        this.tokenEmail = true;
+        console.log(response);
+        this.loading = false;
+        return
+      }).catch((e)=> {
+        console.log(e);
+        this.loading = false;
+        return
+      })
+    },
+    async asingNewPassword (passwords: object){
+      this.loading = true;
+      axios.post('/new-password', passwords)
+      .then((response)=>{
+        console.log(response);
+        this.tokenEmail = true;
+        this.loading = false;
+        return
+      }).catch((e)=> {
+        console.log(e);
+        this.loading = false;
+        return
+      })
+    },
   }
 })
 

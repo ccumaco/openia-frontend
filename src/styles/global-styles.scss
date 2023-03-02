@@ -6,6 +6,8 @@ $white: #fff;
 $orange: #FFA702;
 $regular-font: "Roboto";
 $bold-font: "Roboto-bold";
+$success: rgb(68, 163, 68);
+$error: red;
 
 
 @mixin screen($size) {
@@ -79,6 +81,14 @@ $bold-font: "Roboto-bold";
 
 a {
 	color: $primary-color;
+}
+
+.success{
+	color: $success;
+}
+
+.error{
+	color: red
 }
 
 .btn {

@@ -30,7 +30,12 @@
       </template>
     </Dialog>
     <!-- modal renovate password -->
-    <recoveryPassword :modal-recovery-password='modalRecoveryPassword' :show-modal-password='showModalPassword'/>
+    <recoveryPassword
+      :modal-recovery-password='modalRecoveryPassword' 
+      :show-modal-password='showModalPassword'
+      @closeModalRecovery='modalRecoveryPassword = !modalRecoveryPassword'
+      :token='token'
+      />
 
     <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
@@ -137,6 +142,7 @@ export default {
     recoveryPassword
   },
   setup() {
+    
     const store = useOpenIaStore();
     
     const route = useRoute();
@@ -145,7 +151,7 @@ export default {
       userPassword: "",
     });
     const toast = useToast();
-    let modalRecoveryPassword = ref(false)
+    
 
     const rules = {
       userEmail: { required, email },
@@ -190,19 +196,28 @@ export default {
     };
 
     let showModalPassword = ref(false);
+    let modalRecoveryPassword = ref(false)
 
     const token = route.query.token
     const emailToken = route.query.email
     onMounted(async () => {
-       const validToken = await store.validateEmailToken({
-        token,
-        emailToken
-      })
+      let validToken;
+      if (token) {
+        validToken = await store.validateEmailToken({
+          token,
+          emailToken
+        })
+      }
       if (validToken) {
         showModalPassword.value = true
         modalRecoveryPassword.value = true
       }
     })
+
+    const closeModalRecovery = () => {
+      console.log('closeModalRecovery closeModalRecovery');
+      modalRecoveryPassword.value = !modalRecoveryPassword.value
+    }
 
     return {
       objUser,
@@ -215,7 +230,9 @@ export default {
       hasHistory,
       modalRecoveryPassword,
       showError,
-      showModalPassword
+      showModalPassword,
+      closeModalRecovery,
+      token
     };
   },
 };

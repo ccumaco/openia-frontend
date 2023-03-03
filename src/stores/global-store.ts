@@ -19,6 +19,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         message: ''
       },
       tokenEmail: false,
+      passwordChanged: false
     }
   },
   getters: {
@@ -209,14 +210,14 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         return this.tokenEmail;
       }
     },
-    async asingNewPassword (passwords: object){
+    async asingNewPassword (newPassword: string, repeatPassword: string, token: string){
       try {
-        const data = axios.post('/new-password', passwords)
-        this.tokenEmail = true;
+        const data = axios.post('/new-password', {newPassword, repeatPassword, token})
+        this.passwordChanged = true
         this.loading = false;
         return
       } catch (error) {
-        console.log(error);
+        this.passwordChanged = false
         this.loading = false;
         return
       }

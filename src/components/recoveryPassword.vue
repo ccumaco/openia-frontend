@@ -1,6 +1,6 @@
 
 <script lang='ts'>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { useOpenIaStore } from "../stores/global-store";
 export default defineComponent({
   name: 'recoveryPassword',
@@ -12,29 +12,35 @@ export default defineComponent({
     showModalPassword: {
       type: Boolean,
       default: false
+    },
+    token: {
+      type: String,
+      default: ""
     }
   },
-  setup() {
+  setup(props) {
     const store = useOpenIaStore();
     const emailForgotten = ref("");
     const repeatNewPassword = ref("");
     const newPassword = ref("")
+    const myModal = ref(props.modalRecoveryPassword)
+    watch(() => props.modalRecoveryPassword, (newValue, oldValue) => {
+      myModal.value = newValue;
+    });
     return {
       store,
       emailForgotten,
       newPassword,
-      repeatNewPassword
+      repeatNewPassword,
+      myModal
     }
   }
 });
 </script>
 <template>
-  <Dialog :modal="modalRecoveryPassword" v-model:visible="modalRecoveryPassword" position="center">
-    <template #header>
-      <!-- empty header -->
-      <h3></h3>
-    </template>
-    <div v-if='!showModalPassword'>
+  <Dialog :modal="myModal" :closable='false' v-model:visible="myModal" position="center">
+    <i class='pi pi-times icon-close' @click='$emit("closeModalRecovery")'></i>
+    <div v-if='!showModalPassword && !store.passwordChanged'>
       <p class='text-center'>Enviaremos un mail de verificación para comprobar tu identidad</p>
       <p class="text-center my-4">Valide o ingrese su correo electrónico</p>
       <div class="p-float-label p-input-icon-right recovery-input">
@@ -43,10 +49,12 @@ export default defineComponent({
         <label for="userEmail">Email*</label>
       </div>
 
-      <p :class='store.emailSent.status === 200 ? "success" : "error"' class='mt-3 text-center'>
+      <p
+        v-if='store.emailSent.message.length' 
+        :class='store.emailSent.status === 200 ? "success" : "error"' class='mt-3 text-center'>
         {{ store.emailSent.message }}</p>
     </div>
-    <div v-else>
+    <div v-if='showModalPassword && !store.passwordChanged'>
       <p class='text-center mb-4'>Ingresa tu nueva contraseña</p>
       <div class="p-float-label">
         <Password
@@ -77,24 +85,33 @@ export default defineComponent({
     </div>
 
     <template #footer>
-      <div class="flex justify-content-center" v-if='!showModalPassword'>
+      <div class="flex justify-content-center" v-if='!showModalPassword && !store.passwordChanged'>
         <button class="btn" @click='store.forgotPassword(emailForgotten)'
           :disabled='store.loading || emailForgotten.length < 15'>
           Enviar
         </button>
       </div>
-      <div class='flex justify-content-center' v-else>
-        <button class="btn" @click='store.forgotPassword(emailForgotten)'
+      <div class='flex justify-content-center' v-if='showModalPassword && !store.passwordChanged'>
+        <button class="btn" @click='store.asingNewPassword(newPassword, repeatNewPassword, token)'
           :disabled='store.loading || newPassword != repeatNewPassword || newPassword.length < 5'>
-          Enviar
+          Confirmar
         </button>
+      </div>
+      <div class="p-dialog-content" v-if='store.passwordChanged'>
+        Se a cambiado la contraseña correctamente
       </div>
     </template>
   </Dialog>
 </template>
 
-<style lang='scss'>
-
+<style lang='scss' scoped>
+.icon-close{
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  padding: 10px;
+}
 .recovery-input{
     width: 100%;
     max-width: 470px;

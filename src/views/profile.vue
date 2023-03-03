@@ -17,22 +17,55 @@
         <div class="flex">
           <p>Tienes un plan <strong> Gratuito </strong> con palabras ilimitadas</p>
         </div>
+        <recoveryPassword
+          :modal-recovery-password='modalRecoveryPassword' 
+          :show-modal-password='showModalPassword'
+          @closeModalRecovery='modalRecoveryPassword = !modalRecoveryPassword'
+          :token='token'
+          />
     </div>
 </template>
 <script lang='ts'>
 
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
+import { useRoute } from "vue-router";
 import { useOpenIaStore } from '../stores/global-store';
+import recoveryPassword from '../components/recoveryPassword.vue'
 export default defineComponent({
   name: 'profile',
   props: {},
+  components: {
+    recoveryPassword
+  },
   setup() {
     const store = useOpenIaStore();
+    const route = useRoute();
     onMounted(() => {
         store.validateToken()
     })
+    let showModalPassword = ref(false);
+    let modalRecoveryPassword = ref(false)
+
+    const token = route.query.token as string
+    const emailToken = route.query.email as string
+    onMounted(async () => {
+      let validToken;
+      if (token) {
+        validToken = await store.validateEmailToken({
+          token,
+          emailToken
+        })
+      }
+      if (validToken) {
+        showModalPassword.value = true
+        modalRecoveryPassword.value = true
+      }
+    })
     return{
-      store
+      store,
+      modalRecoveryPassword,
+      showModalPassword,
+      token
     }
   }
 })

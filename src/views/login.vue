@@ -30,7 +30,7 @@
       </template>
     </Dialog>
     <!-- modal renovate password -->
-    <recoveryPassword :modal-recovery-password='modalRecoveryPassword'/>
+    <recoveryPassword :modal-recovery-password='modalRecoveryPassword' :show-modal-password='showModalPassword'/>
 
     <div class="flex justify-content-center container-login align-items-center">
       <div class="card">
@@ -145,7 +145,7 @@ export default {
       userPassword: "",
     });
     const toast = useToast();
-    const modalRecoveryPassword = ref(false)
+    let modalRecoveryPassword = ref(false)
 
     const rules = {
       userEmail: { required, email },
@@ -189,17 +189,19 @@ export default {
       submitted.value = false;
     };
 
+    let showModalPassword = ref(false);
 
-    onMounted(async ()=> {
-      const token = route.query.token
-      console.log(token);
-      if (token.length > 20 && await store.validateEmailToken({
-          token,
-          email: route.query.email
-        }))
-        {
-          // aqui hay que hacer la logica para mostrar el modal con los campos de recuperar contraseña
-        }
+    const token = route.query.token
+    const emailToken = route.query.email
+    onMounted(async () => {
+       const validToken = await store.validateEmailToken({
+        token,
+        emailToken
+      })
+      if (validToken) {
+        showModalPassword.value = true
+        modalRecoveryPassword.value = true
+      }
     })
 
     return {
@@ -213,6 +215,7 @@ export default {
       hasHistory,
       modalRecoveryPassword,
       showError,
+      showModalPassword
     };
   },
 };

@@ -199,31 +199,27 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
     },
     async validateEmailToken (ojbToken: object){
       this.loading = true;
-      axios.post('/validate-email-token', ojbToken)
-      .then((response)=>{
+      try {
+        const data = await axios.post('/validate-email-token', ojbToken);
         this.tokenEmail = true;
-        console.log(response);
         this.loading = false;
-        return
-      }).catch((e)=> {
-        console.log(e);
+        return this.tokenEmail;
+      } catch (error) {
         this.loading = false;
-        return
-      })
+        return this.tokenEmail;
+      }
     },
     async asingNewPassword (passwords: object){
-      this.loading = true;
-      axios.post('/new-password', passwords)
-      .then((response)=>{
-        console.log(response);
+      try {
+        const data = axios.post('/new-password', passwords)
         this.tokenEmail = true;
         this.loading = false;
         return
-      }).catch((e)=> {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
         this.loading = false;
         return
-      })
+      }
     },
   }
 })

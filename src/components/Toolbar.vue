@@ -134,7 +134,6 @@ export default {
 	z-index: 3;
 	@include screen("sm"){
 		padding: 10px 15px 10px 5px;
-		overflow: hidden;
 	}
 	.container {
 		display: flex;
@@ -191,10 +190,10 @@ export default {
 		background: $white;
 		display: flex;
 		flex-direction: column;
-		right: -100%;
+		left: -100%;
 
 		&.active {
-			right: 0;
+			left: 0;
 		}
 
 		a, .close-session {

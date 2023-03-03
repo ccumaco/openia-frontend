@@ -134,6 +134,7 @@ export default {
 	z-index: 3;
 	@include screen("sm"){
 		padding: 10px 15px 10px 5px;
+		overflow: hidden;
 	}
 	.container {
 		display: flex;
@@ -154,7 +155,7 @@ export default {
 		gap: 40px;
 
 		@include screen("sm") {
-			display: none;
+			display: none !important;
 		}
 	}
 

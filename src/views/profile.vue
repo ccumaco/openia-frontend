@@ -10,19 +10,19 @@
         <p class='mb-2'>{{ store.user.userEmail }}</p>
         <div class="flex justify-content-between">
           <p class='mb-2'>Contraseña: *********</p>
-          <p>Cambiar Contraseña
+          <!-- <p @click='modalRecoveryPassword  = !modalRecoveryPassword'>Cambiar Contraseña
             <img src="/images/arrow-icon.svg" alt="arrow icon">
-          </p>
+          </p> -->
         </div>
         <div class="flex">
           <p>Tienes un plan <strong> Gratuito </strong> con palabras ilimitadas</p>
         </div>
-        <recoveryPassword
+        <!-- <recoveryPassword
           :modal-recovery-password='modalRecoveryPassword' 
           :show-modal-password='showModalPassword'
           @closeModalRecovery='modalRecoveryPassword = !modalRecoveryPassword'
           :token='token'
-          />
+        /> -->
     </div>
 </template>
 <script lang='ts'>
@@ -30,12 +30,12 @@
 import { defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useOpenIaStore } from '../stores/global-store';
-import recoveryPassword from '../components/recoveryPassword.vue'
+// import recoveryPassword from '../components/recoveryPassword.vue'
 export default defineComponent({
   name: 'profile',
   props: {},
   components: {
-    recoveryPassword
+    // recoveryPassword
   },
   setup() {
     const store = useOpenIaStore();

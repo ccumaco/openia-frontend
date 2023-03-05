@@ -1,9 +1,11 @@
 <script lang="ts">
 import { defineComponent} from 'vue';
 import Toolbar from './components/Toolbar.vue'
+import Footer from './components/Footer.vue'
 export default defineComponent({
  components:{
-  Toolbar
+  Toolbar,
+  Footer
  },
   data(){
     return{
@@ -29,6 +31,7 @@ export default defineComponent({
 <template>
   <Toolbar />
   <router-view></router-view>
+  <Footer />
 </template>
 
 <style lang='scss'>

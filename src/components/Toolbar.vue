@@ -3,7 +3,7 @@
 		<nav class="primary-nav">
 			<div class="container">
 				<router-link to="/" class="logo">
-					<img src="/images/logo-architext.png" alt="" width='150'>
+					<img src="/images/logo-blanco.png" alt="" width='150'>
 				</router-link>
 				<i class='pi pi-bars open-menu' :style='{fontSize: "1.8rem"}' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--rigth">

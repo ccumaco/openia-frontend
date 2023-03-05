@@ -7,7 +7,7 @@
                 </router-link>
                 <div class="container-info">
                     <p class='contact '>Contacto</p>
-                    <a class='' aria-label="Chat on WhatsApp" href="https://wa.me/1XXXXXXXXXX"> <i class='pi pi-whatsapp mr-1'></i>313 277 7667 </a>
+                    <a class='' aria-label="Chat on WhatsApp" href="https://wa.me/+573132777667?text=saludando desde arquitext" target='_blank'> <i class='pi pi-whatsapp mr-1'></i>313 277 7667</a>
                     <a class='' href="mailto:macgraficas1267@gmail.com"><i class='pi pi-envelope mr-1'></i>macgraficas1267@gmail.com</a>
                 </div>
             </div>

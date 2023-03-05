@@ -72,6 +72,11 @@ export default {
 				icon: 'pi pi-user',
 				to: '/profile',
 			},
+			{
+				label: 'Ayuda',
+				icon: 'pi pi-question-circle',
+				url: 'https://wa.me/+573132777667?text=saludando desde arquitext',
+			},
 			// {
 			// 	label: 'Ayuda',
 			// 	icon: 'pi pi-question-circle',

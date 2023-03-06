@@ -64,15 +64,13 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`/register`, objUser);
-        if (data.status == 200) {
-          objUser.userToken = data.data.userToken
-          window.localStorage.setItem('token', data.data.userToken)
-          capitalize(data.data.userName);
-          this.user = data.data
-          window.localStorage.setItem('user', JSON.stringify(data.data));
-          this.loading = false
-          return true
-        }
+        objUser.userToken = data.data.userToken
+        window.localStorage.setItem('token', data.data.userToken)
+        capitalize(data.data.userName);
+        this.user = data.data
+        window.localStorage.setItem('user', JSON.stringify(data.data));
+        this.loading = false
+        return true
       } catch (error) {
         console.error(error);
         this.loading = false

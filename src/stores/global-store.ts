@@ -4,6 +4,7 @@ import router from '../router'
 import { capitalize } from '../utils/index'
 import { ObjUser, ObjectTextSocial, ObjectTextFree, MakeArticle, GenerateEmail } from './interfases'
 
+
 export const useOpenIaStore = defineStore('apiOpenIA', {
   state: () => {
     return {

@@ -45,6 +45,12 @@ export default defineComponent({
                 to: 'articles'
             },
             {
+                title: 'Resumenes',
+                image: 'blogging',
+                description: 'Genera resumenes, analisis y mucho mas.',
+                to: 'resumes'
+            },
+            {
                 title: 'Emails',
                 image: 'email',
                 description: 'Crea los textos de mails llamativos para enganchar a tu público en pocos segundos',

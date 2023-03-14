@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import router from '../router'
 import { capitalize } from '../utils/index'
-import { ObjUser, ObjectTextSocial, ObjectTextFree, MakeArticle, GenerateEmail } from './interfases'
+import { ObjUser, ObjectTextSocial, ObjectTextFree, MakeArticle, GenerateEmail, MakeResume } from './interfases'
 
 
 export const useOpenIaStore = defineStore('apiOpenIA', {
@@ -20,7 +20,8 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         message: ''
       },
       tokenEmail: false,
-      passwordChanged: false
+      passwordChanged: false,
+      textResume: ''
     }
   },
   getters: {
@@ -44,16 +45,14 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       this.loading = true
       try {
         const data = await axios.post(`/login`, objUser);
-        if (data.status == 200) {
-          objUser.userToken = data.data.userToken
-          console.log(data.data.userToken, 'data.data.userToken');
-          window.localStorage.setItem('token', data.data.userToken)
-          capitalize(data.data.userName);
-          this.user = data.data
-          window.localStorage.setItem('user', JSON.stringify(data.data));
-          this.loading = false
-          return true
-        }
+        objUser.userToken = data.data.userToken
+        console.log(data.data.userToken, 'data.data.userToken');
+        window.localStorage.setItem('token', data.data.userToken)
+        capitalize(data.data.userName);
+        this.user = data.data
+        window.localStorage.setItem('user', JSON.stringify(data.data));
+        this.loading = false
+        return true
       } catch (error) {
         console.error(error);
         this.loading = false
@@ -174,6 +173,18 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       try {
         const data = await axios.post('/generate-article', objectTextSocial);
         this.textBlog = data.data
+      } catch (error) {
+        console.error(error);
+      }
+      this.loading = false
+      return
+    },
+    async makeResume( objResume: MakeResume ) {
+      this.textResume = '';
+      this.loading = true
+      try {
+        const data = await axios.post('/generate-resumes', objResume);
+        this.textResume = data.data
       } catch (error) {
         console.error(error);
       }

@@ -1,40 +1,47 @@
 
 export interface GenerateEmail {
-    titlePrompt: String,
-    prompt: String,
-    language: String,
-    soft: String,
+    titlePrompt: string;
+    prompt: string;
+    language: string;
+    soft: string;
   }
 export interface ObjectTextFree {
-    titlePrompt: String,
-    prompt: String,
-    language: String,
-    soft: String,
+    titlePrompt: string;
+    prompt: string;
+    language: string;
+    soft: string;
   }
 export interface MakeArticle {
-    prompt: String,
-    language: String,
-    soft: String,
-    maxLength: number,
-    keyWords: string[],
-    generateSeoKeyWords: boolean,
-    generateImages: boolean
+    prompt: string;
+    language: string;
+    soft: string;
+    maxLength: number;
+    keyWords: string[];
+    generateSeoKeyWords: boolean;
+    generateImages?: boolean;
+  }
+export interface MakeResume {
+    prompt: string;
+    language: string;
+    soft: string;
+    maxLength: number;
+    whatToDo: string;
   }
 export interface ObjectTextSocial {
-    prompt: String,
-    maxLength: number,
-    language: String,
-    soft: String,
-    hashtag: string[],
-    maxResponses: number,
-    countHashtag: number,
-    automaticHastag: boolean
+    prompt: string;
+    maxLength: number;
+    language: string;
+    soft: string;
+    hashtag: string[];
+    maxResponses: number;
+    countHashtag: number;
+    automaticHastag: boolean;
   }
   
   export interface ObjUser {
-    userName: string,
-    userEmail: String,
-    userPassword: String,
-    userToken?: String
+    userName: string;
+    userEmail: string;
+    userPassword: string;
+    userToken?: string;
   }
   

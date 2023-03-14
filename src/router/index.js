@@ -75,6 +75,12 @@ const routes = [
     beforeEnter: guard
   },
   {
+    path: "/resumes",
+    name: "resumes",
+    component: () => import('../views/resumes.vue'),
+    beforeEnter: guard
+  },
+  {
     path: "/emails",
     name: "emails",
     component: () => import('../views/emails.vue'),

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import './style.scss'
+import Tooltip from 'primevue/tooltip';
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
@@ -61,5 +62,5 @@ createApp(App)
     .component('Chips', Chips)
     .component('Avatar', Avatar)
     .component('Menu', Menu)
-    // .component('SelectButton', SelectButton)
+    .directive('tooltip', Tooltip)
     .mount('#app')

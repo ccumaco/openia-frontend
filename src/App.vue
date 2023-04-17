@@ -1,11 +1,11 @@
 <script lang="ts">
 import { defineComponent} from 'vue';
 import Toolbar from './components/Toolbar.vue'
-import Footer from './components/Footer.vue'
+import FooterGloblal from './components/Footer.vue'
 export default defineComponent({
  components:{
   Toolbar,
-  Footer
+  FooterGloblal
  },
   data(){
     return{
@@ -31,7 +31,7 @@ export default defineComponent({
 <template>
   <Toolbar />
   <router-view></router-view>
-  <Footer />
+  <FooterGloblal />
 </template>
 
 <style lang='scss'>

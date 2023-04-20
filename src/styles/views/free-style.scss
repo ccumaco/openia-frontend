@@ -4,3 +4,84 @@
     min-height: 100vh;
     padding-top: 100px;
 }
+.el_container{
+    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+    &__1280{
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+}
+.el_texto{
+    h1, h2{
+        text-align: center;
+    }
+    h1{
+        padding: 5rem 0rem 0.5rem 0rem;
+        font-weight: bold;
+    }
+    h2{
+        padding: 1rem 0rem 2rem 0rem; 
+        color: rgb(110, 110, 110);
+    }
+}
+.el_cards{
+    display: flex;
+    
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    .el_cards__ind{
+        max-width: 310px;
+        border-radius: 10px;
+        border: 1px solid #dadada;
+        text-align: center;
+        padding: 20px;
+        margin: 20px;
+    }
+    img{
+        margin-bottom: 15px;
+    }
+}
+.el_parrafo{
+    margin-top: 4rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.el_cont{
+    width: 100%;
+    position: fixed;
+    height: 120px;
+    bottom: 0px;
+    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+    padding-top: 15px;
+    &__buscador{
+        margin: 0 auto;
+        bottom: 18px;
+        width: 100%;
+        max-width: 1280px;
+    }
+}
+
+.el_cont_mensajes{
+    width: 100%;
+    position: relative;
+    height: 180px;
+    display: flex;
+    &:nth-child(even){
+        flex-direction: row-reverse;
+    }
+    &__dos__card{
+        background-color: #02C8B4;
+        padding: 20px;
+        border-radius: 15px 0px 15px 15px;
+        max-width: 1000px;
+        right: 0px;
+        color: #fafafa;
+    }
+    .el_name{
+        text-align: right;
+        color: #8b8b8b;
+        font-size: 12px;
+        padding-bottom: 8px;
+    }
+}

@@ -24,10 +24,6 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
       textResume: ''
     }
   },
-  getters: {
-    getResponse: (state) => state.responseText,
-    getUser: (state) => state.user,
-  },
   actions: {
     async searchWithText( objectTextSocial: ObjectTextSocial ) {
       this.responseText = [];

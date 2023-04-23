@@ -2,14 +2,32 @@
 <script setup>
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { defineProps, ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
+import { useInputSearch } from '../stores/input-search';
+const storeInput = useInputSearch();
+
+const {
+    softs,
+    objectToSent,
+    setSoftResponse,
+    makeSearchIn
+} = storeInput
 const store = useOpenIaStore();
 const { user } = storeToRefs(store);
-
-
 let tiempoInicio, mediaRecorder, idIntervalo;
 const recording = ref(false);
+
+defineProps({
+    mainSearch: {
+        type: String,
+        require: true
+    }
+})
+const showSoftStyles = ref(true)
+const openSoftStyles = () => {
+    showSoftStyles.value = !showSoftStyles.value
+}
 
 const startToRecord = () => {
     
@@ -37,7 +55,7 @@ const segundosATiempo = numeroDeSegundos => {
 };
 
 const duracion = ref("");
-
+const propmt = ref("")
 const comenzarAGrabar = () => {
     tieneSoporteUserMedia()
     recording.value = !recording.value;
@@ -91,13 +109,42 @@ const detenerGrabacion = () => {
 
 <template>
     <div class='input-component'>
-        {{ user.userEmail }}
-        <div class="container-icon">
-            <img src="/images/pensil.svg" alt="asdasd" width='26'>
+        <div
+            class="container-icon"
+            @click='openSoftStyles'
+        >
+            <img
+                src="/images/pensil.svg"
+                alt="icon-style"
+                width='26'
+            >
             <p>Estilo</p>
+            <div
+                class="styles-reponse"
+                :class='showSoftStyles ? "show" : "" '
+                >
+                <p>Estilo de respuesta</p>
+                <div class="styles-reponse--types">
+                    <div
+                        v-for='(style, index) of softs'
+                        class='styles-reponse--types--item'
+                        :class='objectToSent.soft == style ? "active" : ""'
+                        @click='setSoftResponse(style)'
+                        >
+                        {{ style }}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container-input">
-            <input type="text" name="search" id="search" placeholder='Haz tu pregunta o petición de busqueda'>
+            <input
+                type="text"
+                name="search"
+                id="search"
+                placeholder='Haz tu pregunta o petición de busqueda'
+                v-model='propmt'
+                @keyup.enter='makeSearchIn(mainSearch, propmt)'
+            >
             <img
                 src="/images/lupe.png"
                 @click='startToRecord'
@@ -128,6 +175,61 @@ const detenerGrabacion = () => {
 <style lang="scss" scoped>
 .input-component {
     display: flex;
+    .container-icon{
+        display: flex;
+        width: 40px;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #fff;
+        height: 40px;
+        margin-right: 20px;
+        transition: all .3s linear;
+        cursor: pointer;
+        position: relative;
+        & > p{
+            margin-left: 10px;
+            opacity: 0;
+        }
+        &:hover{
+            width: 90px;
+            p{
+                opacity: 1;
+            }
+        }
+    }
+    .styles-reponse{
+        position: absolute;
+        top: -80px;
+        background-color: #fff;
+        padding: 3px;
+        border-radius: 4px;
+        left: 0;
+        opacity: 0;
+        transition: all .3s linear;
+        &.show{
+            opacity: 1;
+        }
+        &--types{
+            display: flex;
+            background-color: #F3F3F3;
+            border-radius: 4px;
+            &--item{
+                padding: 9px 27px;
+                border-radius: 4px;
+                transition: all .2s linear;
+                &.active,
+                &:hover{
+                    border-radius: 4px;
+                    background-color: #02C8B4;
+                    color: #fff;
+                }
+            }
+        }
+        p{
+            text-align: center;
+            padding: 5px 0;
+        }
+    }
     .container-input{
         position: relative;
         width: 100%;

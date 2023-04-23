@@ -135,20 +135,7 @@ export const useOpenIaStore = defineStore('apiOpenIA', {
         window.location.href = 'https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848616128e0186203bf13a0897'
       })
     },
-    async freeStyle( objectTextFree: ObjectTextFree ) {
-      this.textFreeStyle = '';
-      this.loading = true
-      try {
-        const data = await axios.post(`/generate-text-free`, objectTextFree);
-        console.log(data);
-        
-        this.textFreeStyle = data.data
-      } catch (error) {
-        console.error(error);
-      }
-      this.loading = false
-      return
-    },
+    
     async generateEmail( objectEmail: GenerateEmail ) {
       this.textEmail = '';
       this.loading = true

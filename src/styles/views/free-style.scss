@@ -49,26 +49,33 @@
 }
 .el_cont{
     width: 100%;
-    position: fixed;
-    height: 120px;
-    bottom: 0px;
     background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
-    padding-top: 15px;
+    padding: 15px;
     &__buscador{
         margin: 0 auto;
         bottom: 18px;
         width: 100%;
         max-width: 1280px;
     }
+    &--scroll{
+        height: auto;
+        max-height: 100vh;
+        overflow-y: scroll;
+        padding: 0 10px;
+    }
 }
 
 .el_cont_mensajes{
     width: 100%;
     position: relative;
-    height: 180px;
     display: flex;
-    &:nth-child(even){
+    padding-bottom: 30px;
+    &:nth-child(odd){
         flex-direction: row-reverse;
+        .el_name{
+            display: block;
+            text-align: right;
+        }
     }
     &__dos__card{
         background-color: #02C8B4;
@@ -79,7 +86,7 @@
         color: #fafafa;
     }
     .el_name{
-        text-align: right;
+        display: none;
         color: #8b8b8b;
         font-size: 12px;
         padding-bottom: 8px;

@@ -2,10 +2,12 @@
 <script setup>
 import axios from 'axios';
 import { storeToRefs } from 'pinia';
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
 import { useInputSearch } from '../stores/input-search';
+import { useFreeStyleStore } from '../stores/free-style-store';
 const storeInput = useInputSearch();
+const storeFreeStyle = useFreeStyleStore();
 
 const {
     softs,
@@ -15,31 +17,31 @@ const {
 } = storeInput
 const store = useOpenIaStore();
 const { user } = storeToRefs(store);
-let tiempoInicio, mediaRecorder, idIntervalo;
-const recording = ref(false);
-
+const { freeStyle } = storeFreeStyle;
+let idIntervalo = ref("")
+const propmt = ref("")
 defineProps({
     mainSearch: {
         type: String,
         require: true
     }
 })
-const showSoftStyles = ref(true)
+const showSoftStyles = ref(false)
 const openSoftStyles = () => {
     showSoftStyles.value = !showSoftStyles.value
 }
 
-const startToRecord = () => {
-    
-    comenzarAGrabar()
-}
-const tieneSoporteUserMedia = () =>{
+let tiempoInicio = Date.now();
+const mediaRecorder = ref(null);
+const recording = ref(false);
+const duracion = ref("");
+const tieneSoporteUserMedia = () => {
     const devices = !!(navigator.mediaDevices.getUserMedia)
-    if (typeof MediaRecorder === "undefined" || !devices){
+    if (typeof MediaRecorder === "undefined" || !devices) {
         alert('no cuentas con un navegador que soporte microfono')
         return false
     }
-}
+};
 
 const segundosATiempo = numeroDeSegundos => {
     let horas = Math.floor(numeroDeSegundos / 60 / 60);
@@ -54,39 +56,56 @@ const segundosATiempo = numeroDeSegundos => {
     return `${horas}:${minutos}:${numeroDeSegundos}`;
 };
 
-const duracion = ref("");
-const propmt = ref("")
-const comenzarAGrabar = () => {
+const comenzarAContar = () => {
+    idIntervalo = setInterval(() => {
+        duracion.value = segundosATiempo((Date.now() - tiempoInicio) / 1000)
+    }, 1000);
+};
+
+const detenerConteo = () => {
+    recording.value = !recording.value
+    tiempoInicio = null;
+    duracion.value = "";
+    clearInterval(idIntervalo);
+}
+const comenzarAGrabar = async () => {
     tieneSoporteUserMedia()
     recording.value = !recording.value;
-    if (mediaRecorder) return alert("Ya se está grabando");
-
+    if (mediaRecorder.value) return alert("Ya se está grabando");
     navigator.mediaDevices.getUserMedia({
-            audio: {
-                deviceId: listaDeDispositivos.value,
-            }
-        })
+        audio: {
+            deviceId: listaDeDispositivos.value,
+        }
+    })
         .then(
             stream => {
-                duracion.value =  segundosATiempo((Date.now() - tiempoInicio) / 1000)
-                mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.start();
+                duracion.value = segundosATiempo((Date.now() - tiempoInicio) / 1000);
+                mediaRecorder.value = new MediaRecorder(stream);
+                mediaRecorder.value.start();
                 comenzarAContar();
                 const fragmentosDeAudio = [];
-                mediaRecorder.addEventListener("dataavailable", evento => {
+                mediaRecorder.value.addEventListener("dataavailable", evento => {
                     fragmentosDeAudio.push(evento.data);
                     console.log(fragmentosDeAudio);
                 });
-                mediaRecorder.addEventListener("stop", () => {
+                mediaRecorder.value.addEventListener("stop", async () => {
+                    const blobAudio = new Blob(fragmentosDeAudio);
+                    console.log(blobAudio, "blobAudioblobAudioblobAudio");
+                    const formData = new FormData();
+                    formData.append("file", blobAudio, `grabacion-${new Date().getTime()}.mp3`);
                     stream.getTracks().forEach(track => track.stop());
                     detenerConteo();
-                    const blobAudio = new Blob(fragmentosDeAudio);
-                    console.log(blobAudio);
-                    axios.post('/transcript-audio', {
-                        name: `grabacion-${new Date().getTime()}.mp3`,
-                        blobAudio: blobAudio,
-                        userEmail: user.userEmail
-                    })
+                    axios.post('/transcript-audio', formData)
+                        .then(async (response) => {
+                            await freeStyle({
+                                prompt: response.data.data,
+                                soft: objectToSent.soft,
+                                context: objectToSent.context
+                            })
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
                 });
             }
         )
@@ -95,79 +114,41 @@ const comenzarAGrabar = () => {
             console.log(error)
         });
 };
-const detenerConteo = () => {
-    recording.value = !recording.value
-    tiempoInicio = null;
-    duracion.value = "";
-}
 const detenerGrabacion = () => {
-    if (!mediaRecorder) return alert("No se está grabando");
-    mediaRecorder.stop();
-    mediaRecorder = null;
+    if (!mediaRecorder.value) {
+        return alert('No se está grabando');
+    }
+    mediaRecorder.value.stop();
+    mediaRecorder.value = null;
 };
 </script>
 
 <template>
     <div class='input-component'>
-        <div
-            class="container-icon"
-            @click='openSoftStyles'
-        >
-            <img
-                src="/images/pensil.svg"
-                alt="icon-style"
-                width='26'
-            >
+        <div class="container-icon" @click='openSoftStyles'>
+            <img src="/images/pensil.svg" alt="icon-style" width='26'>
             <p>Estilo</p>
-            <div
-                class="styles-reponse"
-                :class='showSoftStyles ? "show" : "" '
-                >
+            <div class="styles-reponse" :class='showSoftStyles ? "show" : ""'>
                 <p>Estilo de respuesta</p>
                 <div class="styles-reponse--types">
-                    <div
-                        v-for='(style, index) of softs'
-                        class='styles-reponse--types--item'
-                        :class='objectToSent.soft == style ? "active" : ""'
-                        @click='setSoftResponse(style)'
-                        >
+                    <div v-for='(style, index) of softs' class='styles-reponse--types--item'
+                        :class='objectToSent.soft == style ? "active" : ""' @click='setSoftResponse(style)'>
                         {{ style }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="container-input">
-            <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder='Haz tu pregunta o petición de busqueda'
-                v-model='propmt'
-                @keyup.enter='makeSearchIn(mainSearch, propmt)'
-            >
-            <img
-                src="/images/lupe.png"
-                @click='startToRecord'
-                alt="asdasd"
-                width='46'
-                v-show='!recording'
-                class='icon-recording'
-                id='btnComenzarGrabacion'
-                >
-            <span
-                class="loader"
-                v-show='recording'
-                @click='detenerGrabacion'
-                id='btnDetenerGrabacion'
-                ></span>
+            <input type="text" name="search" id="search" placeholder='Haz tu pregunta o petición de busqueda'
+                v-model='propmt' @keyup.enter='makeSearchIn(mainSearch, propmt)'>
+            <img src="/images/lupe.png" @click='comenzarAGrabar()' alt="asdasd" width='46' v-show='!recording'
+                class='icon-recording' id='btnComenzarGrabacion'>
+            <div v-show='recording' @click='detenerGrabacion' id='btnDetenerGrabacion'> Preciona aqui para detener grabacion</div>
+            <!-- <span class="loader" v-show='recording' @click='detenerGrabacion' id='btnDetenerGrabacion'></span> -->
         </div>
 
         <!-- decomment when you need choose the microphone -->
         <select name="listaDeDispositivos" id="listaDeDispositivos" hidden></select>
-    <br>
-    <div>
-        <p>{{ duracion }}</p>
-    </div>
     </div>
 </template>
 
@@ -175,7 +156,8 @@ const detenerGrabacion = () => {
 <style lang="scss" scoped>
 .input-component {
     display: flex;
-    .container-icon{
+
+    .container-icon {
         display: flex;
         width: 40px;
         padding: 10px;
@@ -186,18 +168,22 @@ const detenerGrabacion = () => {
         transition: all .3s linear;
         cursor: pointer;
         position: relative;
-        & > p{
+
+        &>p {
             margin-left: 10px;
             opacity: 0;
         }
-        &:hover{
+
+        &:hover {
             width: 90px;
-            p{
+
+            p {
                 opacity: 1;
             }
         }
     }
-    .styles-reponse{
+
+    .styles-reponse {
         position: absolute;
         top: -80px;
         background-color: #fff;
@@ -206,34 +192,41 @@ const detenerGrabacion = () => {
         left: 0;
         opacity: 0;
         transition: all .3s linear;
-        &.show{
+
+        &.show {
             opacity: 1;
         }
-        &--types{
+
+        &--types {
             display: flex;
             background-color: #F3F3F3;
             border-radius: 4px;
-            &--item{
+
+            &--item {
                 padding: 9px 27px;
                 border-radius: 4px;
                 transition: all .2s linear;
+
                 &.active,
-                &:hover{
+                &:hover {
                     border-radius: 4px;
                     background-color: #02C8B4;
                     color: #fff;
                 }
             }
         }
-        p{
+
+        p {
             text-align: center;
             padding: 5px 0;
         }
     }
-    .container-input{
+
+    .container-input {
         position: relative;
         width: 100%;
-        input{
+
+        input {
             width: 100%;
             height: 100%;
             box-shadow: 0px 3px 6px #00000029;
@@ -241,7 +234,8 @@ const detenerGrabacion = () => {
             padding: 0 20px;
             border: 0;
         }
-        .icon-recording{
+
+        .icon-recording {
             position: absolute;
             right: 10px;
             top: 0;
@@ -271,7 +265,9 @@ const detenerGrabacion = () => {
     bottom: 0;
     z-index: 1;
     cursor: pointer;
-    &::after, &::before {
+
+    &::after,
+    &::before {
         content: '';
         width: 4px;
         height: 30px;
@@ -282,8 +278,9 @@ const detenerGrabacion = () => {
         transform: translateY(-50%);
         left: 10px;
         box-sizing: border-box;
-        animation: animloader 0.3s  0.45s  linear infinite alternate;
-        }
+        animation: animloader 0.3s 0.45s linear infinite alternate;
+    }
+
     &::before {
         left: -10px;
         animation-delay: 0s;
@@ -291,7 +288,7 @@ const detenerGrabacion = () => {
 }
 
 @keyframes animloader {
-  0%   {
+    0% {
         height: 18px
     }
 }

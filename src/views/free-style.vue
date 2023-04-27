@@ -31,7 +31,6 @@ import { storeToRefs } from "pinia";
     <h1>Automatiza tareas y optimiza tus procesos escribiendo más rápido</h1>
     <h2>¡Pruébame ahora y saca beneficio a mis posibilidades!</h2>
   </div>
-  {{ context }}
   <div class="el_cards" v-if='context.length == 0'>
     <div class="el_cards__ind">
       <img src="/images/icons8-click-64.png"> 

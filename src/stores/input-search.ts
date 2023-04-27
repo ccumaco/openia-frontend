@@ -8,7 +8,7 @@ export const useInputSearch = defineStore('inputSearch', {
             objectToSent:{
                 soft: "",
                 prompt: "",
-                context: [] as string[]
+                context: [""]
             },
             languages: [
                 "Español",

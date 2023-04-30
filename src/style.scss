@@ -2,17 +2,21 @@
 
 @font-face {
   font-family: $regular-font;
-  src: url(../fonts/Roboto-Light.ttf);
+  src: url(../fonts/HindMadurai-Light.ttf);
 }
 @font-face {
   font-family: $bold-font;
-  src: url(../fonts/Roboto-Bold.ttf);
+  src: url(../fonts/Rajdhani-Bold.ttf);
+}
+@font-face {
+  font-family: $subtitle-font;
+  src: url(../fonts/Rajdhani-Medium.ttf);
 }
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto;
+  font-family: $regular-font;
 }
 p,a,li,span,i{
   font-size: 16px;

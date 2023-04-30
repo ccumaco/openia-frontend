@@ -3,7 +3,7 @@
         <div class='container'>
             <div class="container-top">
                 <router-link to="/" class="logo">
-                    <img src="/images/logo-negro.png" alt="" width='150'>
+                    <img src="/images/logo-blanco.png" alt="" width='150'>
                 </router-link>
                 <div class="container-info">
                     <p class='contact '>Contacto</p>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="container-bottom text-center">
-                © Architext. Todos los derechos reservados
+                © 2023 Arquitext. Todos los derechos reservados
             </div>
         </div>
     </div>
@@ -34,14 +34,14 @@ export default defineComponent({
 @import '../style.scss';
     .background{
         padding: 35px 0 20px;
-        background: #ECF0F2;
+        
     }
     .container{
         &-top{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #C7CED4;
+            border-bottom: 1px solid #133177;
             padding-bottom: 10px;
             @include screen("sm"){
                 flex-direction: column;
@@ -55,18 +55,19 @@ export default defineComponent({
             }
             a{
                 display: block;
-                color: #707070;
+                color: #ffffff;
                 text-decoration: none;
                 padding: 5px 0;
             }
             .contact{
                 font-weight: bold;
                 padding:10px 0;
+                color: $white;
             }
         }
         &-bottom{
             padding-top: 10px;
-            color: $text;
+            color: $white;
         }
     }
 </style>

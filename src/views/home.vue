@@ -2,25 +2,29 @@
   <div>
     <h1 class="hidden">Arquitext</h1>
     <div class="wrapper gift-background">
-      <video width="100%" autoplay muted loop>
-        <source src="/images/video-background.mp4" type="video/mp4">
-        Your browser does not support HTML video.
-      </video>
+      <div class="cont-banner">
+       <video width="100%" autoplay muted loop>
+          <source src="/images/video-background.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+        <div class="--sombra"></div>
+        <div class="--gradado-inferior"></div>
+      </div>
       <div class="gift__container">
-        <h2>Crea tus textos, <span>10X</span> más rápido con IA</h2>
+        <h2>Crea tus textos, <span>10X</span><br/>más rápido con IA</h2>
         <p>
-          Soluciones de copywriting creativo rápidas y efectivas para impulsar
+          Soluciones de copywriting creativo rápidas y efectivas <br/>para impulsar
           tu negocio en línea
         </p>
       </div>
-      <router-link to='/register' class='btn'>Comienza ahora</router-link>
+      <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
     </div>
     <div class="container-white container">
-      <h3>¿Que puedes hacer con Arquitext?</h3>
+      <h3>¿Qué puedes hacer con Arquitext?</h3>
       <div class="container-cards">
         <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
-          <img :src="`/images/${card.image}`" :alt="card.alt" />
           <div class="container-cards--card--content">
+            <img :src="`/images/${card.image}`" :alt="card.alt" />
             <h4>{{ card.title }}</h4>
             <p>{{ card.description }}</p>
           </div>
@@ -79,6 +83,9 @@
 						<li>Soporte por whatsapp o mail</li>
 					</ul>
 				</div>
+        <div class="btn-final">
+          <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
+        </div>
     </div>
   </div>
 </template>
@@ -157,6 +164,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
 <style lang='scss'>
 @import "./../styles/views/home.scss";

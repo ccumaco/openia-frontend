@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<nav class="primary-nav">
+		<nav class="primary-nav home">
 			<div class="container">
 				<router-link to="/" class="logo">
 					<img src="/images/logo-blanco.png" alt="" width='150'>
@@ -131,7 +131,6 @@ export default {
 @import '../styles/global-styles.scss';
 
 .primary-nav {
-	background: #000000d9;
 	width: 100%;
 	padding: 10px 30px;
 	top: 0;
@@ -231,4 +230,9 @@ export default {
 	@include screen("sm") {
 		display: block !important;
 	}
-}</style>
+}
+.primary-nav.home{
+	
+}
+</style>
+

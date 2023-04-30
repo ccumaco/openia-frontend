@@ -76,14 +76,20 @@
             display: block;
             text-align: right;
         }
+        .el_cont_mensajes__dos__card{
+            background-color: #01295a;
+            color: #ffffff;
+            border-radius: 15px 0px 15px 15px;
+        }
     }
     &__dos__card{
-        background-color: #02C8B4;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 4px rgb(175, 175, 175);
         padding: 20px;
-        border-radius: 15px 0px 15px 15px;
+        border-radius: 0px 15px 15px 15px;
         max-width: 1000px;
         right: 0px;
-        color: #fafafa;
+        color: #263948;
         p{
             white-space: pre-line;
         }

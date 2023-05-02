@@ -141,6 +141,7 @@ onMounted(() => hiddenButtons())
 	}
 	@include screen("sm") {
 		padding: 10px 15px 10px 5px;
+		background: $primary-color;
 	}
 
 	.container {
@@ -198,10 +199,10 @@ onMounted(() => hiddenButtons())
 		background: $white;
 		display: flex;
 		flex-direction: column;
-		left: -100%;
+		right: -100%;
 
 		&.active {
-			left: 0;
+			right: 0;
 		}
 
 		a,

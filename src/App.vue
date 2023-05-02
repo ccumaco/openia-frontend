@@ -1,37 +1,26 @@
-<script lang="ts">
+<script setup lang="ts">
 import { defineComponent} from 'vue';
 import Toolbar from './components/Toolbar.vue'
 import FooterGloblal from './components/Footer.vue'
-export default defineComponent({
- components:{
-  Toolbar,
-  FooterGloblal
- },
-  data(){
-    return{
-      loggedIn: false
-    }
-  },
-  methods:{
-    checkLogin() {
+import { useRoute } from 'vue-router'
+import { ref } from 'vue'
+const router = useRoute();
+  const loggedIn = ref(false)
+  
+    const checkLogin = () => {
       // Verificar si el usuario está conectado
       if (localStorage.getItem('user')) {
-        this.loggedIn = true
+        loggedIn.value = true
       } else {
-        this.loggedIn = false
+        loggedIn.value = false
       }
     }
-  },
-  created() {
-    this.checkLogin()
-  }
-})
 </script>
 
 <template>
   <Toolbar />
   <router-view></router-view>
-  <FooterGloblal />
+  <FooterGloblal v-if='router.path !== "/free-style"' />
 </template>
 
 <style lang='scss'>

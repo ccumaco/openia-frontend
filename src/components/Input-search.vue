@@ -126,7 +126,7 @@ const detenerGrabacion = () => {
 <template>
     <div class='input-component'>
         <div class="container-icon" @click='openSoftStyles'>
-            <img src="/images/pensil.svg" alt="icon-style" width='26'>
+            <img src="/images/before-record.svg" alt="icon-style" width='26'>
             <p>Estilo</p>
             <div class="styles-reponse" :class='showSoftStyles ? "show" : ""'>
                 <p>Estilo de respuesta</p>
@@ -135,16 +135,32 @@ const detenerGrabacion = () => {
                         :class='objectToSent.soft == style ? "active" : ""' @click='setSoftResponse(style)'>
                         {{ style }}
                     </div>
+                    
                 </div>
             </div>
         </div>
         <div class="container-input">
             <input type="text" name="search" id="search" placeholder='Haz tu pregunta o petición de busqueda'
                 v-model='propmt' @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'>
-            <img src="/images/lupe.png" @click='comenzarAGrabar()' alt="asdasd" width='46' v-show='!recording'
-                class='icon-recording' id='btnComenzarGrabacion'>
-            <div v-show='recording' @click='detenerGrabacion' id='btnDetenerGrabacion'> Preciona aqui para detener grabacion</div>
-            <!-- <span class="loader" v-show='recording' @click='detenerGrabacion' id='btnDetenerGrabacion'></span> -->
+            <img
+                src="/images/icon-recording.svg"
+                @click='comenzarAGrabar()'
+                alt="asdasd"
+                width='46'
+                v-show='!recording'
+                class='icon-recording'
+                id='btnComenzarGrabacion'
+            >
+            <img
+                src="/images/before-record.svg"
+                v-show='recording'
+                @click='detenerGrabacion'
+                alt="asdasd"
+                width='46'
+                class='icon-recording'
+                id='btnComenzarGrabacion'
+            >
+            
         </div>
 
         <!-- decomment when you need choose the microphone -->

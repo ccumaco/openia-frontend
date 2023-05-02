@@ -1,6 +1,6 @@
 <template>
     <div class='container-profile container'>
-      <router-link to='/products' class='arrow-back'>
+      <router-link to='/free-style' class='arrow-back'>
             <i class='pi pi-arrow-left mr-2 mb-2'></i> Volver
         </router-link>
         <h2 class='mb-2'>

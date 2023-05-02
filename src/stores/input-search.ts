@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useFreeStyleStore } from "./free-style-store";
+import { makeScroll } from "../utils";
 const storeFreestyle = useFreeStyleStore();
 
 export const useInputSearch = defineStore('inputSearch', {
@@ -31,20 +32,17 @@ export const useInputSearch = defineStore('inputSearch', {
         };
     },
     actions: {
+
         async makeSearchIn(mainSeach: string, propmt: string) {
-            const parentConversation = document.querySelector('.el_cont--scroll')
-            const makeScroll = ( ) => {
-                if (parentConversation) {
-                    console.log(parentConversation);
-                    parentConversation.scroll(0,parentConversation.scrollHeight)
-                }
-            }
+
             this.objectToSent.prompt = propmt;
             this.objectToSent.context = storeFreestyle.context;
+            makeScroll()
+            
             switch (mainSeach) {
                 case 'free-style':
                     await storeFreestyle.freeStyle(this.objectToSent)
-                    makeScroll()
+                    
                     break;
                 case 'otro':
                     console.log('no se encontro ninguno 1');

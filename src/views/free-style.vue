@@ -14,12 +14,6 @@ import { storeToRefs } from "pinia";
   const showSuccess = (textCliped: string) => {
     toast.add({severity:'success', summary: 'Texto copiado', detail: cutText(textCliped), life: 3000});
   }
-  const objectText = reactive({
-    titlePrompt: '',
-    prompt: "",
-    language: "Español",
-    soft: "Persuasivo",
-  });
   const mainSeach = 'free-style';
   
 </script>
@@ -27,6 +21,7 @@ import { storeToRefs } from "pinia";
 <template>
   <div class="el_container">
     <div class="el_container__1280">
+      <div class='el_cont--scroll'>
   <div class="el_texto">
     <h1>Automatiza tareas y optimiza tus procesos escribiendo más rápido</h1>
     <h2>¡Pruébame ahora y saca beneficio a mis posibilidades!</h2>
@@ -56,7 +51,7 @@ import { storeToRefs } from "pinia";
   <div class="el_parrafo" v-if='context.length == 0'>
     <p>Aquí aparecerá tu texto cuando sea generado por Arquitext</p>
   </div>
-  <div class='el_cont--scroll'>
+  
     <div class="el_cont_mensajes" v-for="(text, index) of context">
       <div class="el_cont_mensajes__dos">
         <p class="el_name">Miguel Cumaco</p>
@@ -71,7 +66,7 @@ import { storeToRefs } from "pinia";
 <div class="el_cont">
   <div class="el_cont__buscador">
     <Toast />
-    <InputSearch mainSearch='free-style'/>
+    <InputSearch :mainSearch='mainSeach'/>
   </div>
 </div>
 </template>

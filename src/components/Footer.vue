@@ -34,7 +34,7 @@ export default defineComponent({
 @import '../style.scss';
     .background{
         padding: 35px 0 20px;
-        
+        background-color: #050D20;
     }
     .container{
         &-top{

@@ -25,7 +25,7 @@
       
       <template #footer>
         <div class="flex justify-content-center">
-          <router-link to='/products' class="btn">Comenzar</router-link>
+          <router-link to='/free-style' class="btn">Comenzar</router-link>
         </div>
       </template>
     </Dialog>
@@ -175,7 +175,7 @@ export default {
       if (await store.login(objUser)) {
         toggleDialog();
         setTimeout(() => {
-          router.push('/products')
+          router.push('/free-style')
         }, 3000);
         return
       } else {

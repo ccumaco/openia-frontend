@@ -54,6 +54,10 @@
                 right: 20px;
                 font-size: 23px;
             }
+            span{
+                display: block;
+                white-space: break-spaces;
+            }
         }
         &--loading{
             color: $text;

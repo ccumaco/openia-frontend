@@ -1,15 +1,21 @@
 @import './../global-styles.scss';
-html{
-    background-color: #050D20;
-}
+
 .btn-home{
     margin-bottom: 100px;
     font-size: 1.2rem;
+}
+.background-blue{
+    
+    background-color: #050D20;
 }
 .btn-final{
     width: 100%;
     text-align: center;
     padding: 100px;
+    @include screen("sm"){
+        margin-top: 50px;
+        padding: 0;
+    }
 }
 .gift{
     &-background{
@@ -23,6 +29,10 @@ html{
         position: relative;
         overflow: hidden;
         min-height: 450px;
+        @include screen("sm"){
+            height: auto;
+            margin-top: 70px !important;
+        }
         .cont-banner{
             background: url(/public/images/fondo-home.jpg);
             background-repeat: no-repeat;
@@ -80,10 +90,14 @@ html{
             color: $white;
             font-size: 4.06rem;
             font-family: $bold-font;
+            @include screen("sm"){
+                font-size: 2.5rem;
+            }
             span{
                 font-size: 4.06rem;
-                color: $primary-color;
+                color: $titles;
                 font-family: $bold-font;
+                
             }
         }
         p{
@@ -112,13 +126,14 @@ html{
     &-cards{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: repeat(3, minmax(auto, 270px));
         grid-column-gap: 0px;
         grid-row-gap: 0px;
 
         @include screen("sm"){
             margin-top: 0;
-            grid-template-columns: (repeat(auto-fill, minmax(calc(100% - 20px),1fr)));
+            display: flex;
+            flex-direction: column;
         }
         &--card{
             display: flex;
@@ -152,9 +167,18 @@ html{
                 grid-area: 2/3/4/4;
             }
             &--content{
+                @include screen("sm"){
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
                 img{
                     float: left;
                     margin: 0px 20px 20px 0px;
+                    @include screen("sm"){
+                        max-width: 80px;
+                        margin: 10px 0;
+                    }
                 }
                 h4{
                     margin: 10px 0;

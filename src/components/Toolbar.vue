@@ -1,11 +1,10 @@
 <template>
-	<div>
 		<nav class="primary-nav home">
 			<div class="container">
 				<router-link to="/" class="logo">
 					<img src="/images/logo-blanco.png" alt="" width='150'>
 				</router-link>
-				<i class='pi pi-bars open-menu' :style='{fontSize: "1.8rem"}' @click='showMenu = !showMenu'></i>
+				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--rigth">
 					<router-link v-if="store.user.userToken == null" to="/login">
 						Iniciar sesión
@@ -30,16 +29,13 @@
 					<router-link v-if="store.user.userToken == null" to="/login" @click='showMenu = !showMenu'>
 						Iniciar sesión
 					</router-link>
-					<template v-for='(item, index) of routes' >
-						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`' @click='showMenu = !showMenu'>
+					<template v-for='(item, index) of routes'>
+						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`'
+							@click='showMenu = !showMenu'>
 							{{ item.label }}
 						</router-link>
 					</template>
-					<div
-						class="close-session"
-						@click='store.logout(), showMenu = !showMenu'
-						v-if='store.user.userToken'
-					>
+					<div class="close-session" @click='store.logout(), showMenu = !showMenu' v-if='store.user.userToken'>
 						Cerrar sesion
 					</div>
 
@@ -50,81 +46,79 @@
 				</div>
 			</div>
 		</nav>
-	</div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
 import { useOpenIaStore } from '../stores/global-store';
-export default {
-	setup() {
-		const store = useOpenIaStore();
-		const showMenu = ref(false);
-		const routes = [
-			{
-				label: 'Productos',
-				icon: 'pi pi-book',
-				to: '/products',
-			},
-			{
-				label: 'Cuenta',
-				icon: 'pi pi-user',
-				to: '/profile',
-			},
-			{
-				label: 'Ayuda',
-				icon: 'pi pi-question-circle',
-				url: 'https://wa.me/+573132777667?text=saludando desde arquitext',
-			},
-			// {
-			// 	label: 'Ayuda',
-			// 	icon: 'pi pi-question-circle',
-			// 	to: '/help',
-			// },
-
-			{
-				label: 'Cerrar sesion',
-				icon: 'pi pi-sign-out',
-				command: () => {
-					console.log('esta haciendo esto');
-					
-					store.logout()
-					showMenu.value = !showMenu.value
-				}
-			},
-		];
-		const menu = ref();
-		const toggle = (event: any) => {
-			menu.value.toggle(event);
-		};
-
-		const hiddenButtons = () => {
-			const buttons = document.querySelector('.primary-nav--rigth')
-			const nav = document.querySelector('.primary-nav')
-			if (window.location.pathname == '/login' ||  window.location.pathname == '/register') {
-				buttons?.setAttribute('style', "display:none")
-				nav?.setAttribute('style', "position: absolute")
-				return
-			}
-			nav?.setAttribute('style', "position: sticky")
-			buttons?.setAttribute('style', "display:flex")
-			return
-			
-		}
-		const route = useRoute()
-		onMounted(() => hiddenButtons)
-		watch(() => route.path, hiddenButtons)
-		return {
-			store,
-			routes,
-			toggle,
-			menu,
-			showMenu,
-			hiddenButtons
-		};
+const store = useOpenIaStore();
+const showMenu = ref(false);
+const route = useRoute()
+const routes = [
+	{
+		label: 'Estilo libre',
+		icon: 'pi pi-book',
+		to: '/free-style',
 	},
+	{
+		label: 'Cuenta',
+		icon: 'pi pi-user',
+		to: '/profile',
+	},
+	{
+		label: 'Ayuda',
+		icon: 'pi pi-question-circle',
+		url: 'https://wa.me/+573132777667?text=saludando desde arquitext',
+	},
+	// {
+	// 	label: 'Ayuda',
+	// 	icon: 'pi pi-question-circle',
+	// 	to: '/help',
+	// },
+
+	{
+		label: 'Cerrar sesion',
+		icon: 'pi pi-sign-out',
+		command: () => {
+			console.log('esta haciendo esto');
+
+			store.logout()
+			showMenu.value = !showMenu.value
+		}
+	},
+];
+const menu = ref();
+const toggle = (event: any) => {
+	menu.value.toggle(event);
 };
+
+const hiddenButtons = () => {
+	const buttons = document.querySelector('.primary-nav--rigth')
+	const nav = document.querySelector('.primary-nav')
+	if (window.location.pathname !== '/') {
+		nav?.classList.add('out-home')
+		return
+	}
+	nav?.classList.remove('out-home')
+
+}
+
+const addBackground = () => {
+	const nav = document.querySelector('.primary-nav')
+	if (nav) {
+		if (window.scrollY > 300) {
+			nav.classList.add('scrolling')
+		} else {
+			nav.classList.remove('scrolling')
+		}
+	}
+}
+
+window.addEventListener('scroll',addBackground)
+
+watch(() => route.path, hiddenButtons)
+onMounted(() => hiddenButtons())
 </script>
 
 <style lang="scss">
@@ -133,12 +127,22 @@ export default {
 .primary-nav {
 	width: 100%;
 	padding: 10px 30px;
-	top: 0;
 	position: fixed;
+	top: 0;
 	z-index: 3;
-	@include screen("sm"){
+	background: transparent;
+	transition: all .3s linear;
+	&.scrolling{
+		background: $primary-color;
+	}
+	&.out-home{
+		position: sticky;
+		background-color: #050D20;
+	}
+	@include screen("sm") {
 		padding: 10px 15px 10px 5px;
 	}
+
 	.container {
 		display: flex;
 		justify-content: space-between;
@@ -200,7 +204,8 @@ export default {
 			left: 0;
 		}
 
-		a, .close-session {
+		a,
+		.close-session {
 			text-align: center;
 			padding: 20px;
 			color: $white;
@@ -231,8 +236,7 @@ export default {
 		display: block !important;
 	}
 }
-.primary-nav.home{
-	
-}
+
+.primary-nav.home {}
 </style>
 

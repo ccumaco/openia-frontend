@@ -19,73 +19,75 @@
       </div>
       <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
     </div>
-    <div class="container-white container">
-      <h3>¿Qué puedes hacer con Arquitext?</h3>
-      <div class="container-cards">
-        <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
-          <div class="container-cards--card--content">
-            <img :src="`/images/${card.image}`" :alt="card.alt" />
-            <h4>{{ card.title }}</h4>
-            <p>{{ card.description }}</p>
+    <div class='background-blue'>
+      <div class="container-white container">
+        <h3>¿Qué puedes hacer con Arquitext?</h3>
+        <div class="container-cards">
+          <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
+            <div class="container-cards--card--content">
+              <img :src="`/images/${card.image}`" :alt="card.alt" />
+              <h4>{{ card.title }}</h4>
+              <p>{{ card.description }}</p>
+            </div>
           </div>
         </div>
+          <div v-if='false' class="btn-container flex justify-content-center mt-4">
+            <label class="switch btn-color-mode-switch">
+              <input
+                v-model="isPerYear"
+                type="checkbox"
+                name="color_mode"
+                id="color_mode"
+                value="1"
+              />
+              <label
+                for="color_mode"
+                data-on="Mensual"
+                data-off="Anual (Ahorra 25%)"
+                class="btn-color-mode-switch-inner"
+              ></label>
+            </label>
+          </div>
+          <div v-if="false" class="card-plan">
+            <h2>Plan</h2>
+            <h3 class="price">$37.500/mes</h3>
+
+            <p class="context">
+              Perfecto para cualquier persona y empresas que manejen textos cortos
+              como redes sociales, mails, introducciones sencillas, descripciones,
+              anuncios.
+            </p>
+            <ul>
+              <li>Palabras ilimitadas</li>
+              <li>Diversas plantillas</li>
+              <li>Optimización SEO</li>
+              <li>Lista de consejos para textos</li>
+              <li>+26 idiomas de trabajo</li>
+              <li>Soporte por whatsapp o mail</li>
+            </ul>
+          </div>
+          <div v-if="false" class="card-plan">
+            <h2>Plan</h2>
+            <h3 class="price">$37.500/Año</h3>
+
+            <p class="context">
+              Perfecto para cualquier persona y empresas que manejen textos cortos
+              como redes sociales, mails, introducciones sencillas, descripciones,
+              anuncios.
+            </p>
+            <ul>
+              <li>Palabras ilimitadas</li>
+              <li>Diversas plantillas</li>
+              <li>Optimización SEO</li>
+              <li>Lista de consejos para textos</li>
+              <li>+26 idiomas de trabajo</li>
+              <li>Soporte por whatsapp o mail</li>
+            </ul>
+          </div>
+          <div class="btn-final">
+            <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
+          </div>
       </div>
-				<div v-if='false' class="btn-container flex justify-content-center mt-4">
-					<label class="switch btn-color-mode-switch">
-						<input
-							v-model="isPerYear"
-							type="checkbox"
-							name="color_mode"
-							id="color_mode"
-							value="1"
-						/>
-						<label
-							for="color_mode"
-							data-on="Mensual"
-							data-off="Anual (Ahorra 25%)"
-							class="btn-color-mode-switch-inner"
-						></label>
-					</label>
-				</div>
-				<div v-if="false" class="card-plan">
-					<h2>Plan</h2>
-					<h3 class="price">$37.500/mes</h3>
-
-					<p class="context">
-						Perfecto para cualquier persona y empresas que manejen textos cortos
-						como redes sociales, mails, introducciones sencillas, descripciones,
-						anuncios.
-					</p>
-					<ul>
-						<li>Palabras ilimitadas</li>
-						<li>Diversas plantillas</li>
-						<li>Optimización SEO</li>
-						<li>Lista de consejos para textos</li>
-						<li>+26 idiomas de trabajo</li>
-						<li>Soporte por whatsapp o mail</li>
-					</ul>
-				</div>
-				<div v-if="false" class="card-plan">
-					<h2>Plan</h2>
-					<h3 class="price">$37.500/Año</h3>
-
-					<p class="context">
-						Perfecto para cualquier persona y empresas que manejen textos cortos
-						como redes sociales, mails, introducciones sencillas, descripciones,
-						anuncios.
-					</p>
-					<ul>
-						<li>Palabras ilimitadas</li>
-						<li>Diversas plantillas</li>
-						<li>Optimización SEO</li>
-						<li>Lista de consejos para textos</li>
-						<li>+26 idiomas de trabajo</li>
-						<li>Soporte por whatsapp o mail</li>
-					</ul>
-				</div>
-        <div class="btn-final">
-          <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
-        </div>
     </div>
   </div>
 </template>
@@ -166,6 +168,6 @@ export default defineComponent({
 </script>
 
 
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "./../styles/views/home.scss";
 </style>

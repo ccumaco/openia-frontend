@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ObjectTextFree } from "./interfases";
 import axios from "axios";
+import { makeScroll } from "../utils";
 
 export const useFreeStyleStore = defineStore('freeStyle', {
     state: () => {
@@ -16,7 +17,8 @@ export const useFreeStyleStore = defineStore('freeStyle', {
             this.context.push(objectTextFree.prompt)
             try {
               const response = (await axios.post(`/generate-text-free`, objectTextFree)).data;
-              this.context.push(response)
+              this.context.push(response);
+              makeScroll();
             } catch (error) {
                 this.errors = []
                 this.errors = error;

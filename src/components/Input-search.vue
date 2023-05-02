@@ -140,7 +140,7 @@ const detenerGrabacion = () => {
         </div>
         <div class="container-input">
             <input type="text" name="search" id="search" placeholder='Haz tu pregunta o petición de busqueda'
-                v-model='propmt' @keyup.enter='makeSearchIn(mainSearch, propmt)'>
+                v-model='propmt' @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'>
             <img src="/images/lupe.png" @click='comenzarAGrabar()' alt="asdasd" width='46' v-show='!recording'
                 class='icon-recording' id='btnComenzarGrabacion'>
             <div v-show='recording' @click='detenerGrabacion' id='btnDetenerGrabacion'> Preciona aqui para detener grabacion</div>
@@ -154,6 +154,7 @@ const detenerGrabacion = () => {
 
 
 <style lang="scss" scoped>
+@import '../styles/global-styles.scss';
 .input-component {
     display: flex;
 
@@ -162,7 +163,7 @@ const detenerGrabacion = () => {
         width: 40px;
         padding: 10px;
         border-radius: 20px;
-        background-color: #fff;
+        background-color: $white;
         height: 40px;
         margin-right: 20px;
         transition: all .3s linear;
@@ -172,6 +173,7 @@ const detenerGrabacion = () => {
         &>p {
             margin-left: 10px;
             opacity: 0;
+            color: $primary-color;
         }
 
         &:hover {
@@ -186,32 +188,34 @@ const detenerGrabacion = () => {
     .styles-reponse {
         position: absolute;
         top: -80px;
-        background-color: #fff;
+        background-color: $white;
         padding: 3px;
         border-radius: 4px;
         left: 0;
         opacity: 0;
         transition: all .3s linear;
-
+        z-index: -99;
         &.show {
             opacity: 1;
+            z-index: 1;
         }
 
         &--types {
             display: flex;
-            background-color: #F3F3F3;
+            background-color: $primary-color;
             border-radius: 4px;
 
             &--item {
                 padding: 9px 27px;
                 border-radius: 4px;
+                color: $white;
                 transition: all .2s linear;
 
                 &.active,
                 &:hover {
                     border-radius: 4px;
                     background-color: #02C8B4;
-                    color: #fff;
+                    color: $white;
                 }
             }
         }
@@ -219,6 +223,7 @@ const detenerGrabacion = () => {
         p {
             text-align: center;
             padding: 5px 0;
+            color: $primary-color;
         }
     }
 
@@ -233,6 +238,7 @@ const detenerGrabacion = () => {
             border-radius: 64px;
             padding: 0 20px;
             border: 0;
+            color: $primary-color;
         }
 
         .icon-recording {

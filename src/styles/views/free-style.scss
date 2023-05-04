@@ -114,3 +114,41 @@
         padding-bottom: 8px;
     }
 }
+
+.big-title{
+    font-size: 22px;
+    color: #707070;
+}
+
+.small-description{
+    color: #707070;
+    font-size: 12px;
+}
+
+.loader {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $titles;
+    box-shadow: 16px 0 $titles, -16px 0 $titles;
+    position: relative;
+    animation: flash 0.5s ease-out infinite alternate;
+    display: inline-block;
+    margin-left: 40px;
+  }
+  
+  @keyframes flash {
+    0% {
+      background-color: $white;
+      box-shadow: 16px 0 $white, -16px 0 $titles;
+    }
+    50% {
+      background-color: $titles;
+      box-shadow: 16px 0 $white, -16px 0 $white;
+    }
+    100% {
+      background-color: $white;
+      box-shadow: 16px 0 $titles, -16px 0 $white;
+    }
+  }
+        

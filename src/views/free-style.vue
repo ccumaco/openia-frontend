@@ -1,13 +1,16 @@
 <script setup lang='ts'>
 import { reactive, ref } from "@vue/reactivity";
 import { useFreeStyleStore } from "../stores/free-style-store";
+import { useOpenIaStore } from "../stores/global-store";
 import { useToast } from "primevue/usetoast";
 import InputSearch from "../components/Input-search.vue";
 import { storeToRefs } from "pinia";
 
-  const store = useFreeStyleStore();
+  const storeFreeStyle = useFreeStyleStore();
+  const storeGlobal = useOpenIaStore();
   const toast = useToast();
-  const { context } = storeToRefs(store);
+  const { user } = storeToRefs(storeGlobal);
+  const { context, loading } = storeToRefs(storeFreeStyle);
   const cutText = (text: string) => {
     return text.substring(0, 70) + '...';
   }
@@ -54,11 +57,15 @@ import { storeToRefs } from "pinia";
   
     <div class="el_cont_mensajes" v-for="(text, index) of context">
       <div class="el_cont_mensajes__dos">
-        <p class="el_name">Miguel Cumaco</p>
+        <p class="el_name">{{ user.userName }}</p>
         <div class="el_cont_mensajes__dos__card">
           <p>{{ text }}</p>
         </div>
       </div>
+    </div>
+    <div v-if='loading'>
+      <p class='big-title'>Estamos generando textos increíbles para ti. <span class="loader"></span></p>
+      <p class='small-description'>Ten paciencia, podemos tardar algunos segundos en generar los textos</p>
     </div>
   </div>
 </div>
@@ -71,7 +78,7 @@ import { storeToRefs } from "pinia";
 </div>
 </template>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 @import "./../styles/views/social-media.scss";
 @import "./../styles/views/free-style.scss";
 </style>

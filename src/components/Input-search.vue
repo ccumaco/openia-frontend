@@ -1,6 +1,5 @@
 
 <script setup>
-import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
@@ -13,7 +12,8 @@ const {
     softs,
     objectToSent,
     setSoftResponse,
-    makeSearchIn
+    makeSearchIn,
+    transcriptAudio
 } = storeInput
 const store = useOpenIaStore();
 const { user } = storeToRefs(store);
@@ -58,16 +58,27 @@ const segundosATiempo = numeroDeSegundos => {
 
 const comenzarAContar = () => {
     idIntervalo = setInterval(() => {
-        duracion.value = segundosATiempo((Date.now() - tiempoInicio) / 1000)
+        duracion.value = duracion.value + 1
+        if (duracion.value >= 60) {
+            detenerGrabacion();
+            return
+        }
     }, 1000);
 };
 
 const detenerConteo = () => {
     recording.value = !recording.value
-    tiempoInicio = null;
-    duracion.value = "";
+    duracion.value = 0;
     clearInterval(idIntervalo);
 }
+
+const detenerGrabacion = () => {
+    if (!mediaRecorder.value) {
+        return alert('No se está grabando');
+    }
+    mediaRecorder.value.stop();
+    mediaRecorder.value = null;
+};
 const comenzarAGrabar = async () => {
     tieneSoporteUserMedia()
     recording.value = !recording.value;
@@ -77,13 +88,13 @@ const comenzarAGrabar = async () => {
             deviceId: listaDeDispositivos.value,
         }
     })
-        .then(
-            stream => {
-                duracion.value = segundosATiempo((Date.now() - tiempoInicio) / 1000);
+        .then(stream => {
+                duracion.value = 0;
                 mediaRecorder.value = new MediaRecorder(stream);
                 mediaRecorder.value.start();
                 comenzarAContar();
                 const fragmentosDeAudio = [];
+                
                 mediaRecorder.value.addEventListener("dataavailable", evento => {
                     fragmentosDeAudio.push(evento.data);
                     console.log(fragmentosDeAudio);
@@ -95,17 +106,7 @@ const comenzarAGrabar = async () => {
                     formData.append("file", blobAudio, `grabacion-${new Date().getTime()}.mp3`);
                     stream.getTracks().forEach(track => track.stop());
                     detenerConteo();
-                    axios.post('/transcript-audio', formData)
-                        .then(async (response) => {
-                            await freeStyle({
-                                prompt: response.data.data,
-                                soft: objectToSent.soft,
-                                context: objectToSent.context
-                            })
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
+                    transcriptAudio(formData);
                 });
             }
         )
@@ -114,17 +115,11 @@ const comenzarAGrabar = async () => {
             console.log(error)
         });
 };
-const detenerGrabacion = () => {
-    if (!mediaRecorder.value) {
-        return alert('No se está grabando');
-    }
-    mediaRecorder.value.stop();
-    mediaRecorder.value = null;
-};
 </script>
 
 <template>
     <div class='input-component'>
+        {{ duracion }}
         <div class="container-icon" @click='openSoftStyles'>
             <img src="/images/before-record.svg" alt="icon-style" width='26'>
             <p>Estilo</p>
@@ -145,17 +140,17 @@ const detenerGrabacion = () => {
             <img
                 src="/images/icon-recording.svg"
                 @click='comenzarAGrabar()'
-                alt="asdasd"
+                alt="start to record"
                 width='46'
                 v-show='!recording'
                 class='icon-recording'
                 id='btnComenzarGrabacion'
             >
             <img
-                src="/images/before-record.svg"
+                src="/images/icon-voice.png"
                 v-show='recording'
                 @click='detenerGrabacion'
-                alt="asdasd"
+                alt="stop recording"
                 width='46'
                 class='icon-recording'
                 id='btnComenzarGrabacion'
@@ -252,7 +247,7 @@ const detenerGrabacion = () => {
             height: 100%;
             box-shadow: 0px 3px 6px #00000029;
             border-radius: 64px;
-            padding: 0 20px;
+            padding: 0 50px 0 20px;
             border: 0;
             color: $primary-color;
         }

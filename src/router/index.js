@@ -20,7 +20,7 @@ const guardLoginRegister = async (to, from, next) => {
   if (await store.validateToken() == false) {
     next()
   } else {
-    return next('/free-style');
+    return next('/products');
   }
 }
 const routes = [

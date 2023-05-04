@@ -25,7 +25,7 @@
       
       <template #footer>
         <div class="flex justify-content-center">
-          <router-link to='/free-style' class="btn">Comenzar</router-link>
+          <router-link to='/products' class="btn">Comenzar</router-link>
         </div>
       </template>
     </Dialog>

@@ -57,9 +57,9 @@ const showMenu = ref(false);
 const route = useRoute()
 const routes = [
 	{
-		label: 'Estilo libre',
+		label: 'Productos',
 		icon: 'pi pi-book',
-		to: '/free-style',
+		to: '/products',
 	},
 	{
 		label: 'Cuenta',

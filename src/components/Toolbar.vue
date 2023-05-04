@@ -24,7 +24,7 @@
 				<div class="mobile-menu" :class='showMenu ? "active" : ""'>
 					<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
 						<p>{{ store.user.userName }}</p>
-						<span>X</span>
+						<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
 					</div>
 					<router-link v-if="store.user.userToken == null" to="/login" @click='showMenu = !showMenu'>
 						Iniciar sesión
@@ -190,29 +190,40 @@ onMounted(() => hiddenButtons())
 	display: none;
 
 	@include screen("sm") {
-		display: block;
-		position: absolute;
+		justify-content: flex-end;
+  		position: absolute;
 		height: 100vh;
 		top: 0;
-		width: 50%;
-		transition: all .3s linear;
-		background: $white;
+		width: 80%;
+		transition: all .1s linear;
+		border-radius: 30px 0px 0px 30px;
+		background: rgba(12, 11, 14, 0.863);
+		background: linear-gradient(90deg, rgba(0, 29, 56, 0.89) 0%, rgba(3, 0, 15, 0.884) 100%);
+		-webkit-backdrop-filter: blur(5px);
+  		backdrop-filter: blur(5px);
 		display: flex;
 		flex-direction: column;
 		right: -100%;
-
+		padding-bottom: 100px;
+		.ar-Close{
+			padding-top: 14px;
+			padding-right: 6px;
+			position: absolute;
+			top: 10px;
+			right: 20px;
+		}
 		&.active {
 			right: 0;
 		}
 
 		a,
 		.close-session {
-			text-align: center;
+			text-align: right;
 			padding: 20px;
 			color: $white;
-			border-bottom: 1px solid $white;
-			background-color: $primary-color;
 			transition: all .3s linear;
+			font-family: $regular-font;
+			font-size: 2rem;
 
 			&:target {
 				background: rgba($color: $primary-color, $alpha: .7);
@@ -220,12 +231,17 @@ onMounted(() => hiddenButtons())
 		}
 
 		.close {
-			color: $black;
+			color: $white;
 			display: block;
 			text-align: right;
 			padding: 10px 20px;
 			font-size: 20px;
 			font-weight: bold;
+			p{
+				position: absolute;
+				top: 25px;
+				left: 30px;
+			}
 		}
 	}
 }

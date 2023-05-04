@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { useFreeStyleStore } from "./free-style-store";
 import { makeScroll } from "../utils";
+import axios from "axios";
+import { ObjectTextFree } from "./interfases";
 const storeFreestyle = useFreeStyleStore();
 
 export const useInputSearch = defineStore('inputSearch', {
@@ -60,6 +62,18 @@ export const useInputSearch = defineStore('inputSearch', {
                     console.log('no se encontro ninguno 555 ');
                     break;
             }
+        },
+        async transcriptAudio(formData: any) {
+            axios.post('/transcript-audio', formData)
+                .then(async (response) => {
+                    await storeFreestyle.freeStyle({
+                        prompt: response.data.data,
+                        soft: this.objectToSent.soft
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         setSoftResponse (softResponse: string) {
             this.objectToSent.soft = softResponse;

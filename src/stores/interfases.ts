@@ -8,7 +8,8 @@ export interface GenerateEmail {
 export interface ObjectTextFree {
     prompt: string;
     soft: string;
-  }
+    context?: Array<String>
+}
 export interface MakeArticle {
     prompt: string;
     language: string;

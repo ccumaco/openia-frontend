@@ -12,19 +12,22 @@ export const useFreeStyleStore = defineStore('freeStyle', {
         };
     },
     actions: {
-        async freeStyle( objectTextFree: ObjectTextFree ) {
+        async freeStyle(objectTextFree: ObjectTextFree) {
             this.loading = true
             this.context.push(objectTextFree.prompt)
             try {
-              const response = (await axios.post(`/generate-text-free`, objectTextFree)).data;
-              this.context.push(response);
-              makeScroll();
+                const response = (await axios.post(`/generate-text-free`, {
+                    context: this.context,
+                    ...objectTextFree
+                })).data;
+                this.context.push(response);
+                makeScroll();
             } catch (error) {
                 this.errors = []
                 this.errors = error;
             }
             this.loading = false
             return
-          },
+        },
     }
 });

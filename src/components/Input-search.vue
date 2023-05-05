@@ -119,7 +119,6 @@ const comenzarAGrabar = async () => {
 
 <template>
     <div class='input-component'>
-        {{ duracion }}
         <div class="container-icon" @click='openSoftStyles'>
             <img src="/images/before-record.svg" alt="icon-style" width='26'>
             <p>Estilo</p>
@@ -135,8 +134,15 @@ const comenzarAGrabar = async () => {
             </div>
         </div>
         <div class="container-input">
-            <input type="text" name="search" id="search" placeholder='Haz tu pregunta o petición de busqueda'
-                v-model='propmt' @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'>
+            <textarea
+                type="text"
+                name="search"
+                id="search"
+                placeholder='Haz tu pregunta o petición de busqueda'
+                v-model='propmt'
+                @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'
+                :rows='propmt.length > 150 ? "3" : "1"'
+            />
             <img
                 src="/images/icon-recording.svg"
                 @click='comenzarAGrabar()'
@@ -242,12 +248,13 @@ const comenzarAGrabar = async () => {
         position: relative;
         width: 100%;
 
-        input {
+        textarea,input {
+            min-width: 100%;
             width: 100%;
             height: 100%;
             box-shadow: 0px 3px 6px #00000029;
             border-radius: 64px;
-            padding: 0 50px 0 20px;
+            padding: 10px 50px 0 20px;
             border: 0;
             color: $primary-color;
         }

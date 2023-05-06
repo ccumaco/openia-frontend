@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
 import { useInputSearch } from '../stores/input-search';
 import { useFreeStyleStore } from '../stores/free-style-store';
+import mySvg from '../../public/images/before-record.svg'
 const storeInput = useInputSearch();
 const storeFreeStyle = useFreeStyleStore();
 
@@ -121,14 +122,20 @@ const comenzarAGrabar = async () => {
 <template>
     <div class='input-component'>
         <div class="container-icon" @click='openSoftStyles'>
-            <img src="/images/before-record.svg" alt="icon-style" width='26'>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26.047" viewBox="0 0 26.047 26.047" :class='objectToSent.soft'>
+                <path id="Icon_awesome-magic" data-name="Icon awesome-magic" d="M11.4,4.884l.814-1.628,1.628-.814L12.21,1.628,11.4,0l-.814,1.628-1.628.814,1.628.814ZM4.07,8.14,5.426,5.427,8.14,4.07,5.426,2.713,4.07,0,2.714,2.713,0,4.07,2.714,5.427Zm17.907,6.512-1.356,2.713-2.714,1.357,2.714,1.357,1.356,2.713,1.356-2.713,2.714-1.357-2.714-1.357ZM25.57,4.794,21.253.477a1.627,1.627,0,0,0-2.3,0L.477,18.951a1.627,1.627,0,0,0,0,2.3L4.794,25.57a1.628,1.628,0,0,0,2.3,0L25.57,7.1A1.627,1.627,0,0,0,25.57,4.794Zm-7.284,5.557L15.7,7.761,20.1,3.355l2.59,2.59-4.406,4.406Z" fill="#02c8b4"/>
+            </svg>
+
             <p>Estilo</p>
             <div class="styles-reponse" :class='showSoftStyles ? "show" : ""'>
                 <p>Estilo de respuesta</p>
                 <div class="styles-reponse--types">
-                    <div v-for='(style, index) of softs' class='styles-reponse--types--item'
-                        :class='objectToSent.soft == style ? "active" : ""' @click='setSoftResponse(style)'>
-                        {{ style }}
+                    <div
+                        v-for='(style, index) of softs'
+                        class='styles-reponse--types--item'
+                        :class='objectToSent.soft == style.name ? "active" : ""'
+                        @click='setSoftResponse(style.name)'>
+                        {{ style.name }}
                     </div>
                     
                 </div>
@@ -267,7 +274,19 @@ const comenzarAGrabar = async () => {
         @include screen("sm"){
 		    display: none;
 	    }
-
+        svg{
+            min-width: 26px;
+            margin-top: 3px;
+        }
+        .Creativa path{
+            fill: #FFA702;
+        }
+        .Balanceada path{
+            fill:  #0089FF;
+        }
+        .Precisa path{
+            fill: #02C8B4;
+        }
         &>p {
             margin-left: 10px;
             opacity: 0;

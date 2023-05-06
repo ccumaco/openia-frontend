@@ -27,9 +27,9 @@ export const useInputSearch = defineStore('inputSearch', {
             ],
 
             softs: [
-                "Creativa",
-                "Balanceada",
-                "Precisa",
+                {name: "Creativa", color: "#FFA702"},
+                {name: "Balanceada", color: "#0089FF"},
+                {name: "Precisa", color: "#02C8B4"}
             ]
         };
     },

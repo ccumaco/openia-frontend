@@ -36,9 +36,11 @@ $hover: #e2e7f0;
     }
   }
 #app{
-	max-width: 100vw;
-	overflow-x: hidden;
-	
+	@include screen("sm"){
+		height: 100vh;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
 }
 
 .container {

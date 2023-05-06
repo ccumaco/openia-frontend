@@ -1,8 +1,9 @@
 <template>
-		<nav class="primary-nav home">
+		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"'>
 			<div class="container">
 				<router-link to="/" class="logo">
-					<img src="/images/logo-blanco.png" alt="" width='150'>
+					<img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>
+					<img v-else src="/images/logo-blanco.png" alt="" width='150'>
 				</router-link>
 				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--rigth">
@@ -10,9 +11,9 @@
 						Iniciar sesión
 					</router-link>
 					<p v-else class="flex align-items-center">
-						Bienvenido {{ store.user.userName }} <i class="pi pi-user ml-2"></i>
+						{{ store.user.userName }} <i class="pi pi-user ml-1"></i>
 					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú <i
-							class='pi pi-bars'></i></p>
+							class='pi pi-bars ml-1'></i></p>
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
 					</p>
 
@@ -137,7 +138,6 @@ onMounted(() => hiddenButtons())
 	}
 	&.out-home{
 		position: sticky;
-		background-color: #050D20;
 	}
 	@include screen("sm") {
 		padding: 10px 15px 10px 5px;
@@ -148,7 +148,6 @@ onMounted(() => hiddenButtons())
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: $white;
 	}
 
 	&--register {
@@ -178,6 +177,13 @@ onMounted(() => hiddenButtons())
 
 	.menu {
 		cursor: pointer;
+		padding: 10px 20px;
+		border-radius: 5px;
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+		&:hover{
+			background-color: $hover;
+		}
 
 		i {
 			font-size: 20px;
@@ -185,7 +191,18 @@ onMounted(() => hiddenButtons())
 		}
 	}
 }
-
+.home{
+	color: $white;
+	.menu{
+		&:hover{
+			background-color: #0088ff3a;
+			transition: transform 0.2s ease, background-color 0.2s ease;
+		}
+	}
+}
+.menu_int{
+	color: #0089FF;
+}
 .mobile-menu {
 	display: none;
 

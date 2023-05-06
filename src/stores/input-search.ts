@@ -28,7 +28,7 @@ export const useInputSearch = defineStore('inputSearch', {
 
             softs: [
                 "Creativa",
-                "Balanzeada",
+                "Balanceada",
                 "Precisa",
             ]
         };

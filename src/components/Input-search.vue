@@ -115,6 +115,7 @@ const comenzarAGrabar = async () => {
             console.log(error)
         });
 };
+
 </script>
 
 <template>
@@ -134,33 +135,49 @@ const comenzarAGrabar = async () => {
             </div>
         </div>
         <div class="container-input">
-            <textarea
+            
+            <textarea autofocus
                 type="text"
                 name="search"
                 id="search"
-                placeholder='Haz tu pregunta o petición de busqueda'
+                placeholder='Pregunta o busca lo que quieras'
                 v-model='propmt'
                 @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'
-                :rows='propmt.length > 150 ? "3" : "1"'
+                :rows='propmt.length > 300 ? "3" : (propmt.length > 150 ? "2" : "1")'
+                
             />
-            <img
-                src="/images/icon-recording.svg"
-                @click='comenzarAGrabar()'
-                alt="start to record"
-                width='46'
-                v-show='!recording'
-                class='icon-recording'
-                id='btnComenzarGrabacion'
-            >
-            <img
-                src="/images/icon-voice.png"
-                v-show='recording'
-                @click='detenerGrabacion'
-                alt="stop recording"
-                width='46'
-                class='icon-recording'
-                id='btnComenzarGrabacion'
-            >
+            <span class="tooltip" data-tooltip="Habla y escribiremos por ti">
+            <span class="tooltip-info">some more information </span>
+                <img
+                    src="/images/icon-recording.svg"
+                    @click='comenzarAGrabar()'
+                    alt="start to record"
+                    width='46'
+                    v-show='!recording'
+                    class='icon-recording'
+                    id='btnComenzarGrabacion'
+                >
+            </span>
+            <div class="recording-buscador" v-show='recording'>
+                <div class="recording-animation">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <p>¡Habla ahora!</p>
+                <span class="tooltip" data-tooltip="Detener la grabación">
+                <span class="tooltip-info">some more information </span>
+                    <img
+                        src="/images/icon-voice.svg"
+                        @click='detenerGrabacion'
+                        alt="stop recording"
+                        width='46'
+                        class='icon-recording stop'
+                        id='btnComenzarGrabacion'
+                    >
+                </span>
+            </div>
             
         </div>
 
@@ -169,32 +186,99 @@ const comenzarAGrabar = async () => {
     </div>
 </template>
 
-
 <style lang="scss" scoped>
 @import '../styles/global-styles.scss';
+.stop{
+    border: 1px solid red;
+}
+.recording-animation {
+  position: absolute;
+  right: 160px;
+  top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.dot {
+  width: 4px;
+  height: 20px;
+  border-radius: 5px;
+  margin-right: 6px;
+  background-color: #5c5c5c;
+  opacity: 0.4;
+  animation: recording 1s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.dot:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes recording {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+}
+
+.recording-buscador{
+    p{
+        position: absolute;
+        right: 62px;
+        top: 16px;
+    }
+}
 .input-component {
     display: flex;
+    min-height: 1rem;
+    max-height: 3rem;
 
     .container-icon {
         display: flex;
-        width: 40px;
-        padding: 10px;
-        border-radius: 20px;
+        width: 52px;
+        padding: 10px 8px 10px 13px;
+        border-radius: 26px;
         background-color: $white;
-        height: 40px;
+        height: 52px;
         margin-right: 20px;
-        transition: all .3s linear;
+        transition: all .1s linear;
         cursor: pointer;
         position: relative;
+        -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+        -moz-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+        @include screen("sm"){
+		    display: none;
+	    }
 
         &>p {
             margin-left: 10px;
             opacity: 0;
             color: $primary-color;
+            font-size: 1.12em;
+            padding-top: 3.2px;
+            padding-left: 3px;
         }
 
         &:hover {
-            width: 90px;
+            width: 120px;
 
             p {
                 opacity: 1;
@@ -219,20 +303,33 @@ const comenzarAGrabar = async () => {
 
         &--types {
             display: flex;
-            background-color: $primary-color;
+            background-color: $hover;
             border-radius: 4px;
+            color: black;
 
             &--item {
                 padding: 9px 27px;
                 border-radius: 4px;
-                color: $white;
-                transition: all .2s linear;
-
-                &.active,
-                &:hover {
-                    border-radius: 4px;
-                    background-color: #02C8B4;
-                    color: $white;
+                color: black;
+                background-color: $hover;
+                transition: all 0.3s linear;
+               
+                &.active{
+                    &:nth-child(1){
+                        background-color: #FFA702;
+                        color: $white;
+                    }
+                    &:nth-child(2){
+                        background-color: #0089FF;
+                        color: $white;
+                    }
+                    &:nth-child(3){
+                        background-color: #02C8B4;
+                        color: $white;
+                    }
+                }
+                &:hover{
+                    background-color: #cecdda;
                 }
             }
         }
@@ -251,27 +348,69 @@ const comenzarAGrabar = async () => {
         textarea,input {
             min-width: 100%;
             width: 100%;
-            height: 100%;
+            min-height: 50px;
+            max-height: 120px;
+            transition: max-height 0.3s ease-out;
             box-shadow: 0px 3px 6px #00000029;
-            border-radius: 64px;
+            border-radius: 26px;
             padding: 10px 50px 0 20px;
             border: 0;
-            color: $primary-color;
+            color: #818da1;
+            padding-top: calc((50px - 1.2em) / 2); 
+            padding-bottom: calc((50px - 1.2em) / 2);
+            font-size: 1em;
+            resize: none;
+            &:focus-visible{
+                outline: 1px solid #818da1;
+            }
         }
 
         .icon-recording {
             position: absolute;
-            right: 10px;
-            top: 0;
+            right: 5px;
+            top: 5px;
             bottom: 0;
-            height: 80%;
-            width: fit-content;
+            height: 100%;
             margin: auto;
             cursor: pointer;
         }
     }
 }
 
+.tooltip img{
+    background-color: $white;
+    padding: 10px;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.tooltip img:hover{
+    background-color: $hover;
+    transform: scale(1);
+}
+.tooltip-info {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+span.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -2.5em;
+  right: 0.5em;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  display: none;
+  color: white;
+  background: rgba(23, 22, 26, 0.75);
+  border-radius: 4px;
+  transition: opacity 0.1s ease-out;
+  z-index: 99;
+  text-align: left;
+}
+
+span:hover::before {
+  display: inline-block;
+}
 .loader {
     width: 4px;
     height: 30px;

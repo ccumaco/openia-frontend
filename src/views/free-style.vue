@@ -22,6 +22,7 @@ import { storeToRefs } from "pinia";
 </script>
 
 <template>
+  <div class="el_cont_backgorund"></div>
   <div class="el_container">
     <div class="el_container__1280">
       <div class='el_cont--scroll'>

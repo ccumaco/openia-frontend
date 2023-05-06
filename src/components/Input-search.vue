@@ -153,6 +153,16 @@ const comenzarAGrabar = async () => {
                 :rows='propmt.length > 300 ? "3" : (propmt.length > 150 ? "2" : "1")'
                 
             />
+            
+
+
+            <!-- recording : boolean -->
+            <!-- prompt: string -->
+
+            <span v-if='propmt.length' class="tooltip" data-tooltip="Enviar mensaje">
+                <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch, propmt), propmt = ""'></i>
+            </span>
+
             <span class="tooltip" data-tooltip="Habla y escribiremos por ti">
             <span class="tooltip-info">some more information </span>
                 <img
@@ -160,7 +170,7 @@ const comenzarAGrabar = async () => {
                     @click='comenzarAGrabar()'
                     alt="start to record"
                     width='46'
-                    v-show='!recording'
+                    v-show='!recording && !propmt.length'
                     class='icon-recording'
                     id='btnComenzarGrabacion'
                 >
@@ -392,6 +402,17 @@ const comenzarAGrabar = async () => {
             height: 100%;
             margin: auto;
             cursor: pointer;
+            &.send-message{
+                width: 50px;
+                text-align: center;
+                margin-top: 7px;
+                z-index: 99999;
+                color: $titles;
+                &::before{
+                    z-index: 99999;
+                    font-size: 30px;
+                }
+            }
         }
     }
 }

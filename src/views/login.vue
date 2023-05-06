@@ -175,7 +175,7 @@ export default {
       if (await store.login(objUser)) {
         toggleDialog();
         setTimeout(() => {
-          router.push('/free-style')
+          router.push('/products')
         }, 3000);
         return
       } else {

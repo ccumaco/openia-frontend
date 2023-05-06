@@ -202,6 +202,7 @@ onMounted(() => hiddenButtons())
 }
 .menu_int{
 	color: #0089FF;
+	position: sticky;
 }
 .mobile-menu {
 	display: none;

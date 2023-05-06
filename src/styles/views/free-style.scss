@@ -4,3 +4,198 @@
     min-height: 100vh;
     padding-top: 100px;
 }
+.el_cont_backgorund{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+}
+.el_container{
+    
+    &__1280{
+        margin: 0 auto;
+    }
+}
+.el_texto{
+    h1, h2{
+        text-align: center;
+        color: $primary-color;
+    }
+    h1{
+        padding: 3rem 0rem 0.5rem 0rem;
+        font-weight: bold;
+        color: $primary-color;
+        font-size: 1.37rem;
+    }
+    h2{
+        padding: 1rem 0rem 2rem 0rem; 
+        color: #6E6E6E;
+        font-size: 1.12rem;
+        font-weight:600;
+    }
+}
+.el_cards{
+    display: flex;
+    
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    @include screen("sm"){
+        display: none;
+    }
+    .el_cards__ind{
+        max-width: 310px;
+        border-radius: 10px;
+        border: 1px solid #dadada;
+        text-align: center;
+        padding: 20px;
+        margin: 20px;
+        & > *{
+            color: $primary-color;
+        }
+    }
+    img{
+        margin-bottom: 15px;
+    }
+}
+.el_parrafo{
+    margin-top: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    p{
+        color: $primary-color;
+    }
+}
+.el_cont{
+    width: 100%;
+    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+    padding: 15px 15px 40px;
+    &__buscador{
+        margin: 0 auto;
+        bottom: 18px;
+        width: 100%;
+        max-width: 1280px;
+    }
+    &--scroll{
+        height: auto;
+        min-height: 400px;
+        height: calc(100vh - 220px);
+        overflow-y: auto;
+        padding-left: calc((100% - 1280px) / 2);
+        padding-right: calc((100% - 1280px) / 2);
+        margin-top: 20px;
+        @include screen("sm"){
+		    padding-left: 10px;
+            padding-right: 10px;
+	    }
+    
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        
+        &::-webkit-scrollbar-thumb {
+            background-color: #777777;
+            border-radius: 5px;
+            transition: all .3s linear;
+        }
+        
+        
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: $primary-color;
+        }
+        
+    
+        &::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        
+    
+        &::-webkit-scrollbar-corner {
+            background-color: #fff;
+        }
+  
+    }
+}
+
+.el_cont_mensajes{
+    width: 100%;
+    position: relative;
+    display: flex;
+    padding-bottom: 30px;
+    &:nth-child(even){
+        flex-direction: row-reverse;
+        .el_name{
+            display: block;
+            text-align: right;
+        }
+        .el_cont_mensajes__dos__card{
+            background-color: #01295a;
+            color: #ffffff;
+            border-radius: 15px 0px 15px 15px;
+            p{
+                color: $white;
+            }
+        }
+    }
+    &__dos__card{
+        background-color: #ffffff;
+        box-shadow: 0px 0px 4px rgb(175, 175, 175);
+        padding: 20px;
+        border-radius: 0px 15px 15px 15px;
+        max-width: 1000px;
+        right: 0px;
+        p{
+            color: $primary-color;
+            white-space: pre-line;
+        }
+    }
+    .el_name{
+        display: none;
+        color: #8b8b8b;
+        font-size: 12px;
+        padding-bottom: 8px;
+    }
+}
+
+.big-title{
+    font-size: 22px;
+    color: #707070;
+}
+
+.small-description{
+    color: #707070;
+    font-size: 12px;
+}
+
+.loader {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $titles;
+    box-shadow: 16px 0 $titles, -16px 0 $titles;
+    position: relative;
+    animation: flash 0.5s ease-out infinite alternate;
+    display: inline-block;
+    margin-left: 40px;
+  }
+  
+  @keyframes flash {
+    0% {
+      background-color: $white;
+      box-shadow: 16px 0 $white, -16px 0 $titles;
+    }
+    50% {
+      background-color: $titles;
+      box-shadow: 16px 0 $white, -16px 0 $white;
+    }
+    100% {
+      background-color: $white;
+      box-shadow: 16px 0 $titles, -16px 0 $white;
+    }
+  }
+        

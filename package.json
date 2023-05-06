@@ -24,7 +24,9 @@
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primevue": "^3.21.0",
+    "recorder-js": "^1.0.7",
     "vue": "^3.2.45",
+    "vue-audio-recorder": "^3.0.1",
     "vue-clipboard2": "^0.3.3",
     "vue-clipboard3": "^1.0.1",
     "vue-router": "^4.1.6",
@@ -32,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "@types/recorder-js": "^1.0.2",
     "@types/uuid": "^9.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "sass": "^1.57.1",

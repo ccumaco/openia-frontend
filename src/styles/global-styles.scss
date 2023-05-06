@@ -1,13 +1,15 @@
-$primary-color: #0090ff;
+$primary-color: #050d20;
 $titles: #0079ff;
 $text: #6c6c6c;
 $black: #000;
 $white: #fff;
 $orange: #FFA702;
-$regular-font: "Roboto";
-$bold-font: "Roboto-bold";
+$regular-font: "HindMadurai-Light";
+$bold-font: "Rajdhani-Bold";
+$subtitle-font: "Rajdhani-Medium";
 $success: rgb(68, 163, 68);
 $error: red;
+$hover: #e2e7f0;
 
 
 @mixin screen($size) {
@@ -34,8 +36,11 @@ $error: red;
     }
   }
 #app{
-	max-width: 100vw;
-	overflow-x: hidden;
+	@include screen("sm"){
+		height: 100vh;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
 }
 
 .container {
@@ -93,15 +98,18 @@ a {
 
 .btn {
 	cursor: pointer;
-	background: transparent linear-gradient(101deg, #0089ff 0%, #00aded 100%) 0%
-		0% no-repeat padding-box;
+	background-image: linear-gradient(101deg, #0089ff 0%, #00aded 100%);
 	border-radius: 4px;
 	padding: 12px 50px;
 	color: $white;
 	border: 0;
-	transition: all 0.3s linear;
+	transition: background-image 0.3s ease-in-out;
+	-webkit-transition: background-image 0.3s ease-in-out;
 	font-size: 16px;
 	text-decoration: none;
+	&:hover{
+		background-image: linear-gradient(101deg, #0058a5 0%, #0089bb 100%);
+	}
 	@include screen("sm"){
 		padding: 12px 30px;
 	}

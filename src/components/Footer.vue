@@ -3,16 +3,16 @@
         <div class='container'>
             <div class="container-top">
                 <router-link to="/" class="logo">
-                    <img src="/images/logo-negro.png" alt="" width='150'>
+                    <img src="/images/logo-blanco.png" alt="" width='150'>
                 </router-link>
                 <div class="container-info">
                     <p class='contact '>Contacto</p>
-                    <a class='' aria-label="Chat on WhatsApp" href="https://wa.me/+573132777667?text=Hola tengo dudas sobre sus productos" target='_blank'> <i class='pi pi-whatsapp mr-1'></i>313 277 7667</a>
-                    <a class='' href="mailto:contacto@arquitext.com.co"><i class='pi pi-envelope mr-1'></i>contacto@arquitext.com.co</a>
+                    <a class='' aria-label="Chat on WhatsApp" href="https://wa.me/+573132777667?text=Hola, tengo algunas dudas sobre arquitext" target='_blank'> <i class='pi pi-whatsapp mr-1'></i>313 277 7667</a>
+                    <a class='' href="mailto:contacto@arquitext.com.co "><i class='pi pi-envelope mr-1'></i>contacto@arquitext.com.co </a>
                 </div>
             </div>
             <div class="container-bottom text-center">
-                © Arqhitext. Todos los derechos reservados
+                © 2023 Arquitext. Todos los derechos reservados
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'footer',
+    name: 'FooterGloblal',
     setup (){
         return {
             
@@ -34,14 +34,14 @@ export default defineComponent({
 @import '../style.scss';
     .background{
         padding: 35px 0 20px;
-        background: #ECF0F2;
+        background-color: #050D20;
     }
     .container{
         &-top{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #C7CED4;
+            border-bottom: 1px solid #133177;
             padding-bottom: 10px;
             @include screen("sm"){
                 flex-direction: column;
@@ -55,18 +55,19 @@ export default defineComponent({
             }
             a{
                 display: block;
-                color: #707070;
+                color: #ffffff;
                 text-decoration: none;
                 padding: 5px 0;
             }
             .contact{
                 font-weight: bold;
                 padding:10px 0;
+                color: $white;
             }
         }
         &-bottom{
             padding-top: 10px;
-            color: $text;
+            color: $white;
         }
     }
 </style>

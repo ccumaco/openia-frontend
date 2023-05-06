@@ -1,19 +1,19 @@
 <template>
-	<div>
-		<nav class="primary-nav">
+		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"'>
 			<div class="container">
 				<router-link to="/" class="logo">
-					<img src="/images/logo-blanco.png" alt="" width='150'>
+					<img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>
+					<img v-else src="/images/logo-blanco.png" alt="" width='150'>
 				</router-link>
-				<i class='pi pi-bars open-menu' :style='{fontSize: "1.8rem"}' @click='showMenu = !showMenu'></i>
+				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--rigth">
 					<router-link v-if="store.user.userToken == null" to="/login">
 						Iniciar sesión
 					</router-link>
 					<p v-else class="flex align-items-center">
-						Bienvenido {{ store.user.userName }} <i class="pi pi-user ml-2"></i>
+						{{ store.user.userName }} <i class="pi pi-user ml-1"></i>
 					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú <i
-							class='pi pi-bars'></i></p>
+							class='pi pi-bars ml-1'></i></p>
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
 					</p>
 
@@ -25,21 +25,18 @@
 				<div class="mobile-menu" :class='showMenu ? "active" : ""'>
 					<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
 						<p>{{ store.user.userName }}</p>
-						<span>X</span>
+						<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
 					</div>
 					<router-link v-if="store.user.userToken == null" to="/login" @click='showMenu = !showMenu'>
 						Iniciar sesión
 					</router-link>
-					<template v-for='(item, index) of routes' >
-						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`' @click='showMenu = !showMenu'>
+					<template v-for='(item, index) of routes'>
+						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`'
+							@click='showMenu = !showMenu'>
 							{{ item.label }}
 						</router-link>
 					</template>
-					<div
-						class="close-session"
-						@click='store.logout(), showMenu = !showMenu'
-						v-if='store.user.userToken'
-					>
+					<div class="close-session" @click='store.logout(), showMenu = !showMenu' v-if='store.user.userToken'>
 						Cerrar sesion
 					</div>
 
@@ -50,101 +47,107 @@
 				</div>
 			</div>
 		</nav>
-	</div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
 import { useOpenIaStore } from '../stores/global-store';
-export default {
-	setup() {
-		const store = useOpenIaStore();
-		const showMenu = ref(false);
-		const routes = [
-			{
-				label: 'Productos',
-				icon: 'pi pi-book',
-				to: '/products',
-			},
-			{
-				label: 'Cuenta',
-				icon: 'pi pi-user',
-				to: '/profile',
-			},
-			{
-				label: 'Ayuda',
-				icon: 'pi pi-question-circle',
-				url: 'https://wa.me/+573132777667?text=saludando desde arquitext',
-			},
-			// {
-			// 	label: 'Ayuda',
-			// 	icon: 'pi pi-question-circle',
-			// 	to: '/help',
-			// },
-
-			{
-				label: 'Cerrar sesion',
-				icon: 'pi pi-sign-out',
-				command: () => {
-					console.log('esta haciendo esto');
-					
-					store.logout()
-					showMenu.value = !showMenu.value
-				}
-			},
-		];
-		const menu = ref();
-		const toggle = (event: any) => {
-			menu.value.toggle(event);
-		};
-
-		const hiddenButtons = () => {
-			const buttons = document.querySelector('.primary-nav--rigth')
-			const nav = document.querySelector('.primary-nav')
-			if (window.location.pathname == '/login' ||  window.location.pathname == '/register') {
-				buttons?.setAttribute('style', "display:none")
-				nav?.setAttribute('style', "position: absolute")
-				return
-			}
-			nav?.setAttribute('style', "position: sticky")
-			buttons?.setAttribute('style', "display:flex")
-			return
-			
-		}
-		const route = useRoute()
-		onMounted(() => hiddenButtons)
-		watch(() => route.path, hiddenButtons)
-		return {
-			store,
-			routes,
-			toggle,
-			menu,
-			showMenu,
-			hiddenButtons
-		};
+const store = useOpenIaStore();
+const showMenu = ref(false);
+const route = useRoute()
+const routes = [
+	{
+		label: 'Productos',
+		icon: 'pi pi-book',
+		to: '/products',
 	},
+	{
+		label: 'Cuenta',
+		icon: 'pi pi-user',
+		to: '/profile',
+	},
+	{
+		label: 'Ayuda',
+		icon: 'pi pi-question-circle',
+		url: 'https://wa.me/+573132777667?text=saludando desde arquitext',
+	},
+	// {
+	// 	label: 'Ayuda',
+	// 	icon: 'pi pi-question-circle',
+	// 	to: '/help',
+	// },
+
+	{
+		label: 'Cerrar sesion',
+		icon: 'pi pi-sign-out',
+		command: () => {
+			console.log('esta haciendo esto');
+
+			store.logout()
+			showMenu.value = !showMenu.value
+		}
+	},
+];
+const menu = ref();
+const toggle = (event: any) => {
+	menu.value.toggle(event);
 };
+
+const hiddenButtons = () => {
+	const buttons = document.querySelector('.primary-nav--rigth')
+	const nav = document.querySelector('.primary-nav')
+	if (window.location.pathname !== '/') {
+		nav?.classList.add('out-home')
+		return
+	}
+	nav?.classList.remove('out-home')
+
+}
+
+const addBackground = () => {
+	const nav = document.querySelector('.primary-nav')
+	if (nav) {
+		if (window.scrollY > 300) {
+			nav.classList.add('scrolling')
+		} else {
+			nav.classList.remove('scrolling')
+		}
+	}
+}
+
+window.addEventListener('scroll',addBackground)
+
+watch(() => route.path, hiddenButtons)
+onMounted(() => hiddenButtons())
 </script>
 
 <style lang="scss">
 @import '../styles/global-styles.scss';
 
 .primary-nav {
-	background: #000000d9;
 	width: 100%;
 	padding: 10px 30px;
-	top: 0;
 	position: fixed;
+	top: 0;
 	z-index: 3;
-	@include screen("sm"){
-		padding: 10px 15px 10px 5px;
+	background: transparent;
+	transition: all .3s linear;
+	&.scrolling{
+		background: $primary-color;
 	}
+	&.out-home{
+		position: sticky;
+	}
+	@include screen("sm") {
+		padding: 10px 15px 10px 5px;
+		background: $primary-color;
+	}
+
 	.container {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: $white;
 	}
 
 	&--register {
@@ -174,6 +177,13 @@ export default {
 
 	.menu {
 		cursor: pointer;
+		padding: 10px 20px;
+		border-radius: 5px;
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+		&:hover{
+			background-color: $hover;
+		}
 
 		i {
 			font-size: 20px;
@@ -181,33 +191,57 @@ export default {
 		}
 	}
 }
-
+.home{
+	color: $white;
+	.menu{
+		&:hover{
+			background-color: #0088ff3a;
+			transition: transform 0.2s ease, background-color 0.2s ease;
+		}
+	}
+}
+.menu_int{
+	color: #0089FF;
+	position: sticky;
+}
 .mobile-menu {
 	display: none;
 
 	@include screen("sm") {
-		display: block;
-		position: absolute;
+		justify-content: flex-end;
+  		position: absolute;
 		height: 100vh;
 		top: 0;
-		width: 50%;
-		transition: all .3s linear;
-		background: $white;
+		width: 80%;
+		transition: all .1s linear;
+		border-radius: 30px 0px 0px 30px;
+		background: rgba(12, 11, 14, 0.863);
+		background: linear-gradient(90deg, rgba(0, 29, 56, 0.89) 0%, rgba(3, 0, 15, 0.884) 100%);
+		-webkit-backdrop-filter: blur(5px);
+  		backdrop-filter: blur(5px);
 		display: flex;
 		flex-direction: column;
-		left: -100%;
-
+		right: -100%;
+		padding-bottom: 100px;
+		.ar-Close{
+			padding-top: 14px;
+			padding-right: 6px;
+			position: absolute;
+			top: 10px;
+			right: 20px;
+		}
 		&.active {
-			left: 0;
+			right: 0;
 		}
 
-		a, .close-session {
-			text-align: center;
+		a,
+		.close-session {
+			text-align: right;
 			padding: 20px;
 			color: $white;
-			border-bottom: 1px solid $white;
-			background-color: $primary-color;
 			transition: all .3s linear;
+			font-family: $regular-font;
+			font-size: 2rem;
 
 			&:target {
 				background: rgba($color: $primary-color, $alpha: .7);
@@ -215,12 +249,17 @@ export default {
 		}
 
 		.close {
-			color: $black;
+			color: $white;
 			display: block;
 			text-align: right;
 			padding: 10px 20px;
 			font-size: 20px;
 			font-weight: bold;
+			p{
+				position: absolute;
+				top: 25px;
+				left: 30px;
+			}
 		}
 	}
 }
@@ -231,4 +270,8 @@ export default {
 	@include screen("sm") {
 		display: block !important;
 	}
-}</style>
+}
+
+.primary-nav.home {}
+</style>
+

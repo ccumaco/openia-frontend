@@ -32,9 +32,12 @@ export const capitalize = (str: string) => {
 }
 
 export const makeScroll = () => {
-  const content = document.querySelectorAll('.container-social__content')
-  if (content) {
-    content[1].scrollIntoView({ behavior: 'smooth' });
+  const parentConversation = document.querySelector('.el_cont--scroll')
+  if (parentConversation) {
+      console.log(parentConversation);
+      setTimeout(() => {
+        parentConversation.scroll(0,parentConversation.scrollHeight + 200)
+      }, 100);
   }
 }
 

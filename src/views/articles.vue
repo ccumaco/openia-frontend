@@ -106,7 +106,7 @@ export default defineComponent({
           size="20"
         />
       </div>
-      <div class="checkbox in-block mt-2 mb-3">
+      <!-- <div class="checkbox in-block mt-2 mb-3">
           <input
             type="checkbox"
             name="generateImages"
@@ -116,7 +116,7 @@ export default defineComponent({
             <label class='ml-2' for="generateImages">
                 Agregar imagenes automaticamente
             </label>
-        </div>
+        </div> -->
       <div class="container-social__content__flex">
         <div class="select">
         <i></i>

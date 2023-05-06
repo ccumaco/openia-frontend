@@ -6,11 +6,10 @@ export interface GenerateEmail {
     soft: string;
   }
 export interface ObjectTextFree {
-    titlePrompt: string;
     prompt: string;
-    language: string;
     soft: string;
-  }
+    context?: Array<String>
+}
 export interface MakeArticle {
     prompt: string;
     language: string;

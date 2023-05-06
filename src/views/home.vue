@@ -110,7 +110,7 @@ export default defineComponent({
       },
       {
         image: 'world.png',
-        title: "hasta 26 idiomas diferentes",
+        title: "Hasta 26 idiomas diferentes",
         description:
           "Es capaz de traducir hasta 26 idiomas diferentes, permitiéndole llegar a un público más amplio y global. Esto puede ser especialmente útil si tienes un sitio web o negocio en línea y quieres expandirte a nuevos mercados.",
         alt: "image lorem",

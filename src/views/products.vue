@@ -9,6 +9,7 @@
         </p>
         <div class="container-cards">
             <router-link class="card" v-for='(product, index) in products' :key='index' :to='product.to'>
+                <div class="chip" v-if='index ==0'>Nuevo</div>
                 <img :src="`/images/${product.image}.png`" alt="pencil" class='mr-2'>
                 <h2 class='title mt-1'>{{ product.title }}</h2>
                 <p class="description mt-3">

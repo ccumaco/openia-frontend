@@ -216,6 +216,9 @@ const comenzarAGrabar = async () => {
   justify-content: center;
   align-items: center;
   height: 30px;
+  @include screen("sm"){
+		    right: 54px;
+	    }
 }
 
 .dot {
@@ -260,6 +263,9 @@ const comenzarAGrabar = async () => {
         position: absolute;
         right: 62px;
         top: 16px;
+        @include screen("sm"){
+		    display: none;
+	    }
     }
 }
 .input-component {

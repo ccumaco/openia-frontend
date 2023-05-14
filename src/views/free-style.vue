@@ -56,11 +56,15 @@ import { storeToRefs } from "pinia";
     <p>Aquí aparecerá tu texto cuando sea generado por Arquitext</p>
   </div>
   
-    <div class="el_cont_mensajes" v-for="(text, index) of context">
+    <div
+      v-for="(text, index) of context"
+      class="el_cont_mensajes"
+      :class='text.role == "user" ? "user" : "assistant"'
+      >
       <div class="el_cont_mensajes__dos">
         <p class="el_name">{{ user.userName }}</p>
         <div class="el_cont_mensajes__dos__card">
-          <p>{{ text }}</p>
+          <p>{{ text.content }}</p>
         </div>
       </div>
     </div>

@@ -111,8 +111,8 @@ const startRecording = async () => {
 };
 const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: string) => {
     if (event.keyCode === 13 && !event.shiftKey) {
-        makeSearchIn(mainSearch, prompt);
-        objectToSent.askUser.content = "";
+        objectToSent.askUser.content = prompt.replace(/\r?\n|\r/g, ''); // Eliminar el carácter de retorno de carro
+        makeSearchIn(mainSearch);
     }
 }
 
@@ -160,7 +160,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
             <!-- objectToSent.askUser.content: string -->
 
             <span v-if='objectToSent.askUser.content.length' class="tooltip" data-tooltip="Enviar mensaje">
-                <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch, objectToSent.askUser.content)'></i>
+                <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch)'></i>
             </span>
 
             <span class="tooltip" data-tooltip="Habla y escribiremos por ti">

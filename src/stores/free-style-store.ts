@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ObjectTextFree, freeStyleWithContext } from "./interfases";
+import { ObjectTextFree, defineMessage, freeStyleWithContext } from "./interfases";
 import axios from "axios";
 import { makeScroll } from "../utils";
 
@@ -7,30 +7,24 @@ export const useFreeStyleStore = defineStore('freeStyle', {
     state: () => {
         return {
             loading: false,
-            context: [] as string[],
+            context: [] as Array<defineMessage>,
             errors: [] as any
         };
     },
     actions: {
         async freeStyle(freeStyleWithContext: freeStyleWithContext) {
+            const oldQuestion = Object.assign({},freeStyleWithContext.askUser)
+            this.context.push(oldQuestion)
+            freeStyleWithContext.context = this.context;
+            console.log(freeStyleWithContext, 'freeStyleWithContext freeStyleWithContext');
+            this.loading = true
             axios.post('https://nc-api-test.onrender.com/chat', freeStyleWithContext)
+                .then((response) => {
+                    this.context.push(response.data[0]);
+                }). catch((error) => {
+                    console.log(error);
+                })
+            this.loading = false
         }
-        // async freeStyle(objectTextFree: ObjectTextFree) {
-        //     this.loading = true
-        //     this.context.push(objectTextFree.prompt)
-        //     try {
-        //         const response = (await axios.post(`/generate-text-free`, {
-        //             context: this.context,
-        //             ...objectTextFree
-        //         })).data;
-        //         this.context.push(response);
-        //         makeScroll();
-        //     } catch (error) {
-        //         this.errors = []
-        //         this.errors = error;
-        //     }
-        //     this.loading = false
-        //     return
-        // },
     }
 });

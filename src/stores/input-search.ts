@@ -9,9 +9,11 @@ export const useInputSearch = defineStore('inputSearch', {
     state: () => {
         return {
             objectToSent:{
-                soft: "",
-                prompt: "",
-                context: [""]
+                askUser: {
+                    role: 'user',
+                    content: ''
+                },
+                context: []
             },
             languages: [
                 "Español",
@@ -35,48 +37,29 @@ export const useInputSearch = defineStore('inputSearch', {
     },
     actions: {
 
-        async makeSearchIn(mainSeach: string, propmt: string) {
-
-            this.objectToSent.prompt = propmt;
-            this.objectToSent.context = storeFreestyle.context;
-            makeScroll()
-            
-            switch (mainSeach) {
+        async makeSearchIn(mainSearch: string, prompt: string) {
+            switch (mainSearch) {
                 case 'free-style':
                     await storeFreestyle.freeStyle(this.objectToSent)
-                    
                     break;
-                case 'otro':
-                    console.log('no se encontro ninguno 1');
-                    break;
-                case 'otro2':
-                    console.log('no se encontro ninguno 2');
-                    break;
-                case 'otro3':
-                    console.log('no se encontro ninguno 3');
-                    break;
-                case 'otro4':
-                    console.log('no se encontro ninguno 4');
-                    break;
-                default:
-                    console.log('no se encontro ninguno 555 ');
+                default: 'free-style'
+                    await storeFreestyle.freeStyle(this.objectToSent)
                     break;
             }
         },
         async transcriptAudio(formData: any) {
             axios.post('/transcript-audio', formData)
                 .then(async (response) => {
-                    await storeFreestyle.freeStyle({
-                        prompt: response.data.data,
-                        soft: this.objectToSent.soft
-                    })
+                    await storeFreestyle.freeStyle(this.objectToSent)
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
         setSoftResponse (softResponse: string) {
-            this.objectToSent.soft = softResponse;
+            console.log(softResponse, 'softResponse');
+            
+            // this.objectToSent.soft = softResponse;
         }
     }
 });

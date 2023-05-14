@@ -1,14 +1,22 @@
 
-<script setup>
+<script setup lang='ts'>
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useOpenIaStore } from '../stores/global-store';
 import { useInputSearch } from '../stores/input-search';
 import { useFreeStyleStore } from '../stores/free-style-store';
 import mySvg from '../../public/images/before-record.svg'
+
+defineProps({
+    mainSearch: {
+        type: String,
+        require: true,
+        default: 'free-style'
+    }
+})
+
 const storeInput = useInputSearch();
 const storeFreeStyle = useFreeStyleStore();
-
 const {
     softs,
     objectToSent,
@@ -19,24 +27,18 @@ const {
 const store = useOpenIaStore();
 const { user } = storeToRefs(store);
 const { freeStyle } = storeFreeStyle;
-let idIntervalo = ref("")
-const propmt = ref("")
-defineProps({
-    mainSearch: {
-        type: String,
-        require: true
-    }
-})
+
+
 const showSoftStyles = ref(false)
 const openSoftStyles = () => {
     showSoftStyles.value = !showSoftStyles.value
 }
 
-let tiempoInicio = Date.now();
-const mediaRecorder = ref(null);
+const mediaRecorder = ref();
 const recording = ref(false);
-const duracion = ref("");
-const tieneSoporteUserMedia = () => {
+const duration = ref(0);
+const listOfDevices = ref([])
+const hasUserMediaSupport = () => {
     const devices = !!(navigator.mediaDevices.getUserMedia)
     if (typeof MediaRecorder === "undefined" || !devices) {
         alert('no cuentas con un navegador que soporte microfono')
@@ -44,69 +46,60 @@ const tieneSoporteUserMedia = () => {
     }
 };
 
-const segundosATiempo = numeroDeSegundos => {
-    let horas = Math.floor(numeroDeSegundos / 60 / 60);
-    numeroDeSegundos -= horas * 60 * 60;
-    let minutos = Math.floor(numeroDeSegundos / 60);
-    numeroDeSegundos -= minutos * 60;
-    numeroDeSegundos = parseInt(numeroDeSegundos);
-    if (horas < 10) horas = "0" + horas;
-    if (minutos < 10) minutos = "0" + minutos;
-    if (numeroDeSegundos < 10) numeroDeSegundos = "0" + numeroDeSegundos;
+const idInterval = ref<number | undefined>(undefined);
 
-    return `${horas}:${minutos}:${numeroDeSegundos}`;
+const startCounting = () => {
+  const intervalId: any = setInterval(() => {
+    duration.value = duration.value + 1;
+    if (duration.value >= 60) {
+      stopRecording();
+      return;
+    }
+  }, 1000);
+  idInterval.value = intervalId;
 };
 
-const comenzarAContar = () => {
-    idIntervalo = setInterval(() => {
-        duracion.value = duracion.value + 1
-        if (duracion.value >= 60) {
-            detenerGrabacion();
-            return
-        }
-    }, 1000);
+const stopCounting = () => {
+  recording.value = !recording.value;
+  duration.value = 0;
+  clearInterval(idInterval.value!);
+  idInterval.value = undefined;
 };
 
-const detenerConteo = () => {
-    recording.value = !recording.value
-    duracion.value = 0;
-    clearInterval(idIntervalo);
-}
-
-const detenerGrabacion = () => {
+const stopRecording = () => {
     if (!mediaRecorder.value) {
         return alert('No se está grabando');
     }
     mediaRecorder.value.stop();
     mediaRecorder.value = null;
 };
-const comenzarAGrabar = async () => {
-    tieneSoporteUserMedia()
+const startRecording = async () => {
+    hasUserMediaSupport()
     recording.value = !recording.value;
     if (mediaRecorder.value) return alert("Ya se está grabando");
     navigator.mediaDevices.getUserMedia({
         audio: {
-            deviceId: listaDeDispositivos.value,
+            deviceId: listOfDevices.value,
         }
     })
         .then(stream => {
-                duracion.value = 0;
+                duration.value = 0;
                 mediaRecorder.value = new MediaRecorder(stream);
                 mediaRecorder.value.start();
-                comenzarAContar();
-                const fragmentosDeAudio = [];
-                
-                mediaRecorder.value.addEventListener("dataavailable", evento => {
-                    fragmentosDeAudio.push(evento.data);
-                    console.log(fragmentosDeAudio);
+                startCounting();
+                const audioExcerpts: Blob[] = [];
+
+                mediaRecorder.value.addEventListener("dataavailable", (event: BlobEvent) => {
+                audioExcerpts.push(event.data);
+                console.log(audioExcerpts);
                 });
                 mediaRecorder.value.addEventListener("stop", async () => {
-                    const blobAudio = new Blob(fragmentosDeAudio);
+                    const blobAudio = new Blob(audioExcerpts);
                     console.log(blobAudio, "blobAudioblobAudioblobAudio");
                     const formData = new FormData();
                     formData.append("file", blobAudio, `grabacion-${new Date().getTime()}.mp3`);
                     stream.getTracks().forEach(track => track.stop());
-                    detenerConteo();
+                    stopCounting();
                     transcriptAudio(formData);
                 });
             }
@@ -116,13 +109,20 @@ const comenzarAGrabar = async () => {
             console.log(error)
         });
 };
+const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: string) => {
+    if (event.keyCode === 13 && !event.shiftKey) {
+        makeSearchIn(mainSearch, prompt);
+        objectToSent.askUser.content = "";
+    }
+}
 
 </script>
 
 <template>
     <div class='input-component'>
         <div class="container-icon" @click='openSoftStyles'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26.047" viewBox="0 0 26.047 26.047" :class='objectToSent.soft'>
+            <!-- :class='objectToSent.soft' -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26.047" viewBox="0 0 26.047 26.047" >
                 <path id="Icon_awesome-magic" data-name="Icon awesome-magic" d="M11.4,4.884l.814-1.628,1.628-.814L12.21,1.628,11.4,0l-.814,1.628-1.628.814,1.628.814ZM4.07,8.14,5.426,5.427,8.14,4.07,5.426,2.713,4.07,0,2.714,2.713,0,4.07,2.714,5.427Zm17.907,6.512-1.356,2.713-2.714,1.357,2.714,1.357,1.356,2.713,1.356-2.713,2.714-1.357-2.714-1.357ZM25.57,4.794,21.253.477a1.627,1.627,0,0,0-2.3,0L.477,18.951a1.627,1.627,0,0,0,0,2.3L4.794,25.57a1.628,1.628,0,0,0,2.3,0L25.57,7.1A1.627,1.627,0,0,0,25.57,4.794Zm-7.284,5.557L15.7,7.761,20.1,3.355l2.59,2.59-4.406,4.406Z" fill="#02c8b4"/>
             </svg>
 
@@ -133,10 +133,10 @@ const comenzarAGrabar = async () => {
                     <div
                         v-for='(style, index) of softs'
                         class='styles-reponse--types--item'
-                        :class='objectToSent.soft == style.name ? "active" : ""'
                         @click='setSoftResponse(style.name)'>
                         {{ style.name }}
                     </div>
+                    <!-- :class='objectToSent.soft == style.name ? "active" : ""' -->
                     
                 </div>
             </div>
@@ -148,29 +148,29 @@ const comenzarAGrabar = async () => {
                 name="search"
                 id="search"
                 placeholder='Pregunta o busca lo que quieras'
-                v-model='propmt'
-                @keyup.enter='makeSearchIn(mainSearch, propmt), propmt = ""'
-                :rows='propmt.length > 300 ? "3" : (propmt.length > 150 ? "2" : "1")'
+                v-model='objectToSent.askUser.content'
+                @keyup.enter='handleEnterPress($event, mainSearch, objectToSent.askUser.content)'
+                :rows='objectToSent.askUser.content.length > 300 ? "3" : (objectToSent.askUser.content.length > 150 ? "2" : "1")'
                 
             />
             
 
 
             <!-- recording : boolean -->
-            <!-- prompt: string -->
+            <!-- objectToSent.askUser.content: string -->
 
-            <span v-if='propmt.length' class="tooltip" data-tooltip="Enviar mensaje">
-                <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch, propmt), propmt = ""'></i>
+            <span v-if='objectToSent.askUser.content.length' class="tooltip" data-tooltip="Enviar mensaje">
+                <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch, objectToSent.askUser.content)'></i>
             </span>
 
             <span class="tooltip" data-tooltip="Habla y escribiremos por ti">
             <span class="tooltip-info">some more information </span>
                 <img
                     src="/images/icon-recording.svg"
-                    @click='comenzarAGrabar()'
+                    @click='startRecording()'
                     alt="start to record"
                     width='46'
-                    v-show='!recording && !propmt.length'
+                    v-show='!recording && !objectToSent.askUser.content.length'
                     class='icon-recording'
                     id='btnComenzarGrabacion'
                 >
@@ -187,7 +187,7 @@ const comenzarAGrabar = async () => {
                 <span class="tooltip-info">some more information </span>
                     <img
                         src="/images/icon-voice.svg"
-                        @click='detenerGrabacion'
+                        @click='stopRecording'
                         alt="stop recording"
                         width='46'
                         class='icon-recording stop'
@@ -199,7 +199,7 @@ const comenzarAGrabar = async () => {
         </div>
 
         <!-- decomment when you need choose the microphone -->
-        <select name="listaDeDispositivos" id="listaDeDispositivos" hidden></select>
+        <select name="listOfDevices" id="listOfDevices" hidden></select>
     </div>
 </template>
 

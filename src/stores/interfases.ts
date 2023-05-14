@@ -5,6 +5,17 @@ export interface GenerateEmail {
     language: string;
     soft: string;
   }
+
+export interface freeStyleWithContext{
+  askUser: defineMessage
+  context: Array<defineMessage>
+}
+
+export interface defineMessage {
+  role: string;
+  content: string;
+}
+
 export interface ObjectTextFree {
     prompt: string;
     soft: string;

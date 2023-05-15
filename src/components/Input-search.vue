@@ -6,6 +6,7 @@ import { useOpenIaStore } from '../stores/global-store';
 import { useInputSearch } from '../stores/input-search';
 import { useFreeStyleStore } from '../stores/free-style-store';
 import mySvg from '../../public/images/before-record.svg'
+import { makeScroll } from '../utils';
 
 defineProps({
     mainSearch: {
@@ -100,6 +101,7 @@ const startRecording = async () => {
                     formData.append("file", blobAudio, `grabacion-${new Date().getTime()}.mp3`);
                     stream.getTracks().forEach(track => track.stop());
                     stopCounting();
+                    makeScroll()
                     transcriptAudio(formData);
                 });
             }

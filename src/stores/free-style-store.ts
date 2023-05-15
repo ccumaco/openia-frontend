@@ -16,15 +16,17 @@ export const useFreeStyleStore = defineStore('freeStyle', {
             const oldQuestion = Object.assign({},freeStyleWithContext.askUser)
             this.context.push(oldQuestion)
             freeStyleWithContext.context = this.context;
-            console.log(freeStyleWithContext, 'freeStyleWithContext freeStyleWithContext');
+            makeScroll()
             this.loading = true
             axios.post('https://nc-api-test.onrender.com/chat', freeStyleWithContext)
                 .then((response) => {
                     this.context.push(response.data[0]);
+                    this.loading = false
+                    makeScroll()
                 }). catch((error) => {
                     console.log(error);
+                    this.loading = false
                 })
-            this.loading = false
         }
     }
 });

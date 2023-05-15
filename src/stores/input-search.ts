@@ -51,7 +51,9 @@ export const useInputSearch = defineStore('inputSearch', {
         async transcriptAudio(formData: any) {
             axios.post('/transcript-audio', formData)
                 .then(async (response) => {
+                    this.objectToSent.askUser.content = response.data.data
                     await storeFreestyle.freeStyle(this.objectToSent)
+                    this.objectToSent.askUser.content = ''
                 })
                 .catch((error) => {
                     console.log(error);

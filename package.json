@@ -18,6 +18,7 @@
     "@vuelidate/core": "^2.0.0",
     "@vuelidate/validators": "^2.0.0",
     "axios": "1.1.3",
+    "firebase": "^9.22.0",
     "js-cookie": "^3.0.1",
     "mercadopago": "^1.5.14",
     "pinia": "^2.0.28",

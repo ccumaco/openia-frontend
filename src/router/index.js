@@ -1,33 +1,42 @@
 import { createWebHistory, createRouter } from "vue-router";
 import axios from 'axios'
 import { useOpenIaStore } from "../stores/global-store";
+import { useUserStore } from "../stores/user";
 
-const guard = async (to, from, next) => {
-  const store = useOpenIaStore()
-  const token = localStorage.getItem('token');
-  if (!token || token.length < 10) {
-    return next('/login');
-  }
-  if (await store.validateToken()) {
-    return next()
+const requireAuth = async (to, from, next) => {
+  const userStore = useUserStore();
+  userStore.loadingSession = true;
+  const user = await userStore.currentUser();
+  if (user) {
+      next();
   } else {
-    return next('/login')
+      next("/login");
   }
-  
-}
-const guardLoginRegister = async (to, from, next) => {
-  const store = useOpenIaStore()
-  if (await store.validateToken() == false) {
-    next()
+  userStore.loadingSession = false;
+};
+
+const redirection = async (to, from, next) => {
+  const databaseStore = useDatabaseStore();
+  const userStore = useUserStore();
+  userStore.loadingSession = true;
+  // console.log(to.params.pathMatch[0]);
+  const name = await databaseStore.getURL(to.params.pathMatch[0]);
+  if (!name) {
+      next();
+      userStore.loadingSession = false;
   } else {
-    return next('/products');
+      window.location.href = name;
+      userStore.loadingSession = true;
+      next();
   }
-}
+};
+
 const routes = [
   {
     path: "/:catchAll(.*)",
     name: "404",
     component: () => import('../views/404.vue'),
+    beforeEnter: redirection,
   },
   {
     path: "/",
@@ -43,54 +52,53 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: () => import('../views/profile.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: "/social-media",
     name: "Social-Media",
     component: () => import('../views/social-media.vue'),
-    beforeEnter: guard,
+    beforeEnter: requireAuth,
   },
   {
     path: "/login",
     name: "Login",
     component: () => import('../views/login.vue'),
-    beforeEnter: guardLoginRegister    
   },
   {
     path: "/register",
     name: "register",
     component: () => import('../views/register.vue'),
-    beforeEnter: guardLoginRegister
   },
   {
     path: "/products",
     name: "products",
     component: () => import('../views/products.vue'),
-    beforeEnter: guard
+    beforeEnter: requireAuth,
   },
   {
     path: "/articles",
     name: "articles",
     component: () => import('../views/articles.vue'),
-    beforeEnter: guard
+    beforeEnter: requireAuth,
   },
   {
     path: "/resumes",
     name: "resumes",
     component: () => import('../views/resumes.vue'),
-    beforeEnter: guard
+    beforeEnter: requireAuth,
   },
   {
     path: "/emails",
     name: "emails",
     component: () => import('../views/emails.vue'),
-    beforeEnter: guard
+    beforeEnter: requireAuth,
   },
   {
     path: "/free-style",
     name: "free-style",
     component: () => import('../views/free-style.vue'),
-    beforeEnter: guard
+    beforeEnter: requireAuth,
   }
 ];
 

@@ -12,7 +12,6 @@ import axios from 'axios'
 
 axios.interceptors.request.use((config: any) => {
   config.baseURL = import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD;
-  config.headers.Authorization = `${localStorage.getItem('token')}`;
   return config;
 });
 

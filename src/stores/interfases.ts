@@ -10,6 +10,13 @@ export interface freeStyleWithContext{
   askUser: defineMessage
   context: Array<defineMessage>
 }
+export interface User {
+  email: null | string,
+  uid: string,
+  displayName: string | null,
+  photoURL?: string | null,
+};
+export type UserInterface = User | null;
 
 export interface defineMessage {
   role: string;

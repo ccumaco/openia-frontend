@@ -16,7 +16,7 @@ import { User, UserInterface } from "./interfases";
 
 export const useUserStore = defineStore("userStore", {
     state: () => ({
-        userData: {} as User,
+        userData: null as UserInterface,
         loadingUser: false,
         loadingSession: false,
     }),
@@ -41,7 +41,7 @@ export const useUserStore = defineStore("userStore", {
                 if (imagen) {
                     const storageRef = ref(
                         storage,
-                        `perfiles/${this.userData.uid}`
+                        `perfiles/${this.userData?.uid}`
                     );
                     await uploadBytes(storageRef, imagen.originFileObj);
                     const photoURL = await getDownloadURL(storageRef);
@@ -85,7 +85,7 @@ export const useUserStore = defineStore("userStore", {
                     password
                 );
                 await this.setUser(user);
-                router.push("/");
+                router.push("/products");
             } catch (error: any) {
                 console.log(error.code);
                 return error.code;
@@ -96,6 +96,7 @@ export const useUserStore = defineStore("userStore", {
         async logoutUser() {
             const databaseStore = useDatabaseStore();
             databaseStore.$reset();
+            this.userData = null;
             try {
                 router.push("/login");
                 await signOut(auth);
@@ -119,7 +120,7 @@ export const useUserStore = defineStore("userStore", {
                             };
                         } else {
                             // aqui debo definir esto como null despues
-                            // this.userData = {} as UserInterface;
+                            this.userData = null;
                             const databaseStore = useDatabaseStore();
                             databaseStore.$reset();
                         }

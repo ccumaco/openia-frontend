@@ -1,91 +1,15 @@
-@import './../global-styles.scss';
-// .container--login{
-//     max-width: 420px;
-//     margin: 0 auto;
-//     height: 100vh;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     &__btns{
-//       display: flex;
-//       justify-content: center;
-//       gap: 20px;
-//     }
-//     &--title{
-//         text-align: center;
-//         color: #6E6E6E;
-//         font-size: 26px;
-//     }
-//     &--divisor{
-//         position: relative;
-//         text-align: center;
-//         &::after{
-//             content: '';
-//             position: absolute;
-//             width: calc(50% - 20px);
-//             height: 1px;
-//             background-color: $text;
-//             right: 0;
-//             top: 50%;
-//             z-index: 0;
-//         }
-//         &::before{
-//             content: '';
-//             position: absolute;
-//             width: calc(50% - 20px);
-//             height: 1px;
-//             background-color: $text;
-//             left: 0;
-//             top: 50%;
-//             z-index: 0;
-//         }
-//     }
-// }
-
-.come-back{
-    background: transparent;
-    color: $text;
-    i{
-        color: $text;
+.content-register,
+.content-login{
+    min-height: calc(100vh - 270px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    form{
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        width: 90%;
+        margin: 0 auto;
     }
-}
-.forgot-password{
-    color: $primary-color;
-    cursor: pointer;
-    text-decoration: underline;
-}
-.form-demo {
-    .container-login{
-        min-height: 100vh;
-    }
-    .card {
-        min-width: 450px;
-        @include screen("sm"){
-            min-width: auto;
-            width: calc(100% - 30px);
-        }
-        h1{
-            font-family: $bold-font;
-            color: #6c6c6c;
-            font-size: 26px;
-        }
-        form {
-            margin-top: 2rem;
-        }
-  
-        .field {
-            margin-bottom: 1.5rem;
-            a{
-                color: $white !important;
-            }
-        }
-    }
-    
-}
-:deep(.p-input-icon-right > i:last-of-type){
-    padding: 20px 10px;
-    transform: translate(10px, -20px);
-}
-:deep(.p-dialog .p-dialog-header){
-    justify-content: flex-end;
 }

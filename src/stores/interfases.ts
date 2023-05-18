@@ -13,7 +13,7 @@ export interface freeStyleWithContext{
 export interface User {
   email: null | string,
   uid: string,
-  displayName: string | null,
+  displayName?: string | null,
   photoURL?: string | null,
 };
 export type UserInterface = User | null;

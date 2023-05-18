@@ -6,8 +6,8 @@
 					<img v-else src="/images/logo-blanco.png" alt="" width='150'>
 				</router-link>
 				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
-				<div class="primary-nav--rigth">
-					<router-link v-if="store.user.userToken == null" to="/login">
+				<div class="primary-nav--right">
+					<router-link v-if="userStore.userData == null" to="/login" class='btn'>
 						Iniciar sesión
 					</router-link>
 					<p v-else class="flex align-items-center">
@@ -17,7 +17,7 @@
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
 					</p>
 
-					<router-link v-if="store.user.userToken == null" to="/register" class="primary-nav--register">
+					<router-link v-if="userStore.userData == null" to="/register" class="ml-2 btn">
 						Crear cuenta
 					</router-link>
 					<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
@@ -27,7 +27,7 @@
 						<p>{{ store.user.userName }}</p>
 						<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
 					</div>
-					<router-link v-if="store.user.userToken == null" to="/login" @click='showMenu = !showMenu'>
+					<router-link v-if="userStore.userData == null" to="/login" @click='showMenu = !showMenu'>
 						Iniciar sesión
 					</router-link>
 					<template v-for='(item, index) of routes'>
@@ -36,11 +36,11 @@
 							{{ item.label }}
 						</router-link>
 					</template>
-					<div class="close-session" @click='store.logout(), showMenu = !showMenu' v-if='store.user.userToken'>
+					<div class="close-session" @click='userStore.logoutUser, showMenu = !showMenu' v-if="userStore.userData">
 						Cerrar sesion
 					</div>
 
-					<router-link v-if="store.user.userToken == null" to="/register" class="mobile-menu--create"
+					<router-link v-if="userStore.userData == null" to="/register" class="mobile-menu--create"
 						@click='showMenu = !showMenu'>
 						Crear cuenta
 					</router-link>
@@ -53,6 +53,8 @@
 import { ref, watch, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
 import { useOpenIaStore } from '../stores/global-store';
+import { useUserStore } from '../stores/user';
+const userStore = useUserStore();
 const store = useOpenIaStore();
 const showMenu = ref(false);
 const route = useRoute()
@@ -82,9 +84,7 @@ const routes = [
 		label: 'Cerrar sesion',
 		icon: 'pi pi-sign-out',
 		command: () => {
-			console.log('esta haciendo esto');
-
-			store.logout()
+			userStore.logoutUser()
 			showMenu.value = !showMenu.value
 		}
 	},

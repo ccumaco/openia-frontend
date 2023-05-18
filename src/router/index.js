@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import axios from 'axios'
 import { useOpenIaStore } from "../stores/global-store";
 import { useUserStore } from "../stores/user";
+import { useDatabaseStore } from "../stores/database";
 
 const requireAuth = async (to, from, next) => {
   const userStore = useUserStore();

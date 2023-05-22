@@ -1,13 +1,31 @@
 
 <template>
-  <div class='content-register'>
-    <h1>Register</h1>
-    <form @submit.prevent='onFinish'>
-      <input type="email" name="" id="" v-model='formState.email'>
-      <input type="password" name="" id="" autocomplete v-model='formState.password'>
-      <input type="password" name="" id="" autocomplete v-model='formState.repassword'>
-      <button type='submit'>Crear usuario</button>
-    </form>
+    <div class="wrapper gift-background">
+      <div class="cont-banner">
+       <video width="100%" autoplay muted loop>
+          <source src="/images/video-background.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+        <div class="--sombra"></div>
+        <div class="--gradado-inferior"></div>
+      </div>
+      <div class="volver"><a href="#"><i class="pi pi-arrow-left mr-1"></i> Volver</a></div>
+      <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a>
+    <div class='content-register'>
+        <h1>Registro</h1>
+        <a href="#" class="google"><img src="/images/Icon-google.svg"/><p>Crear cuenta con google</p></a>
+        <div class="o"><hr><p> o </p><hr></div>
+        <form @submit.prevent='onFinish'>
+        <label for="email">Correo Electrónico</label>
+        <input type="email" name="" id="" v-model='formState.email'>
+        <label for="password">Contraseña</label>
+        <input type="password" name="" id="" autocomplete v-model='formState.password'>
+        <label for="password">Confirmar contraseña</label>
+        <input type="password" name="" id="" autocomplete v-model='formState.repassword'>
+        <button type='submit' class="iniciar_sesion btn btn-home">Crear usuario</button>
+        <p class="crear_cuenta">Ya tengo una cuenta. <a href="#"> Iniciar sesión</a></p>
+        </form>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"'>
+		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"' v-if='route.path !== "/login"'>
 			<div class="container">
 				<router-link to="/" class="logo">
 					<img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>

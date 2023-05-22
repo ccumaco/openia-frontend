@@ -20,7 +20,7 @@ const router = useRoute();
 <template>
   <Toolbar />
   <router-view></router-view>
-  <FooterGloblal v-if='router.path !== "/free-style"' />
+  <FooterGloblal v-if='router.path !== "/free-style" && router.path !== "/login"' />
 </template>
 
 <style lang='scss'>

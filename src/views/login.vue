@@ -21,7 +21,7 @@
             <label for="password">Contraseña</label>
             <input type="password" autocomplete v-model='formState.password'>
             <a href="#" class="olv_pass">Olvidé mi contraseña</a>
-            <button type='submit' class="login btn btn-home">Iniciar sesión</button>
+            <button type='submit' class="iniciar_sesion btn btn-home">Iniciar sesión</button>
             <p class="crear_cuenta">¿Aún no tienes cuenta? <a href="#"> Creala aquí</a></p>
             </form>
         </div>

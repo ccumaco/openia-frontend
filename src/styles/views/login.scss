@@ -12,6 +12,9 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1.5px solid rgba(255, 255, 255, 0.075);
+    @include screen("xs"){
+        padding: 25px 20px;
+    }
     form{
         display: flex;
         flex-direction: column;
@@ -33,16 +36,18 @@
         -webkit-backdrop-filter: blur(8px);
         font-size: 18px;
         color: white;
+        @include screen("xs"){
+            width: 280px;
+        }
         &:focus-visible, &:focus &:active{
             outline-color: #0088ff69;
             box-shadow: 0 0 5px #0089FF;
         }
     }
-    .login{
+    .iniciar_sesion{
         font-size: 20px;
         margin: 30px 0px;
         padding: 11px;
-        
     }
     .olv_pass{
         color: white;
@@ -89,6 +94,9 @@
         width: 350px;
         text-decoration: none;
         margin-top: 20px;
+        @include screen("xs"){
+            width: 280px;
+        }
         img{
             margin-right: 12px;
             width: 23px;
@@ -99,6 +107,9 @@
     margin-top: 30px;
     img{
         width: 180px;
+        @include screen("xs"){
+            width: 120px;
+        }
     }
 }
 .volver{
@@ -116,14 +127,12 @@
 .gift{
     &-background{
         background-size: contain;
-        height: 85vh;
+        height: 100vh;
         display: flex;
         justify-content: center;
         flex-direction: column;
         align-items: center;
         position: relative;
-        overflow: hidden;
-        
         
         .cont-banner{
             background: url(/public/images/fondo-home.jpg);
@@ -131,7 +140,7 @@
             background-size: cover;
             background-position-x: center;
             background-position-y: 53%;
-            height: 85vh;
+            height: 100vh;
             width: 100%;
             position: absolute;
             z-index: -3;

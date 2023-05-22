@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
 import {
+    GoogleAuthProvider,
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     sendEmailVerification,
     signInWithEmailAndPassword,
+    signInWithPopup,
     signOut,
     updateProfile,
 } from "firebase/auth";
@@ -102,6 +104,34 @@ export const useUserStore = defineStore("userStore", {
                 await signOut(auth);
             } catch (error) {
                 console.log(error);
+            }
+        },
+        async loginWithGoogle() {
+            this.loadingUser = true;
+            try {
+                const provider = new GoogleAuthProvider();
+                const { user } = await signInWithPopup(auth, provider);
+                await this.setUser(user);
+                router.push("/products");
+            } catch (error: any) {
+                console.log(error.code);
+                return error.code;
+            } finally {
+                this.loadingUser = false;
+            }
+        },
+        async registerUserWithEmail(email: string, password: string) {
+            this.loadingUser = true;
+            try {
+                const { user } = await createUserWithEmailAndPassword(auth, email, password);
+                await sendEmailVerification(auth.currentUser!);
+                await this.setUser(user);
+                router.push("/login");
+            } catch (error: any) {
+                console.log(error.code);
+                return error.code;
+            } finally {
+                this.loadingUser = false;
             }
         },
         currentUser() {

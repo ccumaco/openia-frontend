@@ -1,5 +1,5 @@
 <template>
-		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"' v-if='route.path !== "/login"'>
+		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"' v-if='route.path !== "/login" && route.path !== "/register" ' >
 			<div class="container">
 				<router-link to="/" class="logo">
 					<img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>
@@ -7,7 +7,7 @@
 				</router-link>
 				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--right">
-					<router-link v-if="userStore.userData == null" to="/login" class='btn'>
+					<router-link v-if="userStore.userData == null" to="/login" class='btn ini-sesion'>
 						Iniciar sesión
 					</router-link>
 					<p v-else class="flex align-items-center">
@@ -17,7 +17,7 @@
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
 					</p>
 
-					<router-link v-if="userStore.userData == null" to="/register" class="ml-2 btn">
+					<router-link v-if="userStore.userData == null" to="/register" class="ml-2 btn crea-count">
 						Crear cuenta
 					</router-link>
 					<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
@@ -156,11 +156,10 @@ onMounted(() => hiddenButtons())
 		padding: 7px 32px;
 	}
 
-	&--rigth {
+	&--right {
 		display: flex;
 		align-items: center;
 		gap: 40px;
-
 		@include screen("sm") {
 			display: none !important;
 		}
@@ -169,10 +168,27 @@ onMounted(() => hiddenButtons())
 	.logo {
 		font-size: 26px;
 	}
-
+	.ini-sesion{
+		background-image: none;
+		&:hover{
+			background-color: rgba(255, 255, 255, 0.144);
+			background-image: none;
+		}
+		
+	}
+	.crea-count{
+		border: 1px solid white;
+		background-image: none;
+		&:hover{
+			background-color: rgba(255, 255, 255, 0.144);
+			background-image: none;
+		}
+		
+	}
 	a {
 		text-decoration: none;
 		color: $white;
+		
 	}
 
 	.menu {

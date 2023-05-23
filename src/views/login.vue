@@ -3,6 +3,7 @@
 import { reactive } from "vue";
 import { useUserStore } from "../stores/user";
 import { useToast } from 'primevue/usetoast';
+import router from "../router";
 
 const toast = useToast();
 
@@ -14,27 +15,24 @@ const formState = reactive({
 });
 
 const onFinish = async (values) => {
-    // console.log("Success:", values);
     const error = await userStore.loginUser(
         formState.email,
         formState.password
     );
-
+    console.log(error, 'error error');
     if (!error) {
-        // return message.success("Bienvenidos a la super apps 💋");
+        console.log('hizo esto');
+        return toast.add({severity:'success', summary: 'Bienvenido', life: 3000});
     }
 
     switch (error) {
         case "auth/user-not-found":
-            // message.error("No existe el correo registrado 💋");
+            return toast.add({severity:'error', summary: 'No existe el correo registrado', life: 3000});
             break;
         case "auth/wrong-password":
-            // message.error("Error de contraseña 💋");
+        return toast.add({severity:'error', summary: 'Error de contraseña', life: 3000});
             break;
-        default:
-            // message.error(
-            //     "Ocurrió un error en el servidor 💋 intentelo más tarde..."
-            // );
+            return toast.add({severity:'error', summary: 'Ocurrió un error en el servidor intentelo más tarde...', life: 3000});
             break;
     }
 };
@@ -45,6 +43,7 @@ const onFinishFailed = (errorInfo) => {
 
 </script>
 <template>
+    <Toast />
     <div class="wrapper gift-background">
       <div class="cont-banner">
        <video width="100%" autoplay muted loop>
@@ -54,7 +53,7 @@ const onFinishFailed = (errorInfo) => {
         <div class="--sombra"></div>
         <div class="--gradado-inferior"></div>
       </div>
-      <div class="volver"><a href="#"><i class="pi pi-arrow-left mr-1"></i> Volver</a></div>
+      <div class="volver"><router-link to='/'><i class="pi pi-arrow-left mr-1"></i> Volver</router-link></div>
       <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a>
         <div class='content-login'>
             <h1>Acceso</h1>
@@ -65,7 +64,7 @@ const onFinishFailed = (errorInfo) => {
                 <input type="email" id='email' v-model='formState.email'>
                 <label for="password">Contraseña</label>
                 <input type="password" autocomplete v-model='formState.password'>
-                <p @click='userStore.resetPassword' class="olv_pass">Olvidé mi contraseña</p>
+                <p @click='userStore.resetPassword("carloscumaco5@gmail.com")' class="olv_pass">Olvidé mi contraseña</p>
                 <button type='submit' class="iniciar_sesion btn btn-home">Iniciar sesión</button>
                 <p class="crear_cuenta">¿Aún no tienes cuenta? <router-link to='/register'> Creala aquí</router-link></p>
             </form>

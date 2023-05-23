@@ -8,9 +8,9 @@ const toast = useToast();
 const userStore = useUserStore();
 
 const formState = reactive({
-    email: "carloscumaco5@gmail.com",
-    password: "55555",
-    repassword: "55555",
+    email: "",
+    password: "",
+    repassword: "",
 });
 
 const validatePass = async (_rule, value) => {
@@ -56,7 +56,7 @@ const onFinish = async (values) => {
         <div class="--sombra"></div>
         <div class="--gradado-inferior"></div>
       </div>
-      <div class="volver"><a href="#"><i class="pi pi-arrow-left mr-1"></i> Volver</a></div>
+      <div class="volver"><router-link to='/'><i class="pi pi-arrow-left mr-1"></i> Volver</router-link></div>
       <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a>
     <div class='content-register'>
         <h1>Registro</h1>

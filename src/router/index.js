@@ -40,8 +40,7 @@ const routes = [
   {
     path: "/:catchAll(.*)",
     name: "404",
-    component: () => import('../views/404.vue'),
-    beforeEnter: redirection,
+    component: () => import('../views/404.vue')
   },
   {
     path: "/",

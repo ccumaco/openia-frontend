@@ -10,8 +10,8 @@ const toast = useToast();
 const userStore = useUserStore();
 
 const formState = reactive({
-    email: "bluuweb1@test.com",
-    password: "123123",
+    email: "",
+    password: "",
 });
 
 const onFinish = async (values) => {

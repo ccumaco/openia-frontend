@@ -4,6 +4,7 @@ import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     sendEmailVerification,
+    sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -132,6 +133,19 @@ export const useUserStore = defineStore("userStore", {
                 return error.code;
             } finally {
                 this.loadingUser = false;
+            }
+        },
+        async resetPassword(email: string) {
+            this.loadingUser = true;
+            try {
+              await sendPasswordResetEmail(auth, email);
+              // Aquí puedes mostrar un mensaje al usuario indicando que se ha enviado un correo electrónico de restablecimiento de contraseña
+              router.push("/login");
+            } catch (error: any) {
+              console.log(error.code);
+              return error.code;
+            } finally {
+              this.loadingUser = false;
             }
         },
         currentUser() {

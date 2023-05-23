@@ -9,9 +9,13 @@ const requireAuth = async (to, from, next) => {
   userStore.loadingSession = true;
   const user = await userStore.currentUser();
   if (user) {
-      next();
+    if (to.path === "/login" || to.path === "/register") {
+      next("/products"); // Redirige a la página deseada cuando ya están logueados
+    } else {
+      next(); // Permite el acceso a otras rutas cuando están logueados
+    }
   } else {
-      next("/login");
+    next(); // Permite el acceso a las rutas "/login" y "/register" cuando no están logueados
   }
   userStore.loadingSession = false;
 };
@@ -43,6 +47,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import('../views/home.vue'),
+    beforeEnter: requireAuth,
   },
   // {
   //   path: "/payments",
@@ -65,11 +70,13 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import('../views/login.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: "/register",
     name: "register",
     component: () => import('../views/register.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: "/products",

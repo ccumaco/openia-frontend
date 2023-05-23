@@ -11,7 +11,7 @@
 						Iniciar sesión
 					</router-link>
 					<p v-else class="flex align-items-center">
-						{{ store.user.userName }} <i class="pi pi-user ml-1"></i>
+						{{ userStore.userData?.displayName }} <i class="pi pi-user ml-1"></i>
 					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú <i
 							class='pi pi-bars ml-1'></i></p>
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
@@ -24,7 +24,7 @@
 				</div>
 				<div class="mobile-menu" :class='showMenu ? "active" : ""'>
 					<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
-						<p>{{ store.user.userName }}</p>
+						<p>{{ userStore.userData?.displayName }}</p>
 						<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
 					</div>
 					<router-link v-if="userStore.userData == null" to="/login" @click='showMenu = !showMenu'>

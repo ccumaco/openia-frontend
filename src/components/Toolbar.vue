@@ -36,7 +36,7 @@
 							{{ item.label }}
 						</router-link>
 					</template>
-					<div class="close-session" @click='userStore.logoutUser, showMenu = !showMenu' v-if="userStore.userData">
+					<div class="close-session" @click='userStore.logoutUser' v-if="userStore.userData">
 						Cerrar sesion
 					</div>
 
@@ -258,7 +258,7 @@ onMounted(() => hiddenButtons())
 			transition: all .3s linear;
 			font-family: $regular-font;
 			font-size: 2rem;
-
+			z-index: 9999;
 			&:target {
 				background: rgba($color: $primary-color, $alpha: .7);
 			}

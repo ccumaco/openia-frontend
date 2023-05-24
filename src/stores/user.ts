@@ -88,7 +88,7 @@ export const useUserStore = defineStore("userStore", {
                     password
                 );
                 await this.setUser(user);
-                router.push("/products");
+                router.push("/free-style");
             } catch (error: any) {
                 console.log(error.code);
                 return error.code;
@@ -113,7 +113,7 @@ export const useUserStore = defineStore("userStore", {
                 const provider = new GoogleAuthProvider();
                 const { user } = await signInWithPopup(auth, provider);
                 await this.setUser(user);
-                router.push("/products");
+                router.push("/free-style");
             } catch (error: any) {
                 console.log(error.code);
                 return error.code;

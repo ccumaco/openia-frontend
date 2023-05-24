@@ -10,7 +10,7 @@ const requireAuth = async (to, from, next) => {
   const user = await userStore.currentUser();
   if (user) {
     if (to.path === "/login" || to.path === "/register") {
-      next("/products"); // Redirige a la página deseada cuando ya están logueados
+      next("/free-style"); // Redirige a la página deseada cuando ya están logueados
     } else {
       next(); // Permite el acceso a otras rutas cuando están logueados
     }

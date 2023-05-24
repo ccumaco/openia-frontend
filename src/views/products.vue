@@ -33,30 +33,30 @@ export default defineComponent({
                 description: 'Redacta con ayuda de la IA de manera flexible para crear cualquier contenido escrito que necesites',
                 to: 'free-style'
             },
-            {
-                title: 'Redes sociales',
-                image: 'redes-sociales',
-                description: 'Genere copys efectivos y vendedores para sus redes sociales acompañado de los hashtags que requieras',
-                to: 'social-media'
-            },
-            {
-                title: 'Artículos',
-                image: 'blogging',
-                description: 'Escribe todo un artículo para blog o contenido de tu sitio web con palabras optimizadas para SEO',
-                to: 'articles'
-            },
-            {
-                title: 'Resumenes',
-                image: 'blogging',
-                description: 'Genera resumenes, analisis y mucho mas.',
-                to: 'resumes'
-            },
-            {
-                title: 'Emails',
-                image: 'email',
-                description: 'Crea los textos de mails llamativos para enganchar a tu público en pocos segundos',
-                to: 'emails'
-            }
+            // {
+            //     title: 'Redes sociales',
+            //     image: 'redes-sociales',
+            //     description: 'Genere copys efectivos y vendedores para sus redes sociales acompañado de los hashtags que requieras',
+            //     to: 'social-media'
+            // },
+            // {
+            //     title: 'Artículos',
+            //     image: 'blogging',
+            //     description: 'Escribe todo un artículo para blog o contenido de tu sitio web con palabras optimizadas para SEO',
+            //     to: 'articles'
+            // },
+            // {
+            //     title: 'Resumenes',
+            //     image: 'blogging',
+            //     description: 'Genera resumenes, analisis y mucho mas.',
+            //     to: 'resumes'
+            // },
+            // {
+            //     title: 'Emails',
+            //     image: 'email',
+            //     description: 'Crea los textos de mails llamativos para enganchar a tu público en pocos segundos',
+            //     to: 'emails'
+            // }
         ];
         return {
             products,

@@ -6,15 +6,6 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 
-
-// axios interceptors
-
-
-axios.interceptors.request.use((config: any) => {
-  config.baseURL = import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD;
-  return config;
-});
-
 // vuelidate
 import Vuelidate from 'vue-clipboard3'
 // prime vue

@@ -4,15 +4,7 @@
     min-height: 100vh;
     padding-top: 100px;
 }
-.el_cont_backgorund{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100vh;
-    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
-}
+
 .el_container{
     
     &__1280{
@@ -25,13 +17,13 @@
         color: $primary-color;
     }
     h1{
-        padding: 3rem 0rem 0.5rem 0rem;
+        padding: 0.5rem 0rem 0.5rem 0rem;
         font-weight: bold;
         color: $primary-color;
         font-size: 1.37rem;
     }
     h2{
-        padding: 1rem 0rem 2rem 0rem; 
+        padding: 1rem 0rem 1rem 0rem; 
         color: #6E6E6E;
         font-size: 1.12rem;
         font-weight:600;
@@ -70,19 +62,33 @@
     }
 }
 .el_cont{
-    width: 100%;
-    background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
-    padding: 15px 15px 40px;
+    width: calc(100% - 10px);
+    background-image: linear-gradient(to bottom, #e3ebfd00 0%, #e3ebfd 25%);;
+    // background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+    padding: 60px 15px 20px 15px;
+    position: fixed;
+    bottom: 0px;
+    pointer-events: none;
     &__buscador{
         margin: 0 auto;
         bottom: 18px;
         width: 100%;
         max-width: 1280px;
+        pointer-events: auto;
+    }
+    &_backgorund{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100vh;
+        background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
     }
     &--scroll{
         height: auto;
-        min-height: 400px;
-        height: calc(100vh - 220px);
+        min-height: 350px;
+        height: calc(100vh - 110px);
         overflow-y: auto;
         padding-left: calc((100% - 1280px) / 2);
         padding-right: calc((100% - 1280px) / 2);

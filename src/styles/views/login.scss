@@ -7,7 +7,7 @@
     flex-direction: column;
     border-radius: 8px;
     margin-top: 10px ;
-    padding: 30px;
+    padding: 35px 50px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -40,8 +40,8 @@
             width: 280px;
         }
         &:focus-visible, &:focus &:active{
-            outline-color: #0088ff69;
             box-shadow: 0 0 5px #0089FF;
+            outline: none;
         }
     }
     .iniciar_sesion{

@@ -64,7 +64,7 @@ const onFinishFailed = (errorInfo) => {
                 <input type="email" id='email' v-model='formState.email'>
                 <label for="password">Contraseña</label>
                 <input type="password" autocomplete v-model='formState.password'>
-                <p @click='userStore.resetPassword("carloscumaco5@gmail.com")' class="olv_pass">Olvidé mi contraseña</p>
+                <p @click='userStore.resetPassword("carloscumaco5@gmail.com")' class="olv_pass"><RouterLink to="">Olvidé mi contraseña</RouterLink></p>
                 <button type='submit' class="iniciar_sesion btn btn-home">Iniciar sesión</button>
                 <p class="crear_cuenta">¿Aún no tienes cuenta? <router-link to='/register'> Creala aquí</router-link></p>
             </form>

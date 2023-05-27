@@ -155,7 +155,16 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                 :rows='objectToSent.askUser.content.length > 300 ? "3" : (objectToSent.askUser.content.length > 150 ? "2" : "1")'
                 
             />
-            
+            <!-- llimpiar textos-->
+            <div class="limpiar"><span>Limpiar </span><i class='pi pi-times'></i></div>
+            <!-- toogle buttom-->
+            <div class="options_search">
+                <p><a><i class='pi pi-info-circle'></i></a> ¡Genio web!</p>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
 
 
             <!-- recording : boolean -->
@@ -273,7 +282,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 .input-component {
     display: flex;
     min-height: 1rem;
-    max-height: 3rem;
+    
 
     .container-icon {
         display: flex;
@@ -381,17 +390,34 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
     .container-input {
         position: relative;
         width: 100%;
+        background-color: white;
+        border-radius: 10px;
+        min-height: 120px;
+        padding: 10px;
+        box-shadow: 0px 3px 6px #00000029;
+        .limpiar{
+            background-color: #dee5f0;
+            border-radius: 25px;
+            display: inline-block;
+            padding: 3px 12px;
+            position: absolute;
+            top: 7px;
+            right: 15px;
+            transform: translateY(50%);
+
+        }
+
 
         textarea,input {
             min-width: 100%;
             width: 100%;
             min-height: 50px;
-            max-height: 120px;
+            max-height: 240px;
             transition: max-height 0.3s ease-out;
-            box-shadow: 0px 3px 6px #00000029;
-            border-radius: 26px;
             padding: 10px 50px 0 20px;
             border: 0;
+            border-radius: 8px;
+            border-bottom: 1px solid #E3E3E3;
             color: #818da1;
             padding-top: calc((50px - 1.2em) / 2); 
             padding-bottom: calc((50px - 1.2em) / 2);
@@ -400,20 +426,23 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
             &:focus-visible{
                 outline: 1px solid #818da1;
             }
+            &::placeholder{
+                color: #B0BBCC;
+            }
         }
 
         .icon-recording {
             position: absolute;
-            right: 5px;
-            top: 5px;
-            bottom: 0;
-            height: 100%;
+            right: 8px;
+            bottom: 5px;
+            height: 50px;
+            width: 50px;
             margin: auto;
             cursor: pointer;
             &.send-message{
                 width: 50px;
                 text-align: center;
-                margin-top: 7px;
+                padding-top: 10px;
                 z-index: 99999;
                 color: $titles;
                 &::before{
@@ -428,7 +457,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 .tooltip img{
     background-color: $white;
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 8px;
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 .tooltip img:hover{
@@ -443,7 +472,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 span.tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
-  top: -2.5em;
+  bottom: 4em;
   right: 0.5em;
   font-size: 0.9em;
   padding: 5px 10px;
@@ -496,6 +525,79 @@ span:hover::before {
         left: -10px;
         animation-delay: 0s;
     }
+}
+.options_search{
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+    p{
+       padding-left: 15px; 
+       color: #8f97a3;
+       a{
+        color: #8f97a3;
+       }
+    }
+        .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        left: 15px;
+        }
+
+        .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+        }
+
+        .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e0e0e0;
+        -webkit-transition: .4s;
+        transition: .4s;
+        }
+
+        .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+        }
+
+        input:checked + .slider {
+        background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+        
+        }
+
+        input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+        border-radius: 34px;
+        }
+
+        .slider.round:before {
+        border-radius: 50%;
+        } 
 }
 
 @keyframes animloader {

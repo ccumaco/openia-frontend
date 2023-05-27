@@ -64,7 +64,11 @@ import { storeToRefs } from "pinia";
       <div class="el_cont_mensajes__dos">
         <p class="el_name">{{ user.userName }}</p>
         <div class="el_cont_mensajes__dos__card">
-          <p>{{ text.content }}</p>
+            <!-- <Markdown> -->
+              <p>
+                {{ text.content }}
+              </p>
+            <!-- </Markdown> -->
         </div>
       </div>
     </div>

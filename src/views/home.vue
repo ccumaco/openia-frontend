@@ -59,15 +59,6 @@ import { defineComponent, onMounted, ref } from "vue";
     const showModal = () => {
       modal.value = !modal.value
     }
-
-  onMounted(() => {
-    axios.get('https://nc-api-test.onrender.com/', {
-        headers: {
-          'Content-Type': 'application/json'
-      }})
-      .then(response => console.log(response))
-      .catch(err => console.log(err))
-  })
 </script>
 
 <template>

@@ -31,7 +31,14 @@ import Button from 'primevue/button';
 import Toast from 'primevue/toast';
 import Avatar from 'primevue/avatar';
 import Menu from 'primevue/menu';
+//@ts-ignore
+import Markdown from 'vue3-markdown-it';
 // import SelectButton from 'primevue/selectButton';
+
+axios.interceptors.request.use((config: any) => {
+    config.baseURL = import.meta.env.VITE_NODE_ENV === 'dev' ? import.meta.env.VITE_API_DEV : import.meta.env.VITE_API_PROD;
+    return config;
+  });
 
 const pinia = createPinia()
 
@@ -40,6 +47,7 @@ createApp(App)
     .use(pinia)
     .use(PrimeVue)
     .use(ToastService)
+    .use(Markdown)
     .component('Dropdown',Dropdown)
     .component('Checkbox',Checkbox)
     .component('Calendar',Calendar)

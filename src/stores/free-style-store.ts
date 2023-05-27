@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ObjectTextFree, defineMessage, freeStyleWithContext } from "./interfases";
 import axios from "axios";
 import { makeScroll } from "../utils";
+import { reactive } from "vue";
 
 export const useFreeStyleStore = defineStore('freeStyle', {
     state: () => {
@@ -13,27 +14,44 @@ export const useFreeStyleStore = defineStore('freeStyle', {
     },
     actions: {
         async freeStyle(freeStyleWithContext: freeStyleWithContext) {
-            const oldQuestion = Object.assign({},freeStyleWithContext.askUser)
-            this.context.push(oldQuestion)
+            const oldQuestion = Object.assign({}, freeStyleWithContext.askUser);
+            this.context.push(oldQuestion);
             freeStyleWithContext.context = this.context;
-            makeScroll()
-            this.loading = true
-            axios.post('https://nc-api-test.onrender.com/chat', freeStyleWithContext, {
-                headers: {
-                  'Content-Type': 'application/json',
+            makeScroll();
+            this.loading = true;
+            try {
+                const response = await fetch('http://localhost:5000/openia/generate-text-free',{
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    }
+                })           
+                const reader = response.body?.getReader()
+                const decoder = new TextDecoder()
+                const responseObject= reactive({
+                    role: 'assistant',
+                    content: ''
+                }) as defineMessage
+                this.context.push(responseObject)
+                while (true) {
+                    const result = await reader?.read();
+                    if (result && !result.done) {
+                        const { value } = result;
+                        const dataString = decoder.decode(value);
+                        responseObject.content += dataString
+                    } else {
+                        this.loading = false;
+                        break;
+                    }
                 }
-              })
-                .then((response) => {
-                    // Manejar la respuesta
-                    this.context.push(response.data[0]);
-                    this.loading = false;
-                    makeScroll();
-                })
-                .catch((error) => {
-                    // Manejar el error
-                    console.log(error);
-                    this.loading = false;
-                });
-        }
+                
+            } catch (error) {
+                console.log(error, 'error');
+                
+            }
+            
+            }
+          
+        
     }
 });

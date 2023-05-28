@@ -20,12 +20,17 @@ export const useFreeStyleStore = defineStore('freeStyle', {
             makeScroll();
             this.loading = true;
             try {
-                const response = await fetch('http://localhost:5000/openia/generate-text-free',{
+                const response = await fetch('http://localhost:5000/openia/generate-text-free', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                    }
-                })           
+                    },
+                    body: JSON.stringify({
+                        askUser: oldQuestion,
+                        context: this.context
+                      })
+                  });
+                         
                 const reader = response.body?.getReader()
                 const decoder = new TextDecoder()
                 const responseObject= reactive({
@@ -47,7 +52,7 @@ export const useFreeStyleStore = defineStore('freeStyle', {
                 
             } catch (error) {
                 console.log(error, 'error');
-                
+                this.loading = false;
             }
             
             }

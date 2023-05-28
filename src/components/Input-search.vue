@@ -155,9 +155,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                 :rows='objectToSent.askUser.content.length > 300 ? "3" : (objectToSent.askUser.content.length > 150 ? "2" : "1")'
                 
             />
-            <!-- llimpiar textos-->
-            <div class="limpiar"><span>Limpiar </span><i class='pi pi-times'></i></div>
-            <!-- toogle buttom-->
+            <div class="limpiar" v-show='objectToSent.askUser.content' @click='objectToSent.askUser.content = ""'><span>Limpiar </span><i class='pi pi-times'></i></div>
             <div class="options_search">
                 <p><a><i class='pi pi-info-circle'></i></a> ¡Genio web!</p>
                 <label class="switch">
@@ -404,7 +402,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
             top: 7px;
             right: 15px;
             transform: translateY(50%);
-
+            cursor: pointer;
         }
 
 

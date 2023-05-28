@@ -93,6 +93,7 @@
         padding-left: calc((100% - 1280px) / 2);
         padding-right: calc((100% - 1280px) / 2);
         margin-top: 20px;
+        padding-bottom: 120px;
         @include screen("sm"){
 		    padding-left: 10px;
             padding-right: 10px;

@@ -3,6 +3,8 @@ import { ObjectTextFree, defineMessage, freeStyleWithContext } from "./interfase
 import axios from "axios";
 import { makeScroll } from "../utils";
 import { reactive } from "vue";
+import { useOpenIaStore } from "./global-store";
+
 
 export const useFreeStyleStore = defineStore('freeStyle', {
     state: () => {
@@ -15,12 +17,13 @@ export const useFreeStyleStore = defineStore('freeStyle', {
     actions: {
         async freeStyle(freeStyleWithContext: freeStyleWithContext) {
             const oldQuestion = Object.assign({}, freeStyleWithContext.askUser);
+            const storeGlobal = useOpenIaStore()
             this.context.push(oldQuestion);
             freeStyleWithContext.context = this.context;
             makeScroll();
             this.loading = true;
             try {
-                const response = await fetch('http://localhost:5000/openia/generate-text-free', {
+                const response = await fetch(storeGlobal.apiURL + '/generate-text-free', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

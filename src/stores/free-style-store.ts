@@ -30,7 +30,7 @@ export const useFreeStyleStore = defineStore('freeStyle', {
                     },
                     body: JSON.stringify({
                         askUser: oldQuestion,
-                        context: this.context
+                        context: this.context.slice(-4)
                       })
                   });
                          

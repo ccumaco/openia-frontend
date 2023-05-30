@@ -32,7 +32,10 @@ import Toast from 'primevue/toast';
 import Avatar from 'primevue/avatar';
 import Menu from 'primevue/menu';
 //@ts-ignore
-import Markdown from 'vue3-markdown-it';
+import 'highlight.js/styles/monokai.css';
+import 'markdown-it-latex/dist/index.css'
+
+
 // import SelectButton from 'primevue/selectButton';
 
 axios.interceptors.request.use((config: any) => {
@@ -47,7 +50,6 @@ createApp(App)
     .use(pinia)
     .use(PrimeVue)
     .use(ToastService)
-    .use(Markdown)
     .component('Dropdown',Dropdown)
     .component('Checkbox',Checkbox)
     .component('Calendar',Calendar)

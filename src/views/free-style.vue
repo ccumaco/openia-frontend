@@ -5,6 +5,9 @@ import { useOpenIaStore } from "../stores/global-store";
 import { useToast } from "primevue/usetoast";
 import InputSearch from "../components/Input-search.vue";
 import { storeToRefs } from "pinia";
+//@ts-ignore
+import VueMarkdownIt from 'vue3-markdown-it';
+
 
   const storeFreeStyle = useFreeStyleStore();
   const storeGlobal = useOpenIaStore();
@@ -69,9 +72,7 @@ import { storeToRefs } from "pinia";
         <p class="el_name">{{ user.userName }}</p>
         <div class="el_cont_mensajes__dos__card">
             <!-- <Markdown> -->
-              <p>
-                {{ text.content }}
-              </p>
+              <VueMarkdownIt :source='text.content'/>
             <!-- </Markdown> -->
         </div>
       </div>

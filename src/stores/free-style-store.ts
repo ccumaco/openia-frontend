@@ -47,6 +47,7 @@ export const useFreeStyleStore = defineStore('freeStyle', {
                         const { value } = result;
                         const dataString = decoder.decode(value);
                         responseObject.content += dataString
+                        this.loading = false;
                     } else {
                         this.loading = false;
                         break;

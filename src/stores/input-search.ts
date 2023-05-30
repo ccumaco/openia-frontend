@@ -40,8 +40,10 @@ export const useInputSearch = defineStore('inputSearch', {
         async makeSearchIn(mainSearch: string) {
             switch (mainSearch) {
                 case 'free-style':
+                    setTimeout(() => {
+                        this.objectToSent.askUser.content = '' 
+                    }, 100);
                     await storeFreestyle.freeStyle(this.objectToSent)
-                    this.objectToSent.askUser.content = ''
                     break;
                 default: 'free-style'
                     await storeFreestyle.freeStyle(this.objectToSent)

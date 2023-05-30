@@ -31,10 +31,10 @@
 }
 .el_cards{
     display: flex;
-    
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    margin-bottom: 15px;
     @include screen("sm"){
         display: none;
     }
@@ -45,6 +45,7 @@
         text-align: center;
         padding: 20px;
         margin: 20px;
+        background-color: #e7ebf573;
         & > *{
             color: $primary-color;
         }
@@ -54,7 +55,7 @@
     }
 }
 .el_parrafo{
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
     p{
@@ -62,13 +63,17 @@
     }
 }
 .el_cont{
-    width: calc(100% - 10px);
+    width: 100%;
     background-image: linear-gradient(to bottom, #e3ebfd00 0%, #e3ebfd 25%);;
     // background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
     padding: 60px 15px 20px 15px;
     position: fixed;
     bottom: 0px;
     pointer-events: none;
+    @include screen("sm"){
+        padding-left: 4px;
+        padding-right: 4px;
+    }
     &__buscador{
         margin: 0 auto;
         bottom: 18px;
@@ -83,7 +88,11 @@
         z-index: -1;
         width: 100%;
         height: 100vh;
-        background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
+        background-image: url(/images/patron_fondo.png);
+        background-repeat: repeat;
+        opacity: 0.45;
+        background-color: #bfcdec;
+        // background-image: radial-gradient(circle at -1.42% 20.31%, #fafafa 0, #e3ebfd 100%);
     }
     &--scroll{
         height: auto;
@@ -94,6 +103,16 @@
         padding-right: calc((100% - 1280px) / 2);
         margin-top: 20px;
         padding-bottom: 120px;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+        @keyframes fadeIn {
+            0% {
+                opacity: 0; /* Establece la opacidad inicial en 0 */
+            }
+            100% {
+                opacity: 1; /* Establece la opacidad final en 1 */
+            }
+        }  
         @include screen("sm"){
 		    padding-left: 10px;
             padding-right: 10px;
@@ -130,7 +149,6 @@
 }
 
 .el_cont_mensajes{
-    width: 100%;
     position: relative;
     display: flex;
     padding-bottom: 30px;
@@ -141,21 +159,41 @@
             text-align: right;
         }
         .el_cont_mensajes__dos__card{
-            background-color: #01295a;
-            color: #ffffff;
-            border-radius: 15px 0px 15px 15px;
-            p{
-                color: $white;
-            }
+            background-color: #c0ddff;
+            color: #000000;
+            border-radius: 30px 0px 30px 30px;
+            margin-left: 40PX;
+            margin-right: inherit;
+            transform: scale(0);
+            transform-origin: 0 0;
+            -webkit-animation: bounce 500ms linear both;
+            animation: bounce 500ms linear both;
         }
+        @keyframes bounce { 
+            0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+            100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+          }
+          
     }
     &__dos__card{
-        background-color: #ffffff;
-        box-shadow: 0px 0px 4px rgb(175, 175, 175);
+        // background-color: #ffffff;
+        // box-shadow: 0px 0px 4px rgb(200, 209, 218);
         padding: 20px;
         border-radius: 0px 15px 15px 15px;
         max-width: 1000px;
         right: 0px;
+        margin-right: 10PX;
         p{
             color: $primary-color;
             white-space: pre-line;
@@ -204,5 +242,35 @@
       background-color: $white;
       box-shadow: 16px 0 $titles, -16px 0 $white;
     }
+  }
+  .saludo{
+    @include screen("sm"){
+        padding-top: calc(40vh - 50px);
+    }
+    P{
+        padding: 8px 5px 25px 20px;
+        opacity: 0;
+        transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0; /* Establece la opacidad inicial en 0 */
+                transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+            }
+            100% {
+                opacity: 1; /* Establece la opacidad final en 1 */
+                transform: translateY(0); /* Establece la posición final en su lugar original */
+            }
+        }  
+        &:nth-child(1){
+            animation-delay: 0.25s;
+            padding-top: 0px !important;
+            padding-bottom: 10px;
+        }
+        &:nth-child(2){
+            animation-delay: 0.6s;
+        } 
+    }
+    
   }
         

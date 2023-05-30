@@ -35,6 +35,12 @@ $hover: #e2e7f0;
         }
     }
   }
+body{
+	touch-action: none;
+  	user-scalable: none;
+  	-ms-touch-action: none;
+  	-ms-content-zooming: none;
+}
 #app{
 	@include screen("sm"){
 		height: 100vh;

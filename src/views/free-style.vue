@@ -52,9 +52,13 @@ import { storeToRefs } from "pinia";
         <p>Si necesitas ayuda con la redacción de algún trabajo o simplemente quieres charlar</p>
     </div>
   </div>
-  <div class="el_parrafo" v-if='context.length == 0'>
+  <!-- <div class="el_parrafo" v-if='context.length == 0'>
     <p>Aquí aparecerá tu texto cuando sea generado por Arquitext</p>
-  </div>
+  </div> -->
+  <div class="saludo">
+    <p>¡Hola yo soy Arquitext!</p> 
+    <p>¿En qué puedo ayudarte hoy?</p>
+	</div>
   
     <div
       v-for="(text, index) of context"

@@ -155,14 +155,14 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                 :rows='objectToSent.askUser.content.length > 300 ? "3" : (objectToSent.askUser.content.length > 150 ? "2" : "1")'
                 
             />
-            <div class="limpiar" v-show='objectToSent.askUser.content' @click='objectToSent.askUser.content = ""'><span>Limpiar </span><i class='pi pi-times'></i></div>
-            <div class="options_search">
+            <div class="limpiar" v-show='objectToSent.askUser.content' @click='objectToSent.askUser.content = ""'><i class='pi pi-times'></i></div>
+            <!-- <div class="options_search">
                 <p><a><i class='pi pi-info-circle'></i></a> ¡Genio web!</p>
                 <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
                 </label>
-            </div>
+            </div> -->
 
 
             <!-- recording : boolean -->
@@ -220,13 +220,13 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 .recording-animation {
   position: absolute;
   right: 160px;
-  top: 12px;
+  top: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 30px;
   @include screen("sm"){
-		    right: 54px;
+		    right: 68px;
 	    }
 }
 
@@ -270,8 +270,8 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 .recording-buscador{
     p{
         position: absolute;
-        right: 62px;
-        top: 16px;
+        right: 70px;
+        top: 20px;
         @include screen("sm"){
 		    display: none;
 	    }
@@ -296,6 +296,20 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
         -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
         -moz-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1607843137);
+        opacity: 0;
+        transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        animation-delay: 0.8s;
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0; /* Establece la opacidad inicial en 0 */
+                transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+            }
+            100% {
+                opacity: 1; /* Establece la opacidad final en 1 */
+                transform: translateY(0); /* Establece la posición final en su lugar original */
+            }
+        }
         @include screen("sm"){
 		    display: none;
 	    }
@@ -390,39 +404,70 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
         width: 100%;
         background-color: white;
         border-radius: 10px;
-        min-height: 120px;
-        padding: 10px;
+        min-height: 50px;
+        padding: 8px;
         box-shadow: 0px 3px 6px #00000029;
+        display: flex;
+        align-items: flex-end;
+        vertical-align: middle;
+        opacity: 0;
+        transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+        animation: fadeInUp 0.5s ease-in-out forwards;
+        animation-delay: 1s;
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0; /* Establece la opacidad inicial en 0 */
+                transform: translateY(100%); /* Desplaza el elemento hacia abajo */
+            }
+            100% {
+                opacity: 1; /* Establece la opacidad final en 1 */
+                transform: translateY(0); /* Establece la posición final en su lugar original */
+            }
+        }
         .limpiar{
-            background-color: #dee5f0;
-            border-radius: 25px;
+            background-color: #e8ecf3;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
             display: inline-block;
-            padding: 3px 12px;
             position: absolute;
-            top: 7px;
-            right: 15px;
-            transform: translateY(50%);
+            bottom: 0px;
+            right: 78px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            vertical-align: middle;
+            transform: translateY(-50%);
             cursor: pointer;
+            &>i{
+                display: flex;
+                text-align: center;
+                vertical-align: middle;
+                align-items: center;
+                position: relative;
+                left: 25%;
+            }
         }
 
 
         textarea,input {
-            min-width: 100%;
-            width: 100%;
-            min-height: 50px;
+            min-width: calc(100% - 58px);
+            width: calc(100% - 58px);
+            min-height: 40px;
             max-height: 240px;
             transition: max-height 0.3s ease-out;
-            padding: 10px 50px 0 20px;
             border: 0;
-            border-radius: 8px;
             border-bottom: 1px solid #E3E3E3;
             color: #818da1;
-            padding-top: calc((50px - 1.2em) / 2); 
-            padding-bottom: calc((50px - 1.2em) / 2);
+            padding-right: 50px;
+            padding-left: 10px;
+            padding-top: calc((50px - 1.5em) / 2); 
+            padding-bottom: calc((50px - 1.5em) / 2);
             font-size: 1em;
             resize: none;
             &:focus-visible{
                 outline: 1px solid #818da1;
+                border-radius: 8px;
             }
             &::placeholder{
                 color: #B0BBCC;
@@ -430,13 +475,17 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
         }
 
         .icon-recording {
-            position: absolute;
-            right: 8px;
-            bottom: 5px;
             height: 50px;
             width: 50px;
-            margin: auto;
+            margin-left: 8px;
             cursor: pointer;
+            background-color: rgb(215, 227, 241);
+            border-radius: 8px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            &:hover{
+                background-color: $hover;
+                transform: scale(1);
+            }
             &.send-message{
                 width: 50px;
                 text-align: center;
@@ -451,12 +500,12 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
         }
     }
 }
-
+.tooltip{
+    display: flex;
+}
 .tooltip img{
-    background-color: $white;
     padding: 10px;
-    border-radius: 8px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    
 }
 .tooltip img:hover{
     background-color: $hover;
@@ -470,7 +519,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 span.tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 4em;
+  top: -2.5em;
   right: 0.5em;
   font-size: 0.9em;
   padding: 5px 10px;

@@ -22,28 +22,32 @@
 					</router-link>
 					<!-- <p><i class="pi pi-bars mr-1"></i> Menu</p> -->
 				</div>
+				
 				<div class="mobile-menu" :class='showMenu ? "active" : ""'>
-					<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
-						<p>{{ userStore.userData?.displayName }}</p>
-						<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
-					</div>
-					<router-link v-if="userStore.userData == null" to="/login" @click='showMenu = !showMenu'>
-						Iniciar sesión
-					</router-link>
-					<template v-for='(item, index) of routes'>
-						<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`'
-							@click='showMenu = !showMenu'>
-							{{ item.label }}
+					<div class="fondo-mobile"></div>
+					<div class="menu_interno">
+						<div class='close flex justify-content-between' @click='showMenu = !showMenu'>
+							<p>{{ userStore.userData?.displayName }}</p>
+							<div class="ar-Close"><i class="pi pi-times" style="font-size: 1.8rem;"></i></div>
+						</div>
+						<router-link v-if="userStore.userData == null" to="/login" @click='showMenu = !showMenu'>
+							Iniciar sesión
 						</router-link>
-					</template>
-					<div class="close-session" @click='userStore.logoutUser' v-if="userStore.userData">
-						Cerrar sesion
-					</div>
+						<template v-for='(item, index) of routes'>
+							<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`'
+								@click='showMenu = !showMenu'>
+								{{ item.label }}
+							</router-link>
+						</template>
+						<div class="close-session" @click='userStore.logoutUser' v-if="userStore.userData">
+							Cerrar sesion
+						</div>
 
-					<router-link v-if="userStore.userData == null" to="/register" class="mobile-menu--create"
-						@click='showMenu = !showMenu'>
-						Crear cuenta
-					</router-link>
+						<router-link v-if="userStore.userData == null" to="/register" class="mobile-menu--create"
+							@click='showMenu = !showMenu'>
+							Crear cuenta
+						</router-link>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -220,23 +224,17 @@ onMounted(() => hiddenButtons())
 	color: #0089FF;
 	position: sticky;
 }
-.mobile-menu {
+
+.mobile-menu{
 	display: none;
 
 	@include screen("sm") {
-		justify-content: flex-end;
-  		position: absolute;
+		position: absolute;
 		height: 100vh;
 		top: 0;
-		width: 80%;
+		width: 100%;
 		transition: all .1s linear;
-		border-radius: 30px 0px 0px 30px;
-		background: rgba(12, 11, 14, 0.863);
-		background: linear-gradient(90deg, rgba(0, 29, 56, 0.89) 0%, rgba(3, 0, 15, 0.884) 100%);
-		-webkit-backdrop-filter: blur(5px);
-  		backdrop-filter: blur(5px);
 		display: flex;
-		flex-direction: column;
 		right: -100%;
 		padding-bottom: 100px;
 		.ar-Close{
@@ -278,7 +276,46 @@ onMounted(() => hiddenButtons())
 			}
 		}
 	}
+	.fondo-mobile{
+		display: none;
+		@include screen("sm") {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			backdrop-filter: blur(10px) brightness(50%);
+			-moz-backdrop-filter: blur(10px) brightness(50%);
+			-webkit-backdrop-filter: blur(10px) brightness(50%);
+			z-index: -1;
+			opacity: 0; /* Establece la opacidad inicial en 0 */
+  			animation: opacidad 1s ease-in-out forwards;
+			animation-delay: 2s;
+		}
+		@keyframes opacidad {
+			0% {
+				opacity: 0; /* Establece la opacidad inicial en 0 */
+			}
+			100% {
+				opacity: 1; /* Establece la opacidad final en 1 */
+			}
+			}
+	}
+	.menu_interno {
+		width: 80%;
+		background-color: rgb(49, 49, 49);
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 100px;
+		justify-content: flex-end;
+  		height: 100vh;
+		transition: all .1s linear;
+		position: absolute;
+		right: 0px;
+		}
 }
+
 
 .open-menu {
 	display: none !important;

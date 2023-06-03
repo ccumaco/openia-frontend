@@ -1,64 +1,69 @@
 
 <script lang='ts' setup>
-import axios from "axios";
-import { defineComponent, onMounted, ref } from "vue";
+  import axios from "axios";
+  import login from "../components/login.vue";
+  import register from "../components/register.vue";
+  import { defineComponent, onMounted, ref } from "vue";
+  import { watch } from "vue";
+  import { useRoute } from "vue-router";
+  const route = useRoute();
 
 
-    const isPerYear = ref(true)
-    const cardsInfo = [
-      {
-        image: 'speed.png',
-        title: "10X más rápido en creación de contenido",
-        description:
-          "Automatizar el proceso de escritura y analizar grandes cantidades de información de manera más rápida que un humano, lo que te permite ahorrar tiempo y crear contenido de manera más eficiente.",
-        alt: "image lorem",
-      },
-      {
-        image: 'world.png',
-        title: "Hasta 26 idiomas diferentes",
-        description:
-          "Es capaz de traducir hasta 26 idiomas diferentes, permitiéndole llegar a un público más amplio y global. Esto puede ser especialmente útil si tienes un sitio web o negocio en línea y quieres expandirte a nuevos mercados.",
-        alt: "image lorem",
-      },
-      {
-        image: 'inovation.png',
-        title: "Ideas nuevas y originales",
-        description:
-          "Nuestra IA genera ideas nuevas y originales para mantener tu contenido fresco y atractivo para tus visitantes. Esto puede ayudar a aumentar el engagement y la fidelidad de tus clientes.",
-        alt: "image lorem",
-      },
-      {
-        image: 'lupe.png',
-        title: "Contenido optimizado para SEO",
-        description:
-          "Analiza y optimiza el contenido para mejorar su posicionamiento en los motores de búsqueda. Esto puede ayudar a atraer más tráfico a tu sitio y mejorar su visibilidad en línea.",
-        alt: "image lorem",
-      },
-      {
-        image: 'group.png',
-        title: "Flexibilidad con tus audiencias",
-        description:
-          "Con nuevo contenido puede adaptar tus textos a diferentes audiencias y formatos para que puedas llegar a más personas de manera más efectiva.",
-        alt: "image lorem",
-      },
-      {
-        image: 'pensil.png',
-        title: "Precisión en tus Textos",
-        description:
-          "Gracias a la IA, puede detectar y corregir errores gramaticales y de ortografía para mejorar la precisión de tus textos.",
-        alt: "image lorem",
-      },
-    ];
-    const display = ref(true)
-    const selectedCity = null
-    const cities = [
-      { name: 'Menual' },
-      { name: 'Anual (Ahhorra 25%)' }
-    ]
-    const modal = ref(false)
-    const showModal = () => {
-      modal.value = !modal.value
-    }
+  const isPerYear = ref(true)
+  const cardsInfo = [
+    {
+      image: 'speed.png',
+      title: "10X más rápido en creación de contenido",
+      description:
+        "Automatizar el proceso de escritura y analizar grandes cantidades de información de manera más rápida que un humano, lo que te permite ahorrar tiempo y crear contenido de manera más eficiente.",
+      alt: "image lorem",
+    },
+    {
+      image: 'world.png',
+      title: "Hasta 26 idiomas diferentes",
+      description:
+        "Es capaz de traducir hasta 26 idiomas diferentes, permitiéndole llegar a un público más amplio y global. Esto puede ser especialmente útil si tienes un sitio web o negocio en línea y quieres expandirte a nuevos mercados.",
+      alt: "image lorem",
+    },
+    {
+      image: 'inovation.png',
+      title: "Ideas nuevas y originales",
+      description:
+        "Nuestra IA genera ideas nuevas y originales para mantener tu contenido fresco y atractivo para tus visitantes. Esto puede ayudar a aumentar el engagement y la fidelidad de tus clientes.",
+      alt: "image lorem",
+    },
+    {
+      image: 'lupe.png',
+      title: "Contenido optimizado para SEO",
+      description:
+        "Analiza y optimiza el contenido para mejorar su posicionamiento en los motores de búsqueda. Esto puede ayudar a atraer más tráfico a tu sitio y mejorar su visibilidad en línea.",
+      alt: "image lorem",
+    },
+    {
+      image: 'group.png',
+      title: "Flexibilidad con tus audiencias",
+      description:
+        "Con nuevo contenido puede adaptar tus textos a diferentes audiencias y formatos para que puedas llegar a más personas de manera más efectiva.",
+      alt: "image lorem",
+    },
+    {
+      image: 'pensil.png',
+      title: "Precisión en tus Textos",
+      description:
+        "Gracias a la IA, puede detectar y corregir errores gramaticales y de ortografía para mejorar la precisión de tus textos.",
+      alt: "image lorem",
+    },
+  ];
+  const display = ref(true)
+  const selectedCity = null
+  const cities = [
+    { name: 'Menual' },
+    { name: 'Anual (Ahhorra 25%)' }
+  ]
+  const modal = ref(false)
+  const showModal = () => {
+    modal.value = !modal.value
+  }
 </script>
 
 <template>
@@ -152,6 +157,10 @@ import { defineComponent, onMounted, ref } from "vue";
           </div>
       </div>
     </div>
+    <div class="container-register">
+      <register />
+      <login />
+    </div>
   </div>
 </template>
 
@@ -159,4 +168,7 @@ import { defineComponent, onMounted, ref } from "vue";
 
 <style lang='scss' scoped>
 @import "./../styles/views/home.scss";
+.container-register{
+  background-color: grey;
+}
 </style>

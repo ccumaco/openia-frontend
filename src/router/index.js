@@ -65,18 +65,18 @@ const routes = [
     component: () => import('../views/social-media.vue'),
     beforeEnter: requireAuth,
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import('../views/login.vue'),
-    beforeEnter: requireAuth,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: () => import('../views/register.vue'),
-    beforeEnter: requireAuth,
-  },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: () => import('../views/login.vue'),
+  //   beforeEnter: requireAuth,
+  // },
+  // {
+  //   path: "/register",
+  //   name: "register",
+  //   component: () => import('../views/register.vue'),
+  //   beforeEnter: requireAuth,
+  // },
   {
     path: "/products",
     name: "products",

@@ -33,7 +33,7 @@
 						<router-link v-if="userStore.userData == null" to="/login" @click='showMenu = !showMenu'>
 							Iniciar sesión
 						</router-link>
-						<template v-for='(item, index) of routes'>
+						<template v-for='(item, index) of routes' :key='index'>
 							<router-link v-if="store.user.userToken && item.to" :to='`${item.to}`'
 								@click='showMenu = !showMenu'>
 								{{ item.label }}
@@ -171,6 +171,7 @@ onMounted(() => hiddenButtons())
 
 	.logo {
 		font-size: 26px;
+		opacity: 0;
 	}
 	.ini-sesion{
 		background-image: none;

@@ -74,17 +74,16 @@ import { defineComponent, onMounted, ref } from "vue";
         <div class="--gradado-inferior"></div>
       </div>
       <div class="gift__container">
-        <h2>Crea tus textos, <span>10X</span><br/>más rápido con IA</h2>
+        <h2>Asesora tus clientes un <span>10X</span><br/>más rápido con IA</h2>
         <p>
-          Soluciones de copywriting creativo rápidas y efectivas <br/>para impulsar
-          tu negocio en línea
+          Soluciones a la medida de tu negocio.
         </p>
       </div>
       <router-link to='/register' class='btn btn-home'>Comienza gratis ahora</router-link>
     </div>
     <div class='background-blue'>
       <div class="container-white container">
-        <h3>¿Qué puedes hacer con Arquitext?</h3>
+        <h3>¿Qué puedes hacer con TalkSmart?</h3>
         <div class="container-cards">
           <div class="container-cards--card" v-for="(card, index) in cardsInfo" :key="index">
             <div class="container-cards--card--content">

@@ -134,6 +134,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                 <div class="styles-reponse--types">
                     <div
                         v-for='(style, index) of softs'
+                        :key='index'
                         class='styles-reponse--types--item'
                         @click='setSoftResponse(style.name)'>
                         {{ style.name }}

@@ -27,7 +27,7 @@ import { storeToRefs } from "pinia";
     <div class="el_container__1280">
       <div class='el_cont--scroll'>
   <div class="el_texto">
-    <h1>Automatiza tareas y optimiza tus procesos escribiendo más rápido</h1>
+    <h1>Agiliza la busqueda de tus productos favoritos </h1>
     <h2>¡Pruébame ahora y saca beneficio a mis posibilidades!</h2>
   </div>
   <div class="el_cards" v-if='context.length == 0'>

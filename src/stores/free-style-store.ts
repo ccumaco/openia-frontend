@@ -33,30 +33,20 @@ export const useFreeStyleStore = defineStore('freeStyle', {
                         context: this.context.slice(-4)
                       })
                   });
-                         
-                const reader = response.body?.getReader()
-                const decoder = new TextDecoder()
+                const responseData = await response.json();  // Analizar la respuesta JSON
+
+                const data = responseData.response;                  
                 const responseObject= reactive({
                     role: 'assistant',
-                    content: ''
+                    content: data
                 }) as defineMessage
                 this.context.push(responseObject)
-                while (true) {
-                    const result = await reader?.read();
-                    if (result && !result.done) {
-                        const { value } = result;
-                        const dataString = decoder.decode(value);
-                        responseObject.content += dataString
-                    } else {
-                        this.loading = false;
-                        break;
-                    }
-                }
                 
-            } catch (error) {
-                console.log(error, 'error');
-                this.loading = false;
-            }
+                } catch (error) {
+                    console.log(error, 'error');
+                } finally {
+                    this.loading = false;
+                }
             
             }
           

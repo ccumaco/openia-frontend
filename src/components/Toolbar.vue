@@ -2,20 +2,21 @@
 		<nav class="primary-nav" :class='route.path != "/" ? "menu_int" : "home"' v-if='route.path !== "/login" && route.path !== "/register" ' >
 			<div class="container">
 				<router-link to="/" class="logo">
-					<img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>
-					<img v-else src="/images/logo-blanco.png" alt="" width='150'>
+					<!-- <img v-if='route.path != "/" ' src="/images/logo-color.png" alt="" width='150'>
+					<img v-else src="/images/logo-blanco.png" alt="" width='150'> -->
 				</router-link>
 				<i class='pi pi-bars open-menu' :style='{ fontSize: "1.8rem" }' @click='showMenu = !showMenu'></i>
 				<div class="primary-nav--right">
 					<router-link v-if="userStore.userData == null" to="/login" class='btn ini-sesion'>
 						Iniciar sesión
 					</router-link>
-					<p v-else class="flex align-items-center">
+					<div v-else class="flex align-items-center">
 						{{ userStore.userData?.displayName }} <i class="pi pi-user ml-1"></i>
-					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú <i
+					<p @click="toggle" aria-haspopup="true" aria-controls="overlay_menu" class='ml-4 menu'>Menú 
+						<i
 							class='pi pi-bars ml-1'></i></p>
 					<Menu class='mt-3' :model="routes" :popup="true" ref="menu" />
-					</p>
+					</div>
 
 					<router-link v-if="userStore.userData == null" to="/register" class="ml-2 btn crea-count">
 						Crear cuenta
@@ -326,6 +327,5 @@ onMounted(() => hiddenButtons())
 	}
 }
 
-.primary-nav.home {}
 </style>
 

@@ -29,6 +29,8 @@ export const useFreeStyleStore = defineStore('freeStyle', {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        justOne: freeStyleWithContext.justOne,
+                        estimatePrice: freeStyleWithContext.estimatePrice,
                         askUser: oldQuestion,
                         context: this.context.slice(-4)
                       })

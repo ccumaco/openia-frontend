@@ -22,30 +22,31 @@ import { defineComponent, onMounted, ref } from "vue";
       },
       {
         image: 'inovation.png',
-        title: "Ideas nuevas y originales",
+        title: "Encuentra Todo, Buscando Nada",
         description:
-          "Nuestra IA genera ideas nuevas y originales para mantener tu contenido fresco y atractivo para tus visitantes. Esto puede ayudar a aumentar el engagement y la fidelidad de tus clientes.",
+          "Explora un mundo de posibilidades sin siquiera tener que buscar. Nuestro web scraping personalizado encuentra los productos perfectos para ti.",
         alt: "image lorem",
       },
       {
         image: 'lupe.png',
-        title: "Contenido optimizado para SEO",
+        title: "Personalización Absoluta, Resultados Perfectos",
         description:
-          "Analiza y optimiza el contenido para mejorar su posicionamiento en los motores de búsqueda. Esto puede ayudar a atraer más tráfico a tu sitio y mejorar su visibilidad en línea.",
+          "Tu búsqueda, tus reglas. Encuentra exactamente lo que buscas, desde productos básicos hasta rarezas, todo adaptado a tus gustos.",
         alt: "image lorem",
       },
       {
         image: 'group.png',
-        title: "Flexibilidad con tus audiencias",
+        title: "Descubre sin Esfuerzo",
         description:
-          "Con nuevo contenido puede adaptar tus textos a diferentes audiencias y formatos para que puedas llegar a más personas de manera más efectiva.",
+          "Convierte tu idea en realidad con un simple clic. Nuestro servicio de web scraping encuentra los productos que ni siquiera sabías que existían.",
+          Título: "Personalización Absoluta, Resultados Perfectos",
         alt: "image lorem",
       },
       {
         image: 'pensil.png',
-        title: "Precisión en tus Textos",
+        title: "La Búsqueda Más Inteligente",
         description:
-          "Gracias a la IA, puede detectar y corregir errores gramaticales y de ortografía para mejorar la precisión de tus textos.",
+          "Deja que nuestros algoritmos innovadores hagan el trabajo por ti. Encuentra lo que deseas en segundos.",
         alt: "image lorem",
       },
     ];
@@ -110,6 +111,7 @@ import { defineComponent, onMounted, ref } from "vue";
               ></label>
             </label>
           </div>
+          <!-- esto no se muestra -->
           <div v-if="false" class="card-plan">
             <h2>Plan</h2>
             <h3 class="price">$37.500/mes</h3>

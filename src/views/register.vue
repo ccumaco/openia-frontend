@@ -57,7 +57,7 @@ const onFinish = async (values) => {
         <div class="--gradado-inferior"></div>
       </div>
       <div class="volver"><router-link to='/'><i class="pi pi-arrow-left mr-1"></i> Volver</router-link></div>
-      <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a>
+      <!-- <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a> -->
     <div class='content-register'>
         <h1>Registro</h1>
         <div class="google" @click='userStore.loginWithGoogle'><img src="/images/Icon-google.svg"/><p>Crear cuenta con google</p></div>

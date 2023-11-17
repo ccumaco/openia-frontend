@@ -9,6 +9,8 @@ export const useInputSearch = defineStore('inputSearch', {
     state: () => {
         return {
             objectToSent:{
+                justOne: false,
+                estimatePrice: 0,
                 askUser: {
                     role: 'user',
                     content: ''

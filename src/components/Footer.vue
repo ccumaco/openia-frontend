@@ -3,7 +3,7 @@
         <div class='container'>
             <div class="container-top">
                 <router-link to="/" class="logo">
-                    <img src="/images/logo-blanco.png" alt="" width='150'>
+                    <!-- <img src="/images/logo-blanco.png" alt="" width='150'> -->
                 </router-link>
                 <div class="container-info">
                     <p class='contact '>Contacto</p>

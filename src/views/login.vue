@@ -54,7 +54,7 @@ const onFinishFailed = (errorInfo) => {
         <div class="--gradado-inferior"></div>
       </div>
       <div class="volver"><router-link to='/'><i class="pi pi-arrow-left mr-1"></i> Volver</router-link></div>
-      <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a>
+      <!-- <a href="/" class="logo_login"><img src="/images/logo-blanco.png"></a> -->
         <div class='content-login'>
             <h1>Acceso</h1>
             <div @click='userStore.loginWithGoogle' class="google"><img src="/images/Icon-google.svg"/><p> Iniciar sesión con google</p></div>

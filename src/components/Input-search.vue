@@ -122,8 +122,9 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 
 <template>
     <div class='input-component'>
-        <div class="container-icon" @click='openSoftStyles'>
-            <!-- :class='objectToSent.soft' -->
+        
+        <!-- <div class="container-icon" @click='openSoftStyles'>
+            :class='objectToSent.soft'
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="26.047" viewBox="0 0 26.047 26.047" >
                 <path id="Icon_awesome-magic" data-name="Icon awesome-magic" d="M11.4,4.884l.814-1.628,1.628-.814L12.21,1.628,11.4,0l-.814,1.628-1.628.814,1.628.814ZM4.07,8.14,5.426,5.427,8.14,4.07,5.426,2.713,4.07,0,2.714,2.713,0,4.07,2.714,5.427Zm17.907,6.512-1.356,2.713-2.714,1.357,2.714,1.357,1.356,2.713,1.356-2.713,2.714-1.357-2.714-1.357ZM25.57,4.794,21.253.477a1.627,1.627,0,0,0-2.3,0L.477,18.951a1.627,1.627,0,0,0,0,2.3L4.794,25.57a1.628,1.628,0,0,0,2.3,0L25.57,7.1A1.627,1.627,0,0,0,25.57,4.794Zm-7.284,5.557L15.7,7.761,20.1,3.355l2.59,2.59-4.406,4.406Z" fill="#02c8b4"/>
             </svg>
@@ -139,23 +140,36 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                         @click='setSoftResponse(style.name)'>
                         {{ style.name }}
                     </div>
-                    <!-- :class='objectToSent.soft == style.name ? "active" : ""' -->
+                    :class='objectToSent.soft == style.name ? "active" : ""'
                     
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="container-input">
-            
+            <div class="flex mx-2">
+                <label for="just-one" class="mr-2">Solo un producto</label>
+                <input type="checkbox" name="just-one" id="just-one" v-model='objectToSent.justOne'>
+            </div>
             <textarea autofocus
                 type="text"
                 name="search"
                 id="search"
-                placeholder='Pregunta o busca lo que quieras'
+                placeholder='Busca el producto que necesitas'
                 v-model='objectToSent.askUser.content'
                 @keyup.enter='handleEnterPress($event, mainSearch, objectToSent.askUser.content)'
                 :rows='objectToSent.askUser.content.length > 300 ? "3" : (objectToSent.askUser.content.length > 150 ? "2" : "1")'
                 
             />
+            <input
+                type="number"
+                v-model='objectToSent.estimatePrice'
+                class="ml-2"
+                name="estimate-price"
+                id=""
+                min="0"
+                placeholder="Precio estimado"
+                v-if='objectToSent.justOne'
+            >
             <div class="limpiar" v-show='objectToSent.askUser.content' @click='objectToSent.askUser.content = ""'><i class='pi pi-times'></i></div>
             <!-- <div class="options_search">
                 <p><a><i class='pi pi-info-circle'></i></a> ¡Genio web!</p>
@@ -169,11 +183,12 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
             <!-- recording : boolean -->
             <!-- objectToSent.askUser.content: string -->
 
-            <span v-if='objectToSent.askUser.content.length' class="tooltip" data-tooltip="Enviar mensaje">
+             <span v-if='objectToSent.askUser.content.length' class="tooltip" data-tooltip="Enviar mensaje">
                 <i class='pi pi-send icon-recording send-message' @click='makeSearchIn(mainSearch)'></i>
             </span>
+            
 
-            <span class="tooltip" data-tooltip="Habla y escribiremos por ti">
+            <!-- <span class="tooltip" data-tooltip="Habla y escribiremos por ti">
             <span class="tooltip-info">some more information </span>
                 <img
                     src="/images/icon-recording.svg"
@@ -204,7 +219,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
                         id='btnComenzarGrabacion'
                     >
                 </span>
-            </div>
+            </div> -->
             
         </div>
 
@@ -409,8 +424,9 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
         padding: 8px;
         box-shadow: 0px 3px 6px #00000029;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         vertical-align: middle;
+        justify-content: space-between;
         opacity: 0;
         transform: translateY(100%); /* Desplaza el elemento hacia abajo */
         animation: fadeInUp 0.5s ease-in-out forwards;
@@ -431,14 +447,10 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
             width: 35px;
             height: 35px;
             display: inline-block;
-            position: absolute;
-            bottom: 0px;
-            right: 78px;
             text-align: center;
             display: flex;
             align-items: center;
             vertical-align: middle;
-            transform: translateY(-50%);
             cursor: pointer;
             &>i{
                 display: flex;
@@ -452,8 +464,7 @@ const handleEnterPress = (event: KeyboardEvent, mainSearch: string, prompt: stri
 
 
         textarea,input {
-            min-width: calc(100% - 58px);
-            width: calc(100% - 58px);
+            width: 100%;
             min-height: 40px;
             max-height: 240px;
             transition: max-height 0.3s ease-out;

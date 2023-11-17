@@ -158,16 +158,19 @@
             display: block;
             text-align: right;
         }
-        .el_cont_mensajes__dos__card{
-            background-color: #c0ddff;
-            color: #000000;
-            border-radius: 30px 0px 30px 30px;
-            margin-left: 40PX;
-            margin-right: inherit;
-            transform: scale(0);
-            transform-origin: 0 0;
-            -webkit-animation: bounce 500ms linear both;
-            animation: bounce 500ms linear both;
+        .el_cont_mensajes__dos{
+            max-width: 100%;
+            &__card{
+                background-color: #c0ddff;
+                color: #000000;
+                border-radius: 30px 0px 30px 30px;
+                margin-left: 40PX;
+                margin-right: inherit;
+                transform: scale(0);
+                transform-origin: 0 0;
+                -webkit-animation: bounce 500ms linear both;
+                animation: bounce 500ms linear both;
+            }
         }
         @keyframes bounce { 
             0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }

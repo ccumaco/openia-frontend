@@ -7,6 +7,8 @@ export interface GenerateEmail {
   }
 
 export interface freeStyleWithContext{
+  estimatePrice: number;
+  justOne: boolean;
   askUser: defineMessage
   context: Array<defineMessage>
 }

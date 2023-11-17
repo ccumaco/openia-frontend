@@ -33,7 +33,7 @@ import { storeToRefs } from "pinia";
   <div class="el_cards" v-if='context.length == 0'>
     <div class="el_cards__ind">
       <img src="/images/icons8-click-64.png"> 
-        <p>Puedo ayudarte a responder preguntas de cualquier complejidad</p>
+        <p> Imagina lo que buscas y nosotros lo encontramos. Nuestro web scraping hace realidad tus deseos de manera instantánea.</p>
     </div>
     <div class="el_cards__ind">
       <img src="/images/icons8-idea-64.png"> 
@@ -49,19 +49,20 @@ import { storeToRefs } from "pinia";
     </div>
     <div class="el_cards__ind">
       <img src="/images/icons8-lectura-64.png"> 
-        <p>Si necesitas ayuda con la redacción de algún trabajo o simplemente quieres charlar</p>
+        <p>Imagina lo que buscas y nosotros lo encontramos. Nuestro web scraping hace realidad tus deseos de manera instantánea.</p>
     </div>
   </div>
   <!-- <div class="el_parrafo" v-if='context.length == 0'>
     <p>Aquí aparecerá tu texto cuando sea generado por Arquitext</p>
   </div> -->
   <div class="saludo">
-    <p>¡Hola yo soy Arquitext!</p> 
+    <p>¡Hola yo soy TalkSmart!</p> 
     <p>¿En qué puedo ayudarte hoy?</p>
 	</div>
   
     <div
       v-for="(text, index) of context"
+      :key='index'
       class="el_cont_mensajes"
       :class='text.role == "user" ? "user" : "assistant"'
       >
